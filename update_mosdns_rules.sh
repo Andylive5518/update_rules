@@ -1,10 +1,9 @@
 #!/bin/bash
 
 # 基础配置
-readonly MOSDNS_RULES_DIR="/opt/rules/mosdns"
-readonly SINGBOX_RULES_DIR="/opt/rules/sing-box"
-readonly JSON_DIR="/opt/rules/$(date +%Y%m%d)"
-readonly LOG_FILE="/var/log/update_mosdns_rules.log"
+readonly MOSDNS_RULES_DIR="./rules/mosdns"
+readonly SINGBOX_RULES_DIR="./rules/sing-box"
+readonly JSON_DIR="./rules/json"
 readonly REQUIRED_COMMANDS=("sing-box" "jq" "curl" "zip")
 readonly CURL_TIMEOUT=60
 
@@ -23,8 +22,8 @@ declare -rA BASE_RULES=(
 
 # 错误处理函数
 die() {
-    log "ERROR" "$1"
-    log "ERROR" "脚本执行异常终止"
+    echo "错误: $1"
+    echo "脚本执行异常终止"
     exit 1
 }
 
@@ -33,8 +32,7 @@ log() {
     local level="$1"
     local message="${*:2}"
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-    echo "[$timestamp] [$level] $message" >> "$LOG_FILE"
-    [[ "$level" == "ERROR" ]] && echo "[$timestamp] [$level] $message" >&2
+    echo "[$timestamp] [$level] $message"
 }
 
 # 检查命令是否存在
@@ -49,48 +47,8 @@ check_command() {
     }
 }
 
-# 日志轮转
-rotate_log() {
-    local -i max_size=1048576 max_files=5  # 1MB in bytes
-    local zip_file
-    local old_logs=()
-    mapfile -t old_logs < <(ls "$LOG_FILE".*[0-9] 2>/dev/null || true)
-
-    # 按修改时间排序并保留最新5个日志文件
-    if (( ${#old_logs[@]} > 0 )); then
-        mapfile -t old_logs < <(printf '%s\n' "${old_logs[@]}" | sort -r | tail -n +$((max_files+1)))
-
-        # 打包过期日志
-        if (( ${#old_logs[@]} > 0 )); then
-            zip_file="$LOG_FILE.$(date +%Y%m%d%H%M%S).zip"
-            if ! zip -qjm "$zip_file" "${old_logs[@]}" > >(tee -a "$LOG_FILE") 2>&1; then
-                log "ERROR" "日志打包失败 [文件列表: ${old_logs[*]}]"
-                return 1
-            fi
-            rm -f "${old_logs[@]}" || log "ERROR" "旧日志删除失败"
-        fi
-    fi
-
-    # 轮转当前日志
-    if [[ -f "$LOG_FILE" && $(stat -c%s "$LOG_FILE") -gt $max_size ]]; then
-        if ! cp "$LOG_FILE" "$LOG_FILE.1"; then
-            log "ERROR" "日志备份失败"
-            return 1
-        fi
-        : > "$LOG_FILE" || {
-            log "ERROR" "日志清空失败"
-            return 1
-        }
-    fi
-
-    return 0
-}
-
 # 初始化环境
 init_env() {
-    # 日志分割
-    rotate_log
-    
     log "INFO" "=== 开始执行规则更新脚本 ==="
     
     # 检查必需命令
@@ -467,30 +425,6 @@ merge_rule_type() {
     return 0
 }
 
-# 清理7天前的备份目录
-clean_backup() {
-    local dir dir_date days_diff current_date
-    current_date=$(date +%Y%m%d)
-    local error_count=0
-    
-    find "$JSON_DIR" -mindepth 1 -maxdepth 1 -type d -print0 | while IFS= read -r -d '' dir; do
-        dir_date=$(basename "$dir")
-        [[ "$dir_date" =~ ^[0-9]{8}$ ]] || continue
-        
-        days_diff=$(( ($(date -d "$current_date" +%s) - $(date -d "$dir_date" +%s)) / 86400 ))
-        if (( days_diff > 7 )); then
-            log "INFO" "删除7天前的备份目录：$dir"
-            if ! rm -rf "$dir"; then
-                log "ERROR" "删除备份目录失败：$dir"
-                ((error_count++))
-            fi
-        fi
-    done
-
-    (( error_count > 0 )) && return 1
-    return 0
-}
-
 # 主程序
 main() {
     if ! init_env; then
@@ -509,9 +443,6 @@ main() {
         log "ERROR" "合并规则失败"
         exit 1
     fi
-    
-    # 清理旧备份
-    clean_backup
     
     log "INFO" "=== 规则更新完成 ==="
 }

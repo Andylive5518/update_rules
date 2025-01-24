@@ -1,17 +1,16 @@
 #!/bin/bash
 
 # 设置输出目录和文件名
-readonly ROS_IP_DIR="/opt/clang/ros"
-readonly DOWNLOAD_IP_DIR="/opt/clang/ip"
-readonly MOSDNS_RULES_DIR="/opt/rules/mosdns"
-readonly SINGBOX_RULES_DIR="/opt/rules/sing-box"
-readonly JSON_DIR="/opt/rules/$(date +%Y%m%d)"
-readonly LOG_FILE="/var/log/update_china_ip.log"
+readonly ROS_IP_DIR="./clang/ros"
+readonly DOWNLOAD_IP_DIR="./clang/ip"
+readonly MOSDNS_RULES_DIR="./rules/mosdns"
+readonly SINGBOX_RULES_DIR="./rules/sing-box"
+readonly JSON_DIR="./rules/json"
 
 # 日志函数
 log() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-    echo "$timestamp $1" >> "$LOG_FILE"
+    echo "$timestamp $1"
 }
 
 # 1. 初始化目录和检查命令
@@ -30,7 +29,7 @@ init_env() {
     local required_commands=("curl" "jq" "sing-box")
     for cmd in "${required_commands[@]}"; do
         if ! command -v "$cmd" &> /dev/null; then
-            log "错误: 未找到 $cmd 命令"
+            echo "错误: 未找到 $cmd 命令"
             exit 1
         fi
     done
@@ -101,7 +100,7 @@ download_ip_lists() {
         local url="${base_url}/${ipv4_paths[$i]}"
         log "下载 ${url}"
         if ! curl -fsSL --retry 3 --max-time 30 "${url}" > "${ipv4_files[$i]}"; then
-            log "错误: 无法下载 ${url}"
+            echo "错误: 无法下载 ${url}"
             exit 1
         fi
     done
@@ -110,7 +109,7 @@ download_ip_lists() {
         local url="${base_url}/${ipv6_paths[$i]}"
         log "下载 ${url}"
         if ! curl -fsSL --retry 3 --max-time 30 "${url}" > "${ipv6_files[$i]}"; then
-            log "错误: 无法下载 ${url}"
+            echo "错误: 无法下载 ${url}"
             exit 1
         fi
     done
@@ -118,7 +117,7 @@ download_ip_lists() {
     for i in "${!singbox_urls[@]}"; do
         log "下载 ${singbox_urls[$i]}"
         if ! curl -fsSL --retry 3 --max-time 30 "${singbox_urls[$i]}" > "${singbox_files[$i]}"; then
-            log "错误: 无法下载 ${singbox_urls[$i]}"
+            echo "错误: 无法下载 ${singbox_urls[$i]}"
             exit 1
         fi
     done
@@ -136,7 +135,7 @@ merge_ip_files() {
         local cn_count=$(wc -l < "$MOSDNS_RULES_DIR/cn_all.txt")
         log "中国大陆IP合并完成: $DOWNLOAD_IP_DIR/cn.txt + $DOWNLOAD_IP_DIR/cn_ipv6.txt -> $MOSDNS_RULES_DIR/cn_all.txt, 共 $cn_count 条记录"
     else
-        log "错误: 合并中国大陆IP失败"
+        echo "错误: 合并中国大陆IP失败"
         exit 1
     fi
     
@@ -146,7 +145,7 @@ merge_ip_files() {
         local hk_count=$(wc -l < "$MOSDNS_RULES_DIR/hk_all.txt")
         log "香港IP合并完成: $DOWNLOAD_IP_DIR/hk.txt + $DOWNLOAD_IP_DIR/hk_ipv6.txt -> $MOSDNS_RULES_DIR/hk_all.txt, 共 $hk_count 条记录"
     else
-        log "错误: 合并香港IP失败"
+        echo "错误: 合并香港IP失败"
         exit 1
     fi
     
@@ -156,7 +155,7 @@ merge_ip_files() {
         local mo_count=$(wc -l < "$MOSDNS_RULES_DIR/mo_all.txt")
         log "澳门IP合并完成: $DOWNLOAD_IP_DIR/mo.txt + $DOWNLOAD_IP_DIR/mo_ipv6.txt -> $MOSDNS_RULES_DIR/mo_all.txt, 共 $mo_count 条记录"
     else
-        log "错误: 合并澳门IP失败"
+        echo "错误: 合并澳门IP失败"
         exit 1
     fi
     
