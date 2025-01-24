@@ -73,13 +73,6 @@ download_file() {
     local output="$2"
     local desc="$3"
     local base_name=$(basename "$output")
-    local output_dir=$(dirname "$output")
-    
-    # 检查目录权限
-    if [[ ! -w "$output_dir" ]]; then
-        log "ERROR" "目录无写入权限：$output_dir"
-        return 1
-    fi
     
     log "INFO" "下载${desc}：$base_name ($url)"
     
@@ -261,29 +254,18 @@ process_sing_rules() {
     local count=0
     local total_rules=0
     local failed_rules=()
-    local temp_dir
-    
-    # 创建临时目录用于验证
-    temp_dir=$(mktemp -d) || {
-        log "ERROR" "创建临时目录失败"
-        return 1
-    }
-    
-    # 确保在函数退出时清理临时目录
-    trap 'rm -rf "$temp_dir"' EXIT
     
     while IFS= read -r rule; do
         [[ "$rule" =~ ^geosite-(cn|.*@cn|.*!cn)\.srs$ ]] || continue
         url="$SING_GEOSITE_URL/$rule"
         if download_file "$url" "$SINGBOX_RULES_DIR/$rule" "sing-geosite规则"; then
-            # 检查下载的文件是否为有效的规则集文件
-            if ! sing-box rule-set decompile "$SINGBOX_RULES_DIR/$rule" --output "$temp_dir/test.json" 2>/dev/null; then
-                log "ERROR" "无效的规则集文件：$rule"
+            # 检查下载的文件是否存在且非空
+            if [[ ! -s "$SINGBOX_RULES_DIR/$rule" ]]; then
+                log "ERROR" "下载的文件为空：$rule"
                 rm -f "$SINGBOX_RULES_DIR/$rule"
                 failed_rules+=("$rule")
                 continue
             fi
-            rm -f "$temp_dir/test.json"
             
             if convert_rule "$rule"; then
                 local rule_count=$(wc -l < "$MOSDNS_RULES_DIR/${rule%.*}.txt")
