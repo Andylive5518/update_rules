@@ -1,0 +1,57 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Update Network Rules
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        run: |
+          sudo mkdir -p /opt/{rules/mosdns,rules/sing-box,clang/{ros,ip}}
+          sudo ln -s $PWD/rules /opt/rules
+          sudo ln -s $PWD/clang /opt/clang
+          sudo chmod -R 777 /opt
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq curl zip unzip
+
+      - name: Install sing-box
+        run: |
+          wget https://github.com/SagerNet/sing-box/releases/download/v1.8.0/sing-box-1.8.0-linux-amd64.tar.gz
+          tar -xzf sing-box-*.tar.gz
+          sudo install sing-box-*/sing-box /usr/local/bin
+          sing-box version
+
+      - name: Execute mosdns rules update
+        run: |
+          sed -i 's|/var/log/|./|g' 2update_mosdns_rules.sh
+          chmod +x 2update_mosdns_rules.sh
+          ./2update_mosdns_rules.sh
+
+      - name: Execute china ip update
+        run: |
+          sed -i 's|/var/log/|./|g' update_china_ip.sh
+          chmod +x update_china_ip.sh
+          ./update_china_ip.sh
+
+      - name: Archive results
+        run: |
+          timestamp=$(date +%Y%m%d%H%M%S)
+          zip -r "rules-$timestamp.zip" /opt/rules /opt/clang *.log
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: network-rules
+          path: ./*.zip
