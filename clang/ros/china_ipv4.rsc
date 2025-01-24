@@ -10545,7 +10545,8 @@ add address=182.255.32.0/22 list=HK disabled=no
 add address=182.255.44.0/22 list=HK disabled=no
 add address=183.78.176.0/22 list=HK disabled=no
 add address=183.81.168.0/23 list=HK disabled=no
-add address=183.90.184.0/22 list=HK disabled=no
+add address=183.90.184.0/23 list=HK disabled=no
+add address=183.90.186.0/23 list=HK disabled=no
 add address=183.90.188.0/22 list=HK disabled=no
 add address=183.91.32.0/19 list=HK disabled=no
 add address=183.177.64.0/19 list=HK disabled=no
@@ -11379,7 +11380,6 @@ add address=1.0.32.0/19 list=CTCC disabled=no
 add address=1.1.0.0/24 list=CTCC disabled=no
 add address=1.1.2.0/23 list=CTCC disabled=no
 add address=1.1.4.0/22 list=CTCC disabled=no
-add address=1.1.9.0/24 list=CTCC disabled=no
 add address=1.1.10.0/23 list=CTCC disabled=no
 add address=1.1.12.0/22 list=CTCC disabled=no
 add address=1.1.16.0/20 list=CTCC disabled=no
