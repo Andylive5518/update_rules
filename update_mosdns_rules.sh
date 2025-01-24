@@ -390,44 +390,6 @@ merge_rule_type() {
         return 1
     fi
 
-    # 6. 替换旧文件
-    log "INFO" "正在替换旧文件..."
-    
-    # 先检查是否有文件需要替换
-    local files_to_replace=()
-    if [[ "$rule_type" == "@!cn" ]]; then
-        # 对于 !cn 规则，需要匹配两种可能的模式
-        mapfile -t files_to_replace < <(find "$JSON_DIR" "$SINGBOX_RULES_DIR" "$MOSDNS_RULES_DIR" \
-            \( -name "geosite-*@!cn.*" -o -name "geosite-*!cn.*" \) \
-            ! -name "geosite-all@!cn.*" \
-            ! -name "geosite-cn.*" \
-            ! -name "geosite-geolocation-!cn.*" \
-            ! -path "$merged_json" \
-            ! -path "$merged_srs" \
-            ! -path "${merged_srs%.*}.txt" \
-            -type f 2>/dev/null)
-    else
-        # 对于其他规则，使用原来的匹配模式
-        mapfile -t files_to_replace < <(find "$JSON_DIR" "$SINGBOX_RULES_DIR" "$MOSDNS_RULES_DIR" \
-            -name "geosite-*${rule_type}.*" \
-            ! -name "geosite-all${rule_type}.*" \
-            ! -name "geosite-cn.*" \
-            ! -name "geosite-geolocation-!cn.*" \
-            ! -path "$merged_json" \
-            ! -path "$merged_srs" \
-            ! -path "${merged_srs%.*}.txt" \
-            -type f 2>/dev/null)
-    fi
-
-    if (( ${#files_to_replace[@]} > 0 )); then
-        log "INFO" "替换 ${#files_to_replace[@]} 个旧文件"
-        for file in "${files_to_replace[@]}"; do
-            rm -f "$file"
-        done
-    else
-        log "INFO" "没有需要替换的文件"
-    fi
-
     return 0
 }
 
