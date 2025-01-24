@@ -1,4 +1,3 @@
-2025-01-24 11:52:48 添加IPv6防火墙规则...
 /ipv6 firewall address-list remove [find list=CN6]
 /ipv6 firewall address-list remove [find list=HK6]
 /ipv6 firewall address-list remove [find list=MO6]

@@ -1,0 +1,4 @@
+full:upos-hz-mirrorakam.akamaized.net
+domain:bilibili.tv
+domain:biliintl.com
+domain:dreamcast.hk

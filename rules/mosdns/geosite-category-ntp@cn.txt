@@ -1,0 +1,8 @@
+full:time.izatcloud.net
+full:time.xtracloud.net
+domain:cn.pool.ntp.org
+domain:ntp.neu.edu.cn
+domain:ntp.ntsc.ac.cn
+domain:ntp.org.cn
+regexp:^ntp([1-7])?\.aliyun\.com$
+regexp:^ntp([1-5])?\.tencent\.com$

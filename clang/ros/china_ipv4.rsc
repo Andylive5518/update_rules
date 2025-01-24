@@ -1,4 +1,3 @@
-2025-01-24 11:52:48 添加IPv4防火墙规则...
 /ip firewall address-list remove [find list=CN]
 /ip firewall address-list remove [find list=HK]
 /ip firewall address-list remove [find list=MO]
