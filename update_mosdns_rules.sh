@@ -231,8 +231,8 @@ convert_rule() {
         return 1
     fi
 
-    # 提取规则并记录详细日志
-    if ! jq -r "$jq_script" "$JSON_DIR/$json_file" 2>> "$LOG_FILE" | grep . > "$MOSDNS_RULES_DIR/$txt_file"; then
+    # 提取规则
+    if ! jq -r "$jq_script" "$JSON_DIR/$json_file" 2>/dev/null | grep . > "$MOSDNS_RULES_DIR/$txt_file"; then
         log "ERROR" "规则提取失败：$json_file -> $txt_file"
         return 1
     fi
