@@ -184,7 +184,7 @@ convert_rule() {
     if [[ ! -s "$SINGBOX_RULES_DIR/$srs_file" ]]; then
         log "ERROR" "源文件不存在或为空：$SINGBOX_RULES_DIR/$srs_file"
         return 1
-    }
+    fi
 
     # 创建临时目录
     temp_dir=$(mktemp -d) || {
@@ -207,7 +207,7 @@ convert_rule() {
     if ! jq empty "$temp_json" 2>/dev/null; then
         log "ERROR" "转换后的JSON文件无效：$json_file"
         return 1
-    }
+    fi
     
     # 移动临时文件到目标位置
     mv "$temp_json" "$JSON_DIR/$json_file"
