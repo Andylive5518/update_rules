@@ -33,15 +33,15 @@ jobs:
           sudo install sing-box-*/sing-box /usr/local/bin
           sing-box version
 
-      - name: Execute mosdns rules update
-        run: |
-          chmod +x update_mosdns_rules.sh
-          ./update_mosdns_rules.sh
-
       - name: Execute china ip update
         run: |
           chmod +x update_china_ip.sh
           ./update_china_ip.sh
+
+      - name: Execute mosdns rules update
+        run: |
+          chmod +x update_mosdns_rules.sh
+          ./update_mosdns_rules.sh
 
       - name: Commit changes
         run: |

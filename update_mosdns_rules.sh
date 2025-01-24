@@ -180,6 +180,12 @@ convert_rule() {
     local txt_file="${srs_file%.*}.txt"
     local temp_dir
 
+    # 检查源文件是否存在且非空
+    if [[ ! -s "$SINGBOX_RULES_DIR/$srs_file" ]]; then
+        log "ERROR" "源文件不存在或为空：$SINGBOX_RULES_DIR/$srs_file"
+        return 1
+    }
+
     # 创建临时目录
     temp_dir=$(mktemp -d) || {
         log "ERROR" "创建临时目录失败"
@@ -196,6 +202,12 @@ convert_rule() {
         log "ERROR" "规则转换失败：$srs_file -> $json_file"
         return 1
     fi
+
+    # 检查转换后的JSON文件是否有效
+    if ! jq empty "$temp_json" 2>/dev/null; then
+        log "ERROR" "转换后的JSON文件无效：$json_file"
+        return 1
+    }
     
     # 移动临时文件到目标位置
     mv "$temp_json" "$JSON_DIR/$json_file"
@@ -248,21 +260,45 @@ process_sing_rules() {
     local rule url
     local count=0
     local total_rules=0
+    local failed_rules=()
+    local temp_dir
+    
+    # 创建临时目录用于验证
+    temp_dir=$(mktemp -d) || {
+        log "ERROR" "创建临时目录失败"
+        return 1
+    }
+    
+    # 确保在函数退出时清理临时目录
+    trap 'rm -rf "$temp_dir"' EXIT
     
     while IFS= read -r rule; do
         [[ "$rule" =~ ^geosite-(cn|.*@cn|.*!cn)\.srs$ ]] || continue
         url="$SING_GEOSITE_URL/$rule"
         if download_file "$url" "$SINGBOX_RULES_DIR/$rule" "sing-geosite规则"; then
+            # 检查下载的文件是否为有效的规则集文件
+            if ! sing-box rule-set decompile "$SINGBOX_RULES_DIR/$rule" --output "$temp_dir/test.json" 2>/dev/null; then
+                log "ERROR" "无效的规则集文件：$rule"
+                rm -f "$SINGBOX_RULES_DIR/$rule"
+                failed_rules+=("$rule")
+                continue
+            fi
+            rm -f "$temp_dir/test.json"
+            
             if convert_rule "$rule"; then
                 local rule_count=$(wc -l < "$MOSDNS_RULES_DIR/${rule%.*}.txt")
                 ((total_rules+=rule_count))
                 ((count++))
             else
-                log "ERROR" "规则转换失败：$rule"
-                continue
+                failed_rules+=("$rule")
+                rm -f "$SINGBOX_RULES_DIR/$rule"
             fi
         fi
     done < <(get_sing_rules)
+    
+    if [[ ${#failed_rules[@]} -gt 0 ]]; then
+        log "WARNING" "以下规则处理失败：${failed_rules[*]}"
+    fi
     
     if [[ $count -gt 0 ]]; then
         log "INFO" "sing-geosite规则下载完成，共下载并转换 $count 个规则文件，包含 $total_rules 条规则"
