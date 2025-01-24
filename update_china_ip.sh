@@ -169,7 +169,6 @@ convert_to_mikrotik() {
     log "开始生成IPv4地址列表..."
     # 创建IPv4脚本
     {
-        log "添加IPv4防火墙规则..."
         echo "/ip firewall address-list remove [find list=CN]"
         echo "/ip firewall address-list remove [find list=HK]"
         echo "/ip firewall address-list remove [find list=MO]"
@@ -221,7 +220,6 @@ convert_to_mikrotik() {
     log "开始生成IPv6地址列表..."
     # 创建IPv6脚本
     {
-        log "添加IPv6防火墙规则..."
         echo "/ipv6 firewall address-list remove [find list=CN6]"
         echo "/ipv6 firewall address-list remove [find list=HK6]"
         echo "/ipv6 firewall address-list remove [find list=MO6]"
