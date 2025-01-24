@@ -28,7 +28,7 @@ jobs:
 
       - name: Install sing-box
         run: |
-          wget https://github.com/SagerNet/sing-box/releases/download/v1.8.0/sing-box-1.8.0-linux-amd64.tar.gz
+          wget https://github.com/SagerNet/sing-box/releases/download/v1.10.7/sing-box-1.10.7-linux-amd64.tar.gz
           tar -xzf sing-box-*.tar.gz
           sudo install sing-box-*/sing-box /usr/local/bin
           sing-box version
