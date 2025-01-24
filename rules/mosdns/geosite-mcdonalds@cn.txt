@@ -1,0 +1,3 @@
+domain:4008-517-517.cn
+domain:mcd.cn
+domain:mcdonalds.com.cn

@@ -1,0 +1,3 @@
+domain:intel.cn
+domain:intel.com.cn
+domain:intelrealsense.cn

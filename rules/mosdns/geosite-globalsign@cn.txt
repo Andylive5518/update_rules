@@ -1,0 +1,6 @@
+full:cdn.globalsigncdn.com.cdn.cloudflare.net
+domain:alphassl.com
+domain:easy-signing.com
+domain:globalsign.cn
+domain:globalsign.com
+domain:globalsigncdn.com

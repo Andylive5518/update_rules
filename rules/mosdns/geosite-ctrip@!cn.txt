@@ -1,0 +1,10 @@
+domain:ctrip.co.id
+domain:ctrip.co.kr
+domain:ctrip.co.th
+domain:ctrip.com.hk
+domain:ctrip.my
+domain:ctrip.sg
+domain:ctripbuy.hk
+domain:hhtravel.com.tw
+domain:trip.com
+domain:tripcdn.com

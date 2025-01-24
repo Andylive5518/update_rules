@@ -1,0 +1,3 @@
+domain:myqnapcloud.cn
+domain:qlinkto.cn
+domain:qnap.com.cn

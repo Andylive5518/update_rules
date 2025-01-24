@@ -1,0 +1,11 @@
+full:cdn.ampproject.org
+full:firebase-settings.crashlytics.com
+domain:cdn.jetbrains.com
+domain:download-cdn.jetbrains.com.cn
+domain:microsoftreactor.cn
+domain:microsoftreactor.com.cn
+domain:reactorms.com.cn
+domain:researchkit.cn
+domain:researchkit.com.cn
+domain:swiftui.cn
+domain:swiftui.com.cn

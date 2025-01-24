@@ -1,0 +1,5 @@
+full:tesla-cdn.thron.cn
+domain:tesla.cn
+domain:tesla.com.cn
+domain:teslamotors.cn
+domain:teslamotors.com.cn

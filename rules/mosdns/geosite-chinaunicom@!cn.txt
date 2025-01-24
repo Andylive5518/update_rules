@@ -1,0 +1,5 @@
+domain:chinaunicom.com.hk
+domain:chinaunicomglobal.com
+domain:cuniq.com
+domain:speedtest.hk.chinamobile.com
+domain:speedtestbb.hk.chinamobile.com
