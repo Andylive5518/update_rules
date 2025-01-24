@@ -4,8 +4,7 @@
 readonly MOSDNS_RULES_DIR="./rules/mosdns"
 readonly SINGBOX_RULES_DIR="./rules/sing-box"
 readonly JSON_DIR="./rules/json"
-readonly REQUIRED_COMMANDS=("sing-box" "jq" "curl" "zip")
-readonly CURL_TIMEOUT=60
+readonly REQUIRED_COMMANDS=("sing-box" "jq" "curl")
 
 # 远程URL配置
 readonly LOYALSOLDIER_URL="https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release"
@@ -74,8 +73,6 @@ download_file() {
     local output="$2"
     local desc="$3"
     local base_name=$(basename "$output")
-    local retry_count=3
-    local retry_delay=2
     local output_dir=$(dirname "$output")
     
     # 检查目录权限
@@ -86,20 +83,16 @@ download_file() {
     
     log "INFO" "下载${desc}：$base_name ($url)"
     
-    for ((i=1; i<=retry_count; i++)); do
-        if curl -sSL --max-time $CURL_TIMEOUT --retry 3 --retry-delay 2 "$url" -o "$output" && [[ -f "$output" ]]; then
-            # 检查文件大小
-            if [[ ! -s "$output" ]]; then
-                log "ERROR" "下载的文件为空：$output"
-                return 1
-            fi
-            return 0
+    if curl -sSL --max-time 30 --retry 3 --retry-delay 2 "$url" -o "$output" && [[ -f "$output" ]]; then
+        # 检查文件大小
+        if [[ ! -s "$output" ]]; then
+            log "ERROR" "下载的文件为空：$output"
+            return 1
         fi
-        log "WARN" "${desc}下载失败，重试中... ($i/$retry_count)"
-        sleep $retry_delay
-    done
+        return 0
+    fi
     
-    log "ERROR" "${desc}下载失败：$base_name (重试 $retry_count 次后仍失败)"
+    log "ERROR" "${desc}下载失败：$base_name"
     return 1
 }
 
@@ -127,7 +120,7 @@ download_base_rules() {
 get_sing_rules() {
     # 获取规则列表
     local rules_list response
-    response=$(curl -sSL --retry 3 --max-time $CURL_TIMEOUT --retry-delay 2 \
+    response=$(curl -sSL --retry 3 --max-time 30 --retry-delay 2 \
         -H "Accept: application/vnd.github.v3+json" "$SING_GEOSITE_API") || {
         log "ERROR" "获取规则列表失败"
         return 1
@@ -199,7 +192,7 @@ convert_rule() {
     trap 'rm -rf "$temp_dir"' EXIT
     
     # 转换为JSON
-    if ! sing-box rule-set decompile "$SINGBOX_RULES_DIR/$srs_file" -o "$temp_json" 2>> "$LOG_FILE"; then
+    if ! sing-box rule-set decompile "$SINGBOX_RULES_DIR/$srs_file" -o "$temp_json" 2>/dev/null; then
         log "ERROR" "规则转换失败：$srs_file -> $json_file"
         return 1
     fi
@@ -379,18 +372,16 @@ merge_rule_type() {
         return 1
     fi
 
-    # 6. 清理旧文件
-    local zip_file="$JSON_DIR/geosite-${rule_type}-backup-$(date +%Y%m%d%H%M%S).zip"
-    log "INFO" "正在打包清理旧文件: ${zip_file}"
+    # 6. 替换旧文件
+    log "INFO" "正在替换旧文件..."
     
-    # 先检查是否有文件需要清理
-    local files_to_clean=()
+    # 先检查是否有文件需要替换
+    local files_to_replace=()
     if [[ "$rule_type" == "@!cn" ]]; then
         # 对于 !cn 规则，需要匹配两种可能的模式
-        mapfile -t files_to_clean < <(find "$JSON_DIR" "$SINGBOX_RULES_DIR" "$MOSDNS_RULES_DIR" \
+        mapfile -t files_to_replace < <(find "$JSON_DIR" "$SINGBOX_RULES_DIR" "$MOSDNS_RULES_DIR" \
             \( -name "geosite-*@!cn.*" -o -name "geosite-*!cn.*" \) \
             ! -name "geosite-all@!cn.*" \
-            ! -name "geosite-*.zip" \
             ! -name "geosite-cn.*" \
             ! -name "geosite-geolocation-!cn.*" \
             ! -path "$merged_json" \
@@ -399,10 +390,9 @@ merge_rule_type() {
             -type f 2>/dev/null)
     else
         # 对于其他规则，使用原来的匹配模式
-        mapfile -t files_to_clean < <(find "$JSON_DIR" "$SINGBOX_RULES_DIR" "$MOSDNS_RULES_DIR" \
+        mapfile -t files_to_replace < <(find "$JSON_DIR" "$SINGBOX_RULES_DIR" "$MOSDNS_RULES_DIR" \
             -name "geosite-*${rule_type}.*" \
             ! -name "geosite-all${rule_type}.*" \
-            ! -name "geosite-*.zip" \
             ! -name "geosite-cn.*" \
             ! -name "geosite-geolocation-!cn.*" \
             ! -path "$merged_json" \
@@ -411,15 +401,13 @@ merge_rule_type() {
             -type f 2>/dev/null)
     fi
 
-    if (( ${#files_to_clean[@]} > 0 )); then
-        if zip -qjm "$zip_file" "${files_to_clean[@]}"; then
-            log "INFO" "成功清理并打包 ${#files_to_clean[@]} 个旧文件"
-        else
-            log "WARNING" "部分文件清理失败，请手动检查"
-            return 1
-        fi
+    if (( ${#files_to_replace[@]} > 0 )); then
+        log "INFO" "替换 ${#files_to_replace[@]} 个旧文件"
+        for file in "${files_to_replace[@]}"; do
+            rm -f "$file"
+        done
     else
-        log "INFO" "没有需要清理的文件"
+        log "INFO" "没有需要替换的文件"
     fi
 
     return 0
