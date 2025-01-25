@@ -11380,6 +11380,7 @@ add address=1.0.32.0/19 list=CTCC disabled=no
 add address=1.1.0.0/24 list=CTCC disabled=no
 add address=1.1.2.0/23 list=CTCC disabled=no
 add address=1.1.4.0/22 list=CTCC disabled=no
+add address=1.1.9.0/24 list=CTCC disabled=no
 add address=1.1.10.0/23 list=CTCC disabled=no
 add address=1.1.12.0/22 list=CTCC disabled=no
 add address=1.1.16.0/20 list=CTCC disabled=no
