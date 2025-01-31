@@ -14224,6 +14224,7 @@ add address=222.163.64.0/18 list=CUCC disabled=no
 add address=222.163.128.0/17 list=CUCC disabled=no
 add address=223.27.184.0/22 list=CUCC disabled=no
 add address=223.166.0.0/15 list=CUCC disabled=no
+add address=36.128.0.0/10 list=CMCC disabled=no
 add address=39.128.0.0/10 list=CMCC disabled=no
 add address=43.239.172.0/22 list=CMCC disabled=no
 add address=43.251.244.0/22 list=CMCC disabled=no
