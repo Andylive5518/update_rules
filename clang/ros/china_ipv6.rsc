@@ -2492,6 +2492,7 @@ add address=2401:de40::/32 list=HK6 disabled=no
 add address=2401:e380::/32 list=HK6 disabled=no
 add address=2401:e820::/32 list=HK6 disabled=no
 add address=2401:e9e0::/32 list=HK6 disabled=no
+add address=2401:ec60::/32 list=HK6 disabled=no
 add address=2401:ecc0::/32 list=HK6 disabled=no
 add address=2401:edc0::/32 list=HK6 disabled=no
 add address=2401:ef80::/32 list=HK6 disabled=no
