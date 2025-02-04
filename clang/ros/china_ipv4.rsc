@@ -1,6 +1,9 @@
 /ip firewall address-list remove [find list=CN]
 /ip firewall address-list remove [find list=HK]
 /ip firewall address-list remove [find list=MO]
+/ip firewall address-list remove [find list=CTCC]
+/ip firewall address-list remove [find list=CUCC]
+/ip firewall address-list remove [find list=CMCC]
 /ip firewall address-list
 add address=10.0.0.0/8 list=CN disabled=no comment=Reserved_IP
 add address=100.64.0.0/10 list=CN disabled=no comment=Reserved_IP

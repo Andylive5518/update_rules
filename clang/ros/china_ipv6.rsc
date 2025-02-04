@@ -1,6 +1,9 @@
 /ipv6 firewall address-list remove [find list=CN6]
 /ipv6 firewall address-list remove [find list=HK6]
 /ipv6 firewall address-list remove [find list=MO6]
+/ipv6 firewall address-list remove [find list=CTCC6]
+/ipv6 firewall address-list remove [find list=CUCC6]
+/ipv6 firewall address-list remove [find list=CMCC6]
 /ipv6 firewall address-list
 add address=fc00::/8 list=CN6 disabled=no comment=Reserved_IP
 add address=fd00::/8 list=CN6 disabled=no comment=Reserved_IP
