@@ -172,6 +172,9 @@ convert_to_mikrotik() {
         echo "/ip firewall address-list remove [find list=CN]"
         echo "/ip firewall address-list remove [find list=HK]"
         echo "/ip firewall address-list remove [find list=MO]"
+        echo "/ip firewall address-list remove [find list=CTCC]"
+        echo "/ip firewall address-list remove [find list=CUCC]"
+        echo "/ip firewall address-list remove [find list=CMCC]"
         echo "/ip firewall address-list"
         
         # 添加IPv4保留地址
@@ -223,6 +226,9 @@ convert_to_mikrotik() {
         echo "/ipv6 firewall address-list remove [find list=CN6]"
         echo "/ipv6 firewall address-list remove [find list=HK6]"
         echo "/ipv6 firewall address-list remove [find list=MO6]"
+        echo "/ipv6 firewall address-list remove [find list=CTCC6]"
+        echo "/ipv6 firewall address-list remove [find list=CUCC6]"
+        echo "/ipv6 firewall address-list remove [find list=CMCC6]"
         echo "/ipv6 firewall address-list"
         
         # 添加IPv6保留地址
