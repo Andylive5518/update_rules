@@ -6117,6 +6117,8 @@ domain:tiktokcdn-us.com
 domain:tiktokcdn.com
 domain:tiktokd.net
 domain:tiktokd.org
+domain:tiktokeu-cdn.com
+domain:tiktokrow-cdn.com
 domain:tiktokv.com
 domain:tiktokv.eu
 domain:tiktokv.us
@@ -6200,6 +6202,7 @@ domain:ttc.ac.uk
 domain:tte-lisa.ac.uk
 domain:ttetraining.ac.uk
 domain:ttlivecdn.com
+domain:ttoverseaus.net
 domain:ttrb.ac.uk
 domain:ttwstatic.com
 domain:tuca.ac.uk

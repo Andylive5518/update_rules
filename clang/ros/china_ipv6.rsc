@@ -266,6 +266,7 @@ add address=2400:7f80::/32 list=CN6 disabled=no
 add address=2400:7fc0::/32 list=CN6 disabled=no
 add address=2400:8080::/32 list=CN6 disabled=no
 add address=2400:8200::/32 list=CN6 disabled=no
+add address=2400:8201::/32 list=CN6 disabled=no
 add address=2400:82c0::/32 list=CN6 disabled=no
 add address=2400:8580::/32 list=CN6 disabled=no
 add address=2400:8600::/32 list=CN6 disabled=no
@@ -2091,6 +2092,7 @@ add address=2001:df0:a5c0::/48 list=HK6 disabled=no
 add address=2001:df0:a640::/48 list=HK6 disabled=no
 add address=2001:df0:b040::/48 list=HK6 disabled=no
 add address=2001:df0:b700::/48 list=HK6 disabled=no
+add address=2001:df0:b800::/48 list=HK6 disabled=no
 add address=2001:df0:c000::/48 list=HK6 disabled=no
 add address=2001:df0:c680::/48 list=HK6 disabled=no
 add address=2001:df0:cc80::/48 list=HK6 disabled=no
