@@ -265,7 +265,6 @@ domain:ahpd.ac.uk
 domain:ahrc.ac.uk
 domain:ahrcfoodnetwork.ac.uk
 domain:ahua.ac.uk
-domain:ai.com
 domain:ai3sd.ac.uk
 domain:aiaa.org
 domain:aib.ac.uk
