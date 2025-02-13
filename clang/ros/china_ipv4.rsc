@@ -9942,7 +9942,6 @@ add address=103.206.92.0/22 list=HK disabled=no
 add address=103.206.98.0/24 list=HK disabled=no
 add address=103.206.120.0/22 list=HK disabled=no
 add address=103.206.154.0/23 list=HK disabled=no
-add address=103.206.156.0/23 list=HK disabled=no
 add address=103.206.188.0/22 list=HK disabled=no
 add address=103.207.24.0/22 list=HK disabled=no
 add address=103.207.68.0/22 list=HK disabled=no
