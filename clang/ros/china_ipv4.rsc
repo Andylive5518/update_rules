@@ -6330,6 +6330,7 @@ add address=163.61.62.0/23 list=CN disabled=no
 add address=163.61.113.0/24 list=CN disabled=no
 add address=163.61.178.0/23 list=CN disabled=no
 add address=163.61.202.0/23 list=CN disabled=no
+add address=163.61.214.0/23 list=CN disabled=no
 add address=163.125.0.0/16 list=CN disabled=no
 add address=163.142.0.0/16 list=CN disabled=no
 add address=163.177.0.0/16 list=CN disabled=no
@@ -9821,7 +9822,6 @@ add address=103.166.174.0/23 list=HK disabled=no
 add address=103.167.54.0/23 list=HK disabled=no
 add address=103.167.60.0/23 list=HK disabled=no
 add address=103.167.64.0/23 list=HK disabled=no
-add address=103.167.134.0/23 list=HK disabled=no
 add address=103.168.70.0/23 list=HK disabled=no
 add address=103.168.230.0/23 list=HK disabled=no
 add address=103.169.96.0/23 list=HK disabled=no
@@ -10137,7 +10137,6 @@ add address=103.246.77.0/24 list=HK disabled=no
 add address=103.246.160.0/22 list=HK disabled=no
 add address=103.246.176.0/22 list=HK disabled=no
 add address=103.246.244.0/22 list=HK disabled=no
-add address=103.247.28.0/23 list=HK disabled=no
 add address=103.247.92.0/22 list=HK disabled=no
 add address=103.247.136.0/23 list=HK disabled=no
 add address=103.247.138.0/23 list=HK disabled=no
@@ -10499,6 +10498,7 @@ add address=163.53.216.0/22 list=HK disabled=no
 add address=163.61.42.0/23 list=HK disabled=no
 add address=163.61.150.0/23 list=HK disabled=no
 add address=163.61.176.0/23 list=HK disabled=no
+add address=163.61.208.0/23 list=HK disabled=no
 add address=165.84.128.0/18 list=HK disabled=no
 add address=165.154.0.0/17 list=HK disabled=no
 add address=165.154.128.0/18 list=HK disabled=no
