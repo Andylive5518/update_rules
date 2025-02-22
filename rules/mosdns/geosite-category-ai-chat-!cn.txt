@@ -30,6 +30,7 @@ domain:geller-pa.googleapis.com
 domain:gemini.google.com
 domain:generativeai.google
 domain:generativelanguage.googleapis.com
+domain:grok.com
 domain:groq.com
 domain:host.livekit.cloud
 domain:jasper.ai
