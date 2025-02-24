@@ -106,6 +106,7 @@ domain:microsoftonline-p.net.cn
 domain:microsoftonline.cn
 domain:microsoftreactor.cn
 domain:microsoftreactor.com.cn
+domain:microsoftstore.com.cn
 domain:microsofttranslator-int.cn
 domain:mncmsidlab1.cn
 domain:msappproxy.cn
@@ -124,6 +125,7 @@ domain:o365cn.com
 domain:o365files.cn
 domain:office365-net.cn
 domain:office365.cn
+domain:officeplus.cn
 domain:officewebapps.cn
 domain:onmschina.cn
 domain:outlook.cn

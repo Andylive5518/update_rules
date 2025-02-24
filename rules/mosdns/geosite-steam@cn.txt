@@ -3,6 +3,7 @@ domain:csgo.wmsj.cn
 domain:dl.steam.clngaa.com
 domain:dl.steam.ksyna.com
 domain:dota2.wmsj.cn
+domain:gstore.val.manlaxy.com
 domain:st.dl.bscstorage.net
 domain:st.dl.eccdnx.com
 domain:st.dl.pinyuncloud.com

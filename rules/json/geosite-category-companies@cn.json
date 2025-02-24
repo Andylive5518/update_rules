@@ -652,6 +652,7 @@
         "microsoftonline.cn",
         "microsoftreactor.cn",
         "microsoftreactor.com.cn",
+        "microsoftstore.com.cn",
         "microsofttranslator-int.cn",
         "mncmsidlab1.cn",
         "msappproxy.cn",
@@ -677,6 +678,7 @@
         "o365files.cn",
         "office365-net.cn",
         "office365.cn",
+        "officeplus.cn",
         "officewebapps.cn",
         "onmschina.cn",
         "outlook.cn",
@@ -742,6 +744,7 @@
         "^is[1-5](-ssl)?\\.mzstatic\\.com$",
         "^s[1-5]?\\.mzstatic\\.com$",
         "^r+[0-9]+(---|\\.)sn-(2x3|ni5|j5o)\\w{5}\\.xn--ngstr-lra8j\\.com$",
+        "^r+[0-9]+(---|\\.)sn-(2x3|ni5|j5o)\\w{5}\\.googlevideo\\.com$",
         ".+\\.azchcdn[a-s]\\.com$",
         ".+\\.azure-dns-([1-9]|10)\\.cn$"
       ]

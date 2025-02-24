@@ -764,6 +764,7 @@
         "gputechconf.cn",
         "gstatic.cn",
         "gstaticcnapps.cn",
+        "gstore.val.manlaxy.com",
         "gtgres.com",
         "gucci.cn",
         "gvt1-cn.com",
@@ -875,6 +876,7 @@
         "microsoftonline.cn",
         "microsoftreactor.cn",
         "microsoftreactor.com.cn",
+        "microsoftstore.com.cn",
         "microsofttranslator-int.cn",
         "midasbuy.com",
         "mihayo.com",
@@ -953,6 +955,7 @@
         "oemssl.cn.cdn.cloudflare.net",
         "office365-net.cn",
         "office365.cn",
+        "officeplus.cn",
         "officewebapps.cn",
         "oklink.com",
         "onmschina.cn",
@@ -1148,6 +1151,7 @@
         "^is[1-5](-ssl)?\\.mzstatic\\.com$",
         "^ntp([1-5])?\\.tencent\\.com$",
         "^ntp([1-7])?\\.aliyun\\.com$",
+        "^r+[0-9]+(---|\\.)sn-(2x3|ni5|j5o)\\w{5}\\.googlevideo\\.com$",
         "^r+[0-9]+(---|\\.)sn-(2x3|ni5|j5o)\\w{5}\\.xn--ngstr-lra8j\\.com$",
         "^s[1-5]?\\.mzstatic\\.com$"
       ]

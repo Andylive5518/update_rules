@@ -757,6 +757,7 @@ domain:gpsonextra.net
 domain:gputechconf.cn
 domain:gstatic.cn
 domain:gstaticcnapps.cn
+domain:gstore.val.manlaxy.com
 domain:gtgres.com
 domain:gucci.cn
 domain:gvt1-cn.com
@@ -868,6 +869,7 @@ domain:microsoftonline-p.net.cn
 domain:microsoftonline.cn
 domain:microsoftreactor.cn
 domain:microsoftreactor.com.cn
+domain:microsoftstore.com.cn
 domain:microsofttranslator-int.cn
 domain:midasbuy.com
 domain:mihayo.com
@@ -946,6 +948,7 @@ domain:oemssl.cn
 domain:oemssl.cn.cdn.cloudflare.net
 domain:office365-net.cn
 domain:office365.cn
+domain:officeplus.cn
 domain:officewebapps.cn
 domain:oklink.com
 domain:onmschina.cn
@@ -1139,5 +1142,6 @@ regexp:^images(-\d)?\.gog-statics\.com$
 regexp:^is[1-5](-ssl)?\.mzstatic\.com$
 regexp:^ntp([1-5])?\.tencent\.com$
 regexp:^ntp([1-7])?\.aliyun\.com$
+regexp:^r+[0-9]+(---|\.)sn-(2x3|ni5|j5o)\w{5}\.googlevideo\.com$
 regexp:^r+[0-9]+(---|\.)sn-(2x3|ni5|j5o)\w{5}\.xn--ngstr-lra8j\.com$
 regexp:^s[1-5]?\.mzstatic\.com$
