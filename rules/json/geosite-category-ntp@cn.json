@@ -3,6 +3,20 @@
   "rules": [
     {
       "domain": [
+        "ntp.aliyun.com",
+        "ntp.tencent.com",
+        "ntp1.aliyun.com",
+        "ntp1.tencent.com",
+        "ntp2.aliyun.com",
+        "ntp2.tencent.com",
+        "ntp3.aliyun.com",
+        "ntp3.tencent.com",
+        "ntp4.aliyun.com",
+        "ntp4.tencent.com",
+        "ntp5.aliyun.com",
+        "ntp5.tencent.com",
+        "ntp6.aliyun.com",
+        "ntp7.aliyun.com",
         "time.izatcloud.net",
         "time.xtracloud.net"
       ],
@@ -11,10 +25,6 @@
         "ntp.neu.edu.cn",
         "ntp.ntsc.ac.cn",
         "ntp.org.cn"
-      ],
-      "domain_regex": [
-        "^ntp([1-7])?\\.aliyun\\.com$",
-        "^ntp([1-5])?\\.tencent\\.com$"
       ]
     }
   ]

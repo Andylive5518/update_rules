@@ -31,6 +31,7 @@
         "auth.music.apple.com",
         "bag.itunes.apple.com",
         "bookkeeper.itunes.apple.com",
+        "cdn-cn.apple-mapkit.com",
         "cdn-cn1.apple-mapkit.com",
         "cdn-cn2.apple-mapkit.com",
         "cdn-cn3.apple-mapkit.com",
@@ -48,6 +49,7 @@
         "certs.apple.com",
         "cl1-cdn.origin-apple.com.akadns.net",
         "cl1.apple.com",
+        "cl2-cdn.origin-apple.com.akadns.net",
         "cl2-cn.apple.com",
         "cl2.apple.com",
         "cl3-cdn.origin-apple.com.akadns.net",
@@ -168,6 +170,11 @@
         "publicassets.cdn-apple.com",
         "reserve-prime.apple.com",
         "s.mzstatic.com",
+        "s1.mzstatic.com",
+        "s2.mzstatic.com",
+        "s3.mzstatic.com",
+        "s4.mzstatic.com",
+        "s5.mzstatic.com",
         "se-edge.itunes.apple.com",
         "se2.itunes.apple.com",
         "search.itunes.apple.com",
@@ -284,14 +291,6 @@
         "xn--czrs0t4phtr3a.cn",
         "xn--fiqs8sxootzz.cn",
         "xn--ohq11k7pl25iyo8a.cn"
-      ],
-      "domain_regex": [
-        "^a[1-5]\\.mzstatic\\.com$",
-        "^cdn(-cn)?[1-4]?\\.apple-mapkit\\.com$",
-        "^cl[1-5]-cdn\\.origin-apple\\.com\\.akadns\\.net$",
-        "^cl[1-5]\\.apple\\.com$",
-        "^is[1-5](-ssl)?\\.mzstatic\\.com$",
-        "^s[1-5]?\\.mzstatic\\.com$"
       ]
     }
   ]
