@@ -9718,7 +9718,6 @@ add address=103.147.224.0/23 list=HK disabled=no
 add address=103.147.252.0/24 list=HK disabled=no
 add address=103.148.36.0/23 list=HK disabled=no
 add address=103.148.58.0/23 list=HK disabled=no
-add address=103.148.116.0/23 list=HK disabled=no
 add address=103.148.124.0/23 list=HK disabled=no
 add address=103.148.145.0/24 list=HK disabled=no
 add address=103.148.150.0/23 list=HK disabled=no
