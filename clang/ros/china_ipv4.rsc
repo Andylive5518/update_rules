@@ -10498,6 +10498,7 @@ add address=163.61.42.0/23 list=HK disabled=no
 add address=163.61.150.0/23 list=HK disabled=no
 add address=163.61.176.0/23 list=HK disabled=no
 add address=163.61.208.0/23 list=HK disabled=no
+add address=163.223.40.0/23 list=HK disabled=no
 add address=165.84.128.0/18 list=HK disabled=no
 add address=165.154.0.0/17 list=HK disabled=no
 add address=165.154.128.0/18 list=HK disabled=no
