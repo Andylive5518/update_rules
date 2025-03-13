@@ -23,6 +23,7 @@ full:openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net
 full:openaicom.imgix.net
 full:openaicomproductionae4b.blob.core.windows.net
 full:p16-tiktokcdn-com.akamaized.net
+full:pplx-res.cloudinary.com
 full:production-openaicom-storage.azureedge.net
 full:scholar.google.ae
 full:scholar.google.at
@@ -4961,6 +4962,7 @@ domain:pow.ac.uk
 domain:powerelectronics.ac.uk
 domain:powia.ac.uk
 domain:pparc.ac.uk
+domain:pplx.ai
 domain:ppre.ac.uk
 domain:practicum.ac.uk
 domain:pramu.ac.uk

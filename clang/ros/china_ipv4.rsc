@@ -3863,6 +3863,7 @@ add address=103.142.248.0/23 list=CN disabled=no
 add address=103.143.16.0/23 list=CN disabled=no
 add address=103.143.18.0/23 list=CN disabled=no
 add address=103.143.74.0/23 list=CN disabled=no
+add address=103.143.120.0/23 list=CN disabled=no
 add address=103.143.124.0/23 list=CN disabled=no
 add address=103.143.132.0/23 list=CN disabled=no
 add address=103.143.134.0/23 list=CN disabled=no
@@ -13357,7 +13358,6 @@ add address=14.204.0.0/15 list=CUCC disabled=no
 add address=27.0.128.0/22 list=CUCC disabled=no
 add address=27.8.0.0/13 list=CUCC disabled=no
 add address=27.36.0.0/14 list=CUCC disabled=no
-add address=27.40.0.0/13 list=CUCC disabled=no
 add address=27.50.128.0/17 list=CUCC disabled=no
 add address=27.54.192.0/18 list=CUCC disabled=no
 add address=27.98.224.0/19 list=CUCC disabled=no
