@@ -2432,7 +2432,6 @@ add address=2401:47c0::/32 list=HK6 disabled=no
 add address=2401:4840::/32 list=HK6 disabled=no
 add address=2401:4a00::/32 list=HK6 disabled=no
 add address=2401:4bc0::/32 list=HK6 disabled=no
-add address=2401:4c00::/32 list=HK6 disabled=no
 add address=2401:4c40::/32 list=HK6 disabled=no
 add address=2401:4e80::/32 list=HK6 disabled=no
 add address=2401:4fc0::/32 list=HK6 disabled=no
