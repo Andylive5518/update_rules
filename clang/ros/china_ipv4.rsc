@@ -10463,7 +10463,6 @@ add address=158.132.0.0/16 list=HK disabled=no
 add address=158.182.0.0/16 list=HK disabled=no
 add address=159.117.40.0/21 list=HK disabled=no
 add address=159.117.96.0/21 list=HK disabled=no
-add address=159.117.224.0/19 list=HK disabled=no
 add address=160.19.48.0/22 list=HK disabled=no
 add address=160.20.52.0/22 list=HK disabled=no
 add address=160.20.56.0/22 list=HK disabled=no
@@ -10504,6 +10503,7 @@ add address=163.61.208.0/23 list=HK disabled=no
 add address=163.223.40.0/23 list=HK disabled=no
 add address=163.223.72.0/23 list=HK disabled=no
 add address=163.223.77.0/24 list=HK disabled=no
+add address=163.223.140.0/23 list=HK disabled=no
 add address=165.84.128.0/18 list=HK disabled=no
 add address=165.154.0.0/17 list=HK disabled=no
 add address=165.154.128.0/18 list=HK disabled=no
