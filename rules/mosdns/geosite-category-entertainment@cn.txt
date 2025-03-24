@@ -46,6 +46,7 @@ domain:goto-game.net.cn
 domain:goto-game.org
 domain:gotolink.net
 domain:gouhuo.qq.com
+domain:gstore.val.manlaxy.com
 domain:gtgres.com
 domain:happyhlddz.com
 domain:haydaypop.cn
