@@ -7,17 +7,8 @@ readonly JSON_DIR="./rules/json"
 readonly REQUIRED_COMMANDS=("sing-box" "jq" "curl")
 
 # 远程URL配置
-readonly LOYALSOLDIER_URL="https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release"
 readonly SING_GEOSITE_URL="https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set"
 readonly SING_GEOSITE_API="https://api.github.com/repos/SagerNet/sing-geosite/git/trees/rule-set"
-
-# 基础规则文件配置
-declare -rA BASE_RULES=(
-    ["direct-list.txt"]="$LOYALSOLDIER_URL/direct-list.txt"
-    ["proxy-list.txt"]="$LOYALSOLDIER_URL/proxy-list.txt"
-    ["china-list.txt"]="$LOYALSOLDIER_URL/china-list.txt"
-    ["gfw.txt"]="$LOYALSOLDIER_URL/gfw.txt"
-)
 
 # 错误处理函数
 die() {
@@ -87,26 +78,6 @@ download_file() {
     
     log "ERROR" "${desc}下载失败：$base_name"
     return 1
-}
-
-# 下载基础规则
-download_base_rules() {
-    log "INFO" "开始下载基础规则文件"
-    local count=0
-    local total_rules=0
-    
-    for file in "${!BASE_RULES[@]}"; do
-        local url="${BASE_RULES[$file]}"
-        if download_file "$url" "$MOSDNS_RULES_DIR/$file" "基础规则"; then
-            local rule_count=$(wc -l < "$MOSDNS_RULES_DIR/$file")
-            log "INFO" "基础规则下载完成：$file (共 $rule_count 条规则)"
-            ((total_rules+=rule_count))
-            ((count++))
-        fi
-    done
-    
-    log "INFO" "基础规则下载完成，共下载 $count 个规则文件，包含 $total_rules 条规则"
-    return 0
 }
 
 # 获取并过滤sing-geosite规则
@@ -397,10 +368,6 @@ merge_rule_type() {
 main() {
     if ! init_env; then
         log "ERROR" "初始化环境失败"
-        exit 1
-    fi
-    if ! download_base_rules; then
-        log "ERROR" "下载基础规则失败"
         exit 1
     fi
     if ! process_sing_rules; then
