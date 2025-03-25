@@ -683,7 +683,6 @@ add address=2401:f220::/32 list=CN6 disabled=no
 add address=2401:f300::/32 list=CN6 disabled=no
 add address=2401:f320::/32 list=CN6 disabled=no
 add address=2401:f3e0::/32 list=CN6 disabled=no
-add address=2401:f4a0::/32 list=CN6 disabled=no
 add address=2401:f7c0::/32 list=CN6 disabled=no
 add address=2401:f860::/32 list=CN6 disabled=no
 add address=2401:fa80::/32 list=CN6 disabled=no
