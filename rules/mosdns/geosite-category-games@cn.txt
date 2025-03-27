@@ -1,3 +1,5 @@
+full:gog-cdn-fastly.gog.com
+full:gog-cdn.akamaized.net
 full:gog.qtlglb.com
 full:gogalaxy.gog-statics.com
 full:menu-static.gog-statics.com

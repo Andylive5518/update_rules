@@ -2965,6 +2965,7 @@ domain:hew.ac.uk
 domain:hewit.ac.uk
 domain:heythrop.ac.uk
 domain:heythropcollege.ac.uk
+domain:hf.co
 domain:hfaes.ac.uk
 domain:hfals.ac.uk
 domain:hfma.ac.uk
@@ -3052,6 +3053,7 @@ domain:hud.ac.uk
 domain:huddcoll.ac.uk
 domain:huddersfield.ac.uk
 domain:huddnewcoll.ac.uk
+domain:huggingface.co
 domain:hughbaird.ac.uk
 domain:huish.ac.uk
 domain:hull-college.ac.uk
@@ -4720,6 +4722,7 @@ domain:opencreate.org
 domain:opened.ac.uk
 domain:openengineeringlaboratory.ac.uk
 domain:openfields.ac.uk
+domain:openrouter.ai
 domain:opensciencelab.ac.uk
 domain:opensciencelaboratory.ac.uk
 domain:opensource.ac.uk

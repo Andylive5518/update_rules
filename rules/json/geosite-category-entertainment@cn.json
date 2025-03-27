@@ -3,6 +3,8 @@
   "rules": [
     {
       "domain": [
+        "gog-cdn-fastly.gog.com",
+        "gog-cdn.akamaized.net",
         "gog.qtlglb.com",
         "gogalaxy.gog-statics.com",
         "menu-static.gog-statics.com",

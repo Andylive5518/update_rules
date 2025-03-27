@@ -141,6 +141,7 @@ full:redirector.offline-maps.gvt1.com
 full:redirector.snap.gvt1.com
 full:redirector.xn--ngstr-lra8j.com
 full:regioninfo-pa.googleapis.com
+full:safebrowsing-cache.google.com
 full:safebrowsing.googleapis.com
 full:scanservice1.qatp1.net
 full:scanservice1.qcpp1.net
