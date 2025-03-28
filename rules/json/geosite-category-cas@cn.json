@@ -9,6 +9,7 @@
         "certs.apple.com",
         "crl-lb.apple.com.akadns.net",
         "crl.apple.com",
+        "crl.globalsign.net",
         "crl.pki.goog",
         "crls.pki.goog",
         "i.pki.goog",
@@ -19,6 +20,8 @@
         "ocsp2-lb.apple.com.akadns.net",
         "ocsp2.apple.com",
         "pki-goog.l.google.com",
+        "valid.apple.com",
+        "www.entrust.cn",
         "www.microsoft.com"
       ],
       "domain_suffix": [

@@ -4,6 +4,7 @@ full:certs-lb.apple.com.akadns.net
 full:certs.apple.com
 full:crl-lb.apple.com.akadns.net
 full:crl.apple.com
+full:crl.globalsign.net
 full:crl.pki.goog
 full:crls.pki.goog
 full:i.pki.goog
@@ -14,6 +15,8 @@ full:ocsp.pki.goog
 full:ocsp2-lb.apple.com.akadns.net
 full:ocsp2.apple.com
 full:pki-goog.l.google.com
+full:valid.apple.com
+full:www.entrust.cn
 full:www.microsoft.com
 domain:alphassl.com
 domain:dcocsp.cn
