@@ -11,6 +11,7 @@ full:adcdownload.apple.com.akadns.net
 full:admob-cn.com
 full:adservice.google.com
 full:ai.ytimg.com
+full:alibaba.cdn.steampipe.steamcontent.com
 full:amp-api-edge-lb-cn.itunes-apple.com.akadns.net
 full:amp-api-edge-lb.itunes-apple.com.akadns.net
 full:amp-api-edge.apps.apple.com
@@ -261,6 +262,7 @@ full:learn.microsoft.com
 full:logger-dev.corp.google.com
 full:logger.corp.google.com
 full:login.corp.google.com
+full:lv.queniujq.cn
 full:maps.apple.com
 full:menu-static.gog-statics.com
 full:mesu-cdn.apple.com.akadns.net
@@ -718,6 +720,7 @@ domain:cn.bing.com
 domain:cn.bing.net
 domain:cn.mm.bing.net
 domain:cn.pool.ntp.org
+domain:cnspeedtest.cn
 domain:codm.com
 domain:connectcommerce.cn
 domain:connectcommerce.com.cn
@@ -735,7 +738,6 @@ domain:dishwashingexpert.com.cn
 domain:ditu.live.com
 domain:dl.delivery.mp.microsoft.com
 domain:dl.steam.clngaa.com
-domain:dl.steam.ksyna.com
 domain:dota2.wmsj.cn
 domain:doubao.com
 domain:download-cdn.jetbrains.com.cn
@@ -1081,13 +1083,17 @@ domain:shopeesz.com
 domain:skycdn.com.cn
 domain:skydweller.cn
 domain:sl916.com
+domain:speed.neu6.edu.cn
+domain:speed.nuaa.edu.cn
+domain:speedtest.cn
+domain:speedtest.mfcyun.com
+domain:speedtest.shu.edu.cn
 domain:sslcom.cn
 domain:st.dl.bscstorage.net
 domain:st.dl.eccdnx.com
 domain:st.dl.pinyuncloud.com
 domain:starbucks.com.cn
 domain:steamchina.com
-domain:steampipe.steamcontent.tnkjmec.com
 domain:steampowered.com.8686c.com
 domain:steampp.net
 domain:steamstatic.com.8686c.com
@@ -1113,6 +1119,8 @@ domain:tesla.cn
 domain:tesla.com.cn
 domain:teslamotors.cn
 domain:teslamotors.com.cn
+domain:test.nju.edu.cn
+domain:test.ustc.edu.cn
 domain:testipv6.cn
 domain:texasholdemcup.cn
 domain:texasholdemcup.com

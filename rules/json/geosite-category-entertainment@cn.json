@@ -3,10 +3,12 @@
   "rules": [
     {
       "domain": [
+        "alibaba.cdn.steampipe.steamcontent.com",
         "gog-cdn-fastly.gog.com",
         "gog-cdn.akamaized.net",
         "gog.qtlglb.com",
         "gogalaxy.gog-statics.com",
+        "lv.queniujq.cn",
         "menu-static.gog-statics.com",
         "productcard.gog-statics.com",
         "static-login.gog-statics.com",
@@ -36,7 +38,6 @@
         "codm.com",
         "csgo.wmsj.cn",
         "dl.steam.clngaa.com",
-        "dl.steam.ksyna.com",
         "dota2.wmsj.cn",
         "ffbuddy.com",
         "gamebonfire.com",
@@ -122,7 +123,6 @@
         "st.dl.eccdnx.com",
         "st.dl.pinyuncloud.com",
         "steamchina.com",
-        "steampipe.steamcontent.tnkjmec.com",
         "steampowered.com.8686c.com",
         "steamstatic.com.8686c.com",
         "supercellcommunity.cn",

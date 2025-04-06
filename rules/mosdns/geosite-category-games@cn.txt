@@ -1,7 +1,9 @@
+full:alibaba.cdn.steampipe.steamcontent.com
 full:gog-cdn-fastly.gog.com
 full:gog-cdn.akamaized.net
 full:gog.qtlglb.com
 full:gogalaxy.gog-statics.com
+full:lv.queniujq.cn
 full:menu-static.gog-statics.com
 full:productcard.gog-statics.com
 full:static-login.gog-statics.com
@@ -27,7 +29,6 @@ domain:brawlstars.cn
 domain:codm.com
 domain:csgo.wmsj.cn
 domain:dl.steam.clngaa.com
-domain:dl.steam.ksyna.com
 domain:dota2.wmsj.cn
 domain:ffbuddy.com
 domain:gamebonfire.com
@@ -112,7 +113,6 @@ domain:st.dl.bscstorage.net
 domain:st.dl.eccdnx.com
 domain:st.dl.pinyuncloud.com
 domain:steamchina.com
-domain:steampipe.steamcontent.tnkjmec.com
 domain:steampowered.com.8686c.com
 domain:steamstatic.com.8686c.com
 domain:supercellcommunity.cn

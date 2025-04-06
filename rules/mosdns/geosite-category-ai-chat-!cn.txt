@@ -33,7 +33,9 @@ domain:generativeai.google
 domain:generativelanguage.googleapis.com
 domain:grok.com
 domain:groq.com
+domain:hf.co
 domain:host.livekit.cloud
+domain:huggingface.co
 domain:jasper.ai
 domain:makersuite.google.com
 domain:meta.ai
@@ -44,6 +46,7 @@ domain:oaiusercontent.com
 domain:openai.com
 domain:openai.com.cdn.cloudflare.net
 domain:openart.ai
+domain:openrouter.ai
 domain:perplexity.ai
 domain:poe.com
 domain:poecdn.net
