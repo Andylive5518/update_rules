@@ -472,10 +472,7 @@ add address=43.230.72.0/22 list=CN disabled=no
 add address=43.230.124.0/22 list=CN disabled=no
 add address=43.230.136.0/22 list=CN disabled=no
 add address=43.230.220.0/22 list=CN disabled=no
-add address=43.230.224.0/22 list=CN disabled=no
-add address=43.230.228.0/22 list=CN disabled=no
-add address=43.230.232.0/22 list=CN disabled=no
-add address=43.230.236.0/22 list=CN disabled=no
+add address=43.230.224.0/20 list=CN disabled=no
 add address=43.230.240.0/22 list=CN disabled=no
 add address=43.230.244.0/22 list=CN disabled=no
 add address=43.230.248.0/22 list=CN disabled=no
@@ -13418,6 +13415,8 @@ add address=43.229.172.0/22 list=CUCC disabled=no
 add address=43.229.176.0/22 list=CUCC disabled=no
 add address=43.229.180.0/22 list=CUCC disabled=no
 add address=43.229.236.0/22 list=CUCC disabled=no
+add address=43.230.224.0/20 list=CUCC disabled=no
+add address=43.231.136.0/22 list=CUCC disabled=no
 add address=43.239.120.0/22 list=CUCC disabled=no
 add address=43.240.0.0/22 list=CUCC disabled=no
 add address=43.240.72.0/22 list=CUCC disabled=no
