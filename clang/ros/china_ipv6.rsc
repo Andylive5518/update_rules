@@ -688,6 +688,7 @@ add address=2401:f7c0::/32 list=CN6 disabled=no
 add address=2401:f860::/32 list=CN6 disabled=no
 add address=2401:fa80::/32 list=CN6 disabled=no
 add address=2401:fb80::/32 list=CN6 disabled=no
+add address=2401:fc60::/32 list=CN6 disabled=no
 add address=2401:fc80::/32 list=CN6 disabled=no
 add address=2401:ffc0::/32 list=CN6 disabled=no
 add address=2402:440::/32 list=CN6 disabled=no
@@ -2516,6 +2517,7 @@ add address=2401:f460::/32 list=HK6 disabled=no
 add address=2401:f6a0::/32 list=HK6 disabled=no
 add address=2401:f6c0::/32 list=HK6 disabled=no
 add address=2401:f940::/32 list=HK6 disabled=no
+add address=2401:fc20::/32 list=HK6 disabled=no
 add address=2402:c80::/32 list=HK6 disabled=no
 add address=2402:11c0::/32 list=HK6 disabled=no
 add address=2402:1240::/32 list=HK6 disabled=no
