@@ -6337,6 +6337,7 @@ add address=163.223.178.0/23 list=CN disabled=no
 add address=163.223.216.0/23 list=CN disabled=no
 add address=163.223.222.0/23 list=CN disabled=no
 add address=163.227.34.0/23 list=CN disabled=no
+add address=163.227.40.0/23 list=CN disabled=no
 add address=163.228.0.0/16 list=CN disabled=no
 add address=164.52.0.0/17 list=CN disabled=no
 add address=166.111.0.0/16 list=CN disabled=no
@@ -10505,6 +10506,7 @@ add address=163.223.77.0/24 list=HK disabled=no
 add address=163.223.140.0/23 list=HK disabled=no
 add address=163.223.182.0/23 list=HK disabled=no
 add address=163.227.14.0/23 list=HK disabled=no
+add address=163.227.44.0/23 list=HK disabled=no
 add address=165.84.128.0/18 list=HK disabled=no
 add address=165.154.0.0/17 list=HK disabled=no
 add address=165.154.128.0/18 list=HK disabled=no
@@ -10658,7 +10660,13 @@ add address=202.45.184.0/22 list=HK disabled=no
 add address=202.45.188.0/22 list=HK disabled=no
 add address=202.45.192.0/18 list=HK disabled=no
 add address=202.47.134.0/23 list=HK disabled=no
-add address=202.47.192.0/19 list=HK disabled=no
+add address=202.47.193.0/24 list=HK disabled=no
+add address=202.47.194.0/24 list=HK disabled=no
+add address=202.47.197.0/24 list=HK disabled=no
+add address=202.47.198.0/23 list=HK disabled=no
+add address=202.47.200.0/24 list=HK disabled=no
+add address=202.47.204.0/22 list=HK disabled=no
+add address=202.47.208.0/20 list=HK disabled=no
 add address=202.49.248.0/24 list=HK disabled=no
 add address=202.51.128.0/19 list=HK disabled=no
 add address=202.52.35.0/24 list=HK disabled=no
@@ -11247,7 +11255,9 @@ add address=210.17.224.0/19 list=HK disabled=no
 add address=210.48.136.0/21 list=HK disabled=no
 add address=210.56.48.0/21 list=HK disabled=no
 add address=210.56.56.0/21 list=HK disabled=no
-add address=210.57.0.0/19 list=HK disabled=no
+add address=210.57.0.0/21 list=HK disabled=no
+add address=210.57.12.0/22 list=HK disabled=no
+add address=210.57.16.0/20 list=HK disabled=no
 add address=210.57.32.0/19 list=HK disabled=no
 add address=210.57.64.0/18 list=HK disabled=no
 add address=210.57.128.0/18 list=HK disabled=no
@@ -11260,7 +11270,13 @@ add address=210.176.0.0/19 list=HK disabled=no
 add address=210.176.32.0/20 list=HK disabled=no
 add address=210.176.48.0/20 list=HK disabled=no
 add address=210.176.64.0/18 list=HK disabled=no
-add address=210.176.128.0/19 list=HK disabled=no
+add address=210.176.129.0/24 list=HK disabled=no
+add address=210.176.130.0/23 list=HK disabled=no
+add address=210.176.132.0/22 list=HK disabled=no
+add address=210.176.136.0/22 list=HK disabled=no
+add address=210.176.140.0/23 list=HK disabled=no
+add address=210.176.143.0/24 list=HK disabled=no
+add address=210.176.144.0/20 list=HK disabled=no
 add address=210.176.160.0/19 list=HK disabled=no
 add address=210.176.192.0/18 list=HK disabled=no
 add address=210.177.0.0/17 list=HK disabled=no
