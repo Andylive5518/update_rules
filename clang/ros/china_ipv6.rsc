@@ -2353,7 +2353,6 @@ add address=2400:7300::/32 list=HK6 disabled=no
 add address=2400:7460::/32 list=HK6 disabled=no
 add address=2400:74a0::/32 list=HK6 disabled=no
 add address=2400:7a00::/32 list=HK6 disabled=no
-add address=2400:7ba0::/32 list=HK6 disabled=no
 add address=2400:7ca0::/32 list=HK6 disabled=no
 add address=2400:7e20::/32 list=HK6 disabled=no
 add address=2400:7e40::/32 list=HK6 disabled=no
@@ -2467,7 +2466,6 @@ add address=2401:9d80::/32 list=HK6 disabled=no
 add address=2401:9f00::/32 list=HK6 disabled=no
 add address=2401:a060::/32 list=HK6 disabled=no
 add address=2401:a080::/32 list=HK6 disabled=no
-add address=2401:a280::/32 list=HK6 disabled=no
 add address=2401:a2a0::/32 list=HK6 disabled=no
 add address=2401:a420::/32 list=HK6 disabled=no
 add address=2401:a680::/32 list=HK6 disabled=no
