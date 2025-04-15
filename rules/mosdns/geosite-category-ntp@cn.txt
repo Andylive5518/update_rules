@@ -12,6 +12,7 @@ full:ntp5.aliyun.com
 full:ntp5.tencent.com
 full:ntp6.aliyun.com
 full:ntp7.aliyun.com
+full:time.amazonaws.cn
 full:time.izatcloud.net
 full:time.xtracloud.net
 domain:cn.pool.ntp.org

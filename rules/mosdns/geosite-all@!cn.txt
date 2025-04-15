@@ -1277,6 +1277,7 @@ domain:chs.ac.uk
 domain:chugd.ac.uk
 domain:chuls.ac.uk
 domain:churchill.ac.uk
+domain:chutes.ai
 domain:cia.ac.uk
 domain:cias.ac.uk
 domain:cib.ac.uk
@@ -4123,6 +4124,7 @@ domain:misskey.stream
 domain:misskey.yukineko.me
 domain:misskeyusercontent.jp
 domain:mist.ac.uk
+domain:mistral.ai
 domain:mit.edu
 domain:mit.net
 domain:mitpressjournals.org

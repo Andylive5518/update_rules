@@ -481,6 +481,7 @@ full:techstop.corp.google.com
 full:test.bugs-qa.chromium.org
 full:test.gbugs-qa.chromium.org
 full:tf-feedback.itunes.apple.com
+full:time.amazonaws.cn
 full:time.izatcloud.net
 full:time.xtracloud.net
 full:tj-pod1-smp-device.apple.com
@@ -725,6 +726,7 @@ domain:39.net
 domain:3conline.com
 domain:3d66.com
 domain:3dmgame.com
+domain:3dmjiasu.com
 domain:3elife.net
 domain:3h3.com
 domain:3ili6.cn
@@ -1063,6 +1065,7 @@ domain:aizhan.com
 domain:ajzq.com
 domain:aki-game.com
 domain:akikocorp.cn
+domain:akspeedy.com
 domain:aldwx.com
 domain:alexafund.cn
 domain:alexafund.com.cn
@@ -1486,6 +1489,7 @@ domain:beisen.com
 domain:beisenapp.com
 domain:beisencloud.com
 domain:beisenpaas.com
+domain:benfuip.com
 domain:bengbeng.com
 domain:benghuai.com
 domain:benmi.com
@@ -1565,6 +1569,7 @@ domain:bishijie.com
 domain:bitauto.com
 domain:bitautoimg.com
 domain:bitecoin.com
+domain:biubiu001.com
 domain:biyehome.net
 domain:biz.weibo.com
 domain:bj.file.myqcloud.com
@@ -1798,6 +1803,7 @@ domain:ccbxt.com
 domain:ccf.org.cn
 domain:ccfund.com.cn
 domain:ccnew.com
+domain:ccspeed.cn
 domain:cctalk.com
 domain:cctv.cn
 domain:cctv.com
@@ -2781,6 +2787,8 @@ domain:ers.baidu.com
 domain:ersjk.com
 domain:essence.com.cn
 domain:essurl.com
+domain:et-api.com
+domain:et001.com
 domain:etao.com
 domain:etnet.com.cn
 domain:etnetchina.com.cn
@@ -2901,6 +2909,7 @@ domain:ff.win.taobao.com
 domain:ffbuddy.com
 domain:fgo.wiki
 domain:fhldns.com
+domain:fhyx.com
 domain:filez.com
 domain:fimmu.com
 domain:finchina.com
@@ -2917,6 +2926,7 @@ domain:flymeauto.com
 domain:fm.p0y.cn
 domain:fm365.com
 domain:fm3838.com
+domain:fnjiasu.com
 domain:focus-img.cn
 domain:focus.cn
 domain:fofa.info
@@ -2955,6 +2965,7 @@ domain:fullgoal.com.cn
 domain:fun.tv
 domain:funcdn.com
 domain:fund123.cn
+domain:funjsq.com
 domain:funnycore.com
 domain:funshion.com
 domain:funshion.net
@@ -3041,6 +3052,7 @@ domain:gf.com.cn
 domain:gfan.com
 domain:gffunds.com.cn
 domain:gfund.com
+domain:ggkuai.com
 domain:ggoplay.com
 domain:ggowan.com
 domain:ggpht.cn
@@ -3049,6 +3061,7 @@ domain:ghxi.com
 domain:ghzq.com.cn
 domain:gifshow.com
 domain:gigabyte.cn
+domain:gijsq.com
 domain:gimg.baidu.com
 domain:giocdn.com
 domain:gitbook.cn
@@ -3152,6 +3165,7 @@ domain:gtms03.alicdn.com
 domain:gtms04.alicdn.com
 domain:guabu.com
 domain:guaiguai.com
+domain:guaiku.com
 domain:guanaitong.com
 domain:guanggaotongapp.cn
 domain:guanhaobio.com
@@ -3335,6 +3349,8 @@ domain:hsbcqh.com.cn
 domain:hsfund.com
 domain:htcases.com
 domain:hteacher.net
+domain:htjsq.com
+domain:htjsq.mobi
 domain:htsc.com.cn
 domain:htsec.com
 domain:httpdns-api.aliyuncs.com
@@ -4023,6 +4039,7 @@ domain:kinghomechina.com
 domain:kingsoft.com
 domain:kiyuu.club
 domain:kjwugx.com
+domain:kk1.vip
 domain:kkmh.com
 domain:kkzj.com
 domain:klpbbs.com
@@ -4286,6 +4303,7 @@ domain:liqucn.com
 domain:liulanqi.net
 domain:liulishuo.com
 domain:liuxiaoer.com
+domain:liuxing.com
 domain:live800.com
 domain:livecdnstatic.com
 domain:livechina.cn
@@ -4320,6 +4338,7 @@ domain:longone.com.cn
 domain:longre.com
 domain:longtugame.com
 domain:longzhu.com
+domain:lorhf.com
 domain:lotpc.com
 domain:loupan.com
 domain:lpl.com.cn
@@ -4353,6 +4372,7 @@ domain:lxbjs.baidu.com
 domain:lxdns.com
 domain:lxdns.info
 domain:lxdns.org
+domain:lxjiasu.com
 domain:lxway.com
 domain:lxzjjt.cn
 domain:lxzjjt.com
@@ -4504,6 +4524,7 @@ domain:mikecrm.com
 domain:minapp.com
 domain:mincdn.com
 domain:mindspore.cn
+domain:mingxuan.store
 domain:mingyuanyun.com
 domain:minhangshi.com
 domain:minimaxi.com
@@ -4809,6 +4830,7 @@ domain:onlinedown.net
 domain:onlinesjtu.com
 domain:onlylady.com
 domain:onmschina.cn
+domain:oojsq.com
 domain:oortgslb.com
 domain:opdown.com
 domain:opdwz.cn
@@ -5108,6 +5130,7 @@ domain:qiuwen.wiki
 domain:qixin.com
 domain:qiyi.com
 domain:qiyipic.com
+domain:qiyou.cn
 domain:qiyukf.com
 domain:qizuang.com
 domain:qlinkto.cn
@@ -6589,6 +6612,7 @@ domain:ydsc.com.cn
 domain:ydstatic.com
 domain:ydsys.cn
 domain:yeah.net
+domain:yebaojiasu.com
 domain:yeepay.com
 domain:yeshen.com
 domain:yeshj.com
@@ -6721,6 +6745,7 @@ domain:yuantongyizhan.com
 domain:yuanzhiyijiantong.com
 domain:yudou.cn
 domain:yuedu.iqiyi.com
+domain:yuelun.com
 domain:yuewen.com
 domain:yufuid.com
 domain:yufuid.com.cn
@@ -6946,28 +6971,28 @@ domain:zymo.mps.weibo.com
 domain:zz.bdstatic.com
 domain:zzdtec.com
 domain:zzy1.quyaoya.com
-regexp:^images(-\d)?\.gog-statics\.com$
+regexp:.+\.awsdns-cn-[0-9][0-9]\.(biz|com|net|top)$
+regexp:\.(.+-)?ap-beijing(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
+regexp:^cdn\d-epicgames-\d+\.file\.myqcloud\.com$
+regexp:\.(.+-)?ap-chongqing(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
+regexp:\.(.+-)?ap-nanjing(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
+regexp:^r+[0-9]+(---|\.)sn-(2x3|ni5|j5o)\w{5}\.googlevideo\.com$
 regexp:\.(.+-)?ap-guangzhou(-.+)?\.myqcloud\.com$
-regexp:\.(.+-)?ap-guangzhou(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
-regexp:\.(.+-)?ap-chengdu(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
+regexp:^images(-\d)?\.gog-statics\.com$
+regexp:\.(.+-)?ap-shenzhen(-.+)?\.myqcloud\.com$
+regexp:.+\.awsdns-cn-[0-9][a-e0-9]\.cn$
 regexp:^r+[0-9]+(---|\.)sn-(2x3|ni5|j5o)\w{5}\.xn--ngstr-lra8j\.com$
-regexp:^.+-mihayo\.akamaized\.net$
-regexp:\.(.+-)?ap-shenzhen(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
+regexp:\.(.+-)?ap-shanghai(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
+regexp:\.(.+-)?ap-chengdu(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
+regexp:^nis.+\.10010\.com$
+regexp:\.(.+-)?ap-nanjing(-.+)?\.myqcloud\.com$
 regexp:\.(.+-)?ap-chengdu(-.+)?\.myqcloud\.com$
+regexp:\.(.+-)?ap-guangzhou(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
+regexp:\.(.+-)?ap-shenzhen(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
+regexp:^.+-mihayo\.akamaized\.net$
+regexp:\.(.+-)?ap-chongqing(-.+)?\.myqcloud\.com$
 regexp:\.(.+-)?ap-shanghai(-.+)?\.myqcloud\.com$
 regexp:^gog-cdn-.+\.footprint\.net$
-regexp:\.(.+-)?ap-chongqing(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
-regexp:^cdn-akamai-.+\.gog-services\.com$
-regexp:\.(.+-)?ap-beijing(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
-regexp:\.(.+-)?ap-shenzhen(-.+)?\.myqcloud\.com$
 regexp:^epicgames-download\d-\d+\.file\.myqcloud\.com$
-regexp:\.(.+-)?ap-nanjing(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
-regexp:\.(.+-)?ap-nanjing(-.+)?\.myqcloud\.com$
-regexp:.+\.awsdns-cn-[0-9][0-9]\.(biz|com|net|top)$
-regexp:\.(.+-)?ap-shanghai(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
-regexp:^r+[0-9]+(---|\.)sn-(2x3|ni5|j5o)\w{5}\.googlevideo\.com$
+regexp:^cdn-akamai-.+\.gog-services\.com$
 regexp:\.(.+-)?ap-beijing(-.+)?\.myqcloud\.com$
-regexp:^nis.+\.10010\.com$
-regexp:^cdn\d-epicgames-\d+\.file\.myqcloud\.com$
-regexp:\.(.+-)?ap-chongqing(-.+)?\.myqcloud\.com$
-regexp:.+\.awsdns-cn-[0-9][a-e0-9]\.cn$

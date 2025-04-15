@@ -16,6 +16,7 @@ domain:bard.google.com
 domain:chat.com
 domain:chatgpt.com
 domain:chatgpt.livekit.cloud
+domain:chutes.ai
 domain:claude.ai
 domain:claudeusercontent.com
 domain:clipdrop.co
@@ -39,6 +40,7 @@ domain:huggingface.co
 domain:jasper.ai
 domain:makersuite.google.com
 domain:meta.ai
+domain:mistral.ai
 domain:notebooklm.google
 domain:notebooklm.google.com
 domain:oaistatic.com
