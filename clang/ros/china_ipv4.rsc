@@ -11464,7 +11464,6 @@ add address=1.68.0.0/14 list=CTCC disabled=no
 add address=1.80.0.0/13 list=CTCC disabled=no
 add address=1.180.0.0/14 list=CTCC disabled=no
 add address=1.192.0.0/13 list=CTCC disabled=no
-add address=1.202.0.0/15 list=CTCC disabled=no
 add address=1.204.0.0/14 list=CTCC disabled=no
 add address=14.0.0.0/21 list=CTCC disabled=no
 add address=14.0.12.0/22 list=CTCC disabled=no
