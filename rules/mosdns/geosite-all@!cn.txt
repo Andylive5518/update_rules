@@ -2641,6 +2641,7 @@ domain:gecko.ac.uk
 domain:geiriadur.ac.uk
 domain:geller-pa.googleapis.com
 domain:gem.ac.uk
+domain:gemini.google
 domain:gemini.google.com
 domain:gen2.ac.uk
 domain:generationpup.ac.uk

@@ -29,6 +29,7 @@ domain:deepmind.google
 domain:dify.ai
 domain:gateway.ai.cloudflare.com
 domain:geller-pa.googleapis.com
+domain:gemini.google
 domain:gemini.google.com
 domain:generativeai.google
 domain:generativelanguage.googleapis.com
