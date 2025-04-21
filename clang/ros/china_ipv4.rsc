@@ -12012,6 +12012,7 @@ add address=125.171.0.0/16 list=CTCC disabled=no
 add address=125.208.0.0/18 list=CTCC disabled=no
 add address=139.5.204.0/22 list=CTCC disabled=no
 add address=139.5.212.0/22 list=CTCC disabled=no
+add address=139.183.0.0/16 list=CTCC disabled=no
 add address=139.189.0.0/16 list=CTCC disabled=no
 add address=139.200.0.0/13 list=CTCC disabled=no
 add address=140.75.0.0/16 list=CTCC disabled=no
@@ -13972,6 +13973,8 @@ add address=124.20.0.0/16 list=CUCC disabled=no
 add address=124.21.0.0/20 list=CUCC disabled=no
 add address=124.21.16.0/20 list=CUCC disabled=no
 add address=124.21.32.0/19 list=CUCC disabled=no
+add address=124.21.64.0/18 list=CUCC disabled=no
+add address=124.21.128.0/17 list=CUCC disabled=no
 add address=124.42.128.0/17 list=CUCC disabled=no
 add address=124.64.0.0/15 list=CUCC disabled=no
 add address=124.66.0.0/17 list=CUCC disabled=no
