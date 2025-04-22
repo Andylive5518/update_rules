@@ -5312,7 +5312,6 @@ add address=113.130.112.0/21 list=CN disabled=no
 add address=113.132.0.0/14 list=CN disabled=no
 add address=113.136.0.0/13 list=CN disabled=no
 add address=113.192.40.0/23 list=CN disabled=no
-add address=113.192.56.0/23 list=CN disabled=no
 add address=113.194.0.0/15 list=CN disabled=no
 add address=113.197.100.0/22 list=CN disabled=no
 add address=113.200.0.0/15 list=CN disabled=no
@@ -10834,7 +10833,6 @@ add address=202.77.140.0/22 list=HK disabled=no
 add address=202.77.144.0/20 list=HK disabled=no
 add address=202.77.160.0/19 list=HK disabled=no
 add address=202.77.192.0/18 list=HK disabled=no
-add address=202.78.252.0/22 list=HK disabled=no
 add address=202.80.0.0/21 list=HK disabled=no
 add address=202.80.8.0/21 list=HK disabled=no
 add address=202.80.16.0/20 list=HK disabled=no
