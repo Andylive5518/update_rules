@@ -17,6 +17,7 @@
         "ntp5.tencent.com",
         "ntp6.aliyun.com",
         "ntp7.aliyun.com",
+        "time.amazonaws.cn",
         "time.izatcloud.net",
         "time.xtracloud.net"
       ],

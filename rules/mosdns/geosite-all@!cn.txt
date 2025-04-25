@@ -12,6 +12,7 @@ full:e122475.dscg.akamaiedge.net
 full:elib.maruzen.co.jp
 full:fbcdn-a.akamaihd.net
 full:firstsearch.oclc.org
+full:hk-global-bgp.hkg.speedtest.yecaoyun.com
 full:imperial.insendi.com
 full:licdn.cn.cdn20.com
 full:linkedin.sc.omtrdc.net
@@ -1276,6 +1277,7 @@ domain:chs.ac.uk
 domain:chugd.ac.uk
 domain:chuls.ac.uk
 domain:churchill.ac.uk
+domain:chutes.ai
 domain:cia.ac.uk
 domain:cias.ac.uk
 domain:cib.ac.uk
@@ -2639,6 +2641,7 @@ domain:gecko.ac.uk
 domain:geiriadur.ac.uk
 domain:geller-pa.googleapis.com
 domain:gem.ac.uk
+domain:gemini.google
 domain:gemini.google.com
 domain:gen2.ac.uk
 domain:generationpup.ac.uk
@@ -2965,6 +2968,7 @@ domain:hew.ac.uk
 domain:hewit.ac.uk
 domain:heythrop.ac.uk
 domain:heythropcollege.ac.uk
+domain:hf.co
 domain:hfaes.ac.uk
 domain:hfals.ac.uk
 domain:hfma.ac.uk
@@ -3052,6 +3056,7 @@ domain:hud.ac.uk
 domain:huddcoll.ac.uk
 domain:huddersfield.ac.uk
 domain:huddnewcoll.ac.uk
+domain:huggingface.co
 domain:hughbaird.ac.uk
 domain:huish.ac.uk
 domain:hull-college.ac.uk
@@ -4120,6 +4125,7 @@ domain:misskey.stream
 domain:misskey.yukineko.me
 domain:misskeyusercontent.jp
 domain:mist.ac.uk
+domain:mistral.ai
 domain:mit.edu
 domain:mit.net
 domain:mitpressjournals.org
@@ -4720,6 +4726,7 @@ domain:opencreate.org
 domain:opened.ac.uk
 domain:openengineeringlaboratory.ac.uk
 domain:openfields.ac.uk
+domain:openrouter.ai
 domain:opensciencelab.ac.uk
 domain:opensciencelaboratory.ac.uk
 domain:opensource.ac.uk
