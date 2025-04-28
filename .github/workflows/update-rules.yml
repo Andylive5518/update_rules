@@ -33,6 +33,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq curl wget
+          sudo chown -R runner:runner /var/cache/apt/archives
 
       - name: Install sing-box
         run: |
