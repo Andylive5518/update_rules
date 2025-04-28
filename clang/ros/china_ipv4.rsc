@@ -9704,15 +9704,12 @@ add address=103.145.104.0/23 list=HK disabled=no
 add address=103.145.114.0/23 list=HK disabled=no
 add address=103.145.144.0/23 list=HK disabled=no
 add address=103.146.8.0/23 list=HK disabled=no
-add address=103.146.50.0/23 list=HK disabled=no
 add address=103.146.52.0/23 list=HK disabled=no
 add address=103.146.78.0/23 list=HK disabled=no
 add address=103.146.82.0/23 list=HK disabled=no
-add address=103.146.140.0/23 list=HK disabled=no
 add address=103.146.142.0/23 list=HK disabled=no
 add address=103.146.158.0/23 list=HK disabled=no
 add address=103.146.178.0/23 list=HK disabled=no
-add address=103.147.14.0/23 list=HK disabled=no
 add address=103.147.16.0/23 list=HK disabled=no
 add address=103.147.18.0/23 list=HK disabled=no
 add address=103.147.20.0/23 list=HK disabled=no
@@ -9723,7 +9720,6 @@ add address=103.147.200.0/23 list=HK disabled=no
 add address=103.147.202.0/23 list=HK disabled=no
 add address=103.147.224.0/23 list=HK disabled=no
 add address=103.147.252.0/24 list=HK disabled=no
-add address=103.148.36.0/23 list=HK disabled=no
 add address=103.148.58.0/23 list=HK disabled=no
 add address=103.148.124.0/23 list=HK disabled=no
 add address=103.148.145.0/24 list=HK disabled=no
