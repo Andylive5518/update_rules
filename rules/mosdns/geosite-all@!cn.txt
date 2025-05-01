@@ -1758,6 +1758,8 @@ domain:dlfacebook.com
 domain:dlhe.ac.uk
 domain:dlib.eastview.com
 domain:dls.ac.uk
+domain:dmhy.best
+domain:dmhy.org
 domain:dml.ac.uk
 domain:dmu.ac.uk
 domain:dmuk.ac.uk
@@ -4345,6 +4347,7 @@ domain:ne-worcscol.ac.uk
 domain:neab.ac.uk
 domain:neaco.ac.uk
 domain:neath.ac.uk
+domain:nebulance.io
 domain:nec-arundel.ac.uk
 domain:nec.ac.uk
 domain:necah.ac.uk
@@ -6289,7 +6292,6 @@ domain:tyndall.ac.uk
 domain:tynecoast.ac.uk
 domain:tynecoll.ac.uk
 domain:tynemet.ac.uk
-domain:u2.dmhy.org
 domain:u4heusergroup.ac.uk
 domain:ua92.ac.uk
 domain:uad.ac.uk
