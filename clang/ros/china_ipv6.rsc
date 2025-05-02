@@ -2514,6 +2514,7 @@ add address=2401:fc20::/32 list=HK6 disabled=no
 add address=2401:fd20::/32 list=HK6 disabled=no
 add address=2401:fe60::/32 list=HK6 disabled=no
 add address=2402:620::/32 list=HK6 disabled=no
+add address=2402:720::/32 list=HK6 disabled=no
 add address=2402:c80::/32 list=HK6 disabled=no
 add address=2402:11c0::/32 list=HK6 disabled=no
 add address=2402:1240::/32 list=HK6 disabled=no
