@@ -9499,6 +9499,7 @@ add address=103.91.126.0/24 list=HK disabled=no
 add address=103.91.150.0/23 list=HK disabled=no
 add address=103.91.156.0/22 list=HK disabled=no
 add address=103.91.217.0/24 list=HK disabled=no
+add address=103.92.105.0/24 list=HK disabled=no
 add address=103.92.129.0/24 list=HK disabled=no
 add address=103.92.136.0/22 list=HK disabled=no
 add address=103.93.46.0/24 list=HK disabled=no
