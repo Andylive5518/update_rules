@@ -2267,6 +2267,7 @@ add address=2001:df5:7e80::/48 list=HK6 disabled=no
 add address=2001:df5:8300::/48 list=HK6 disabled=no
 add address=2001:df5:8380::/48 list=HK6 disabled=no
 add address=2001:df5:8480::/48 list=HK6 disabled=no
+add address=2001:df5:8540::/48 list=HK6 disabled=no
 add address=2001:df5:8580::/48 list=HK6 disabled=no
 add address=2001:df5:8b00::/48 list=HK6 disabled=no
 add address=2001:df5:9180::/48 list=HK6 disabled=no
