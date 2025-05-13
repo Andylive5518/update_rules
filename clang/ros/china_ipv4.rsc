@@ -6361,6 +6361,7 @@ add address=163.227.80.0/23 list=CN disabled=no
 add address=163.228.0.0/16 list=CN disabled=no
 add address=164.52.0.0/17 list=CN disabled=no
 add address=165.99.4.0/24 list=CN disabled=no
+add address=165.99.42.0/23 list=CN disabled=no
 add address=166.111.0.0/16 list=CN disabled=no
 add address=167.139.0.0/16 list=CN disabled=no
 add address=167.189.0.0/16 list=CN disabled=no
@@ -11452,7 +11453,6 @@ add address=1.4.5.0/24 list=CTCC disabled=no
 add address=1.4.6.0/23 list=CTCC disabled=no
 add address=1.4.8.0/21 list=CTCC disabled=no
 add address=1.4.16.0/20 list=CTCC disabled=no
-add address=1.4.32.0/19 list=CTCC disabled=no
 add address=1.4.64.0/18 list=CTCC disabled=no
 add address=1.10.0.0/21 list=CTCC disabled=no
 add address=1.10.8.0/23 list=CTCC disabled=no
