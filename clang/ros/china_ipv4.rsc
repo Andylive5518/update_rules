@@ -11373,7 +11373,7 @@ add address=221.124.0.0/14 list=HK disabled=no
 add address=222.166.0.0/16 list=HK disabled=no
 add address=222.167.0.0/18 list=HK disabled=no
 add address=222.167.64.0/19 list=HK disabled=no
-add address=222.167.128.0/17 list=HK disabled=no
+add address=222.167.128.0/18 list=HK disabled=no
 add address=223.16.0.0/14 list=HK disabled=no
 add address=223.26.48.0/20 list=HK disabled=no
 add address=223.27.160.0/22 list=HK disabled=no
@@ -11453,6 +11453,7 @@ add address=1.4.5.0/24 list=CTCC disabled=no
 add address=1.4.6.0/23 list=CTCC disabled=no
 add address=1.4.8.0/21 list=CTCC disabled=no
 add address=1.4.16.0/20 list=CTCC disabled=no
+add address=1.4.32.0/19 list=CTCC disabled=no
 add address=1.4.64.0/18 list=CTCC disabled=no
 add address=1.10.0.0/21 list=CTCC disabled=no
 add address=1.10.8.0/23 list=CTCC disabled=no
