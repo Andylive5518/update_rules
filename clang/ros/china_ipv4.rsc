@@ -8682,7 +8682,8 @@ add address=223.112.0.0/14 list=CN disabled=no
 add address=223.116.0.0/15 list=CN disabled=no
 add address=223.120.128.0/17 list=CN disabled=no
 add address=223.121.128.0/17 list=CN disabled=no
-add address=223.123.128.0/17 list=CN disabled=no
+add address=223.123.208.0/20 list=CN disabled=no
+add address=223.123.224.0/19 list=CN disabled=no
 add address=223.124.0.0/14 list=CN disabled=no
 add address=223.128.0.0/15 list=CN disabled=no
 add address=223.144.0.0/12 list=CN disabled=no
@@ -11382,6 +11383,8 @@ add address=223.118.0.0/15 list=HK disabled=no
 add address=223.120.0.0/17 list=HK disabled=no
 add address=223.121.0.0/17 list=HK disabled=no
 add address=223.122.0.0/16 list=HK disabled=no
+add address=223.123.128.0/18 list=HK disabled=no
+add address=223.123.192.0/20 list=HK disabled=no
 add address=223.130.32.0/19 list=HK disabled=no
 add address=223.197.0.0/16 list=HK disabled=no
 add address=223.223.216.0/22 list=HK disabled=no
@@ -11446,7 +11449,6 @@ add address=1.2.12.0/22 list=CTCC disabled=no
 add address=1.2.16.0/20 list=CTCC disabled=no
 add address=1.2.32.0/19 list=CTCC disabled=no
 add address=1.2.64.0/18 list=CTCC disabled=no
-add address=1.3.0.0/16 list=CTCC disabled=no
 add address=1.4.1.0/24 list=CTCC disabled=no
 add address=1.4.2.0/23 list=CTCC disabled=no
 add address=1.4.5.0/24 list=CTCC disabled=no
@@ -11467,7 +11469,6 @@ add address=1.50.0.0/16 list=CTCC disabled=no
 add address=1.68.0.0/14 list=CTCC disabled=no
 add address=1.80.0.0/13 list=CTCC disabled=no
 add address=1.180.0.0/14 list=CTCC disabled=no
-add address=1.192.0.0/13 list=CTCC disabled=no
 add address=1.202.0.0/15 list=CTCC disabled=no
 add address=1.204.0.0/14 list=CTCC disabled=no
 add address=14.0.0.0/21 list=CTCC disabled=no
@@ -14335,5 +14336,6 @@ add address=223.112.0.0/14 list=CMCC disabled=no
 add address=223.116.0.0/15 list=CMCC disabled=no
 add address=223.120.128.0/17 list=CMCC disabled=no
 add address=223.121.128.0/17 list=CMCC disabled=no
-add address=223.123.128.0/17 list=CMCC disabled=no
+add address=223.123.208.0/20 list=CMCC disabled=no
+add address=223.123.224.0/19 list=CMCC disabled=no
 add address=223.124.0.0/14 list=CMCC disabled=no
