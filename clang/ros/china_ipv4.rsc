@@ -11449,6 +11449,7 @@ add address=1.2.12.0/22 list=CTCC disabled=no
 add address=1.2.16.0/20 list=CTCC disabled=no
 add address=1.2.32.0/19 list=CTCC disabled=no
 add address=1.2.64.0/18 list=CTCC disabled=no
+add address=1.3.0.0/16 list=CTCC disabled=no
 add address=1.4.1.0/24 list=CTCC disabled=no
 add address=1.4.2.0/23 list=CTCC disabled=no
 add address=1.4.5.0/24 list=CTCC disabled=no
@@ -11469,6 +11470,7 @@ add address=1.50.0.0/16 list=CTCC disabled=no
 add address=1.68.0.0/14 list=CTCC disabled=no
 add address=1.80.0.0/13 list=CTCC disabled=no
 add address=1.180.0.0/14 list=CTCC disabled=no
+add address=1.192.0.0/13 list=CTCC disabled=no
 add address=1.202.0.0/15 list=CTCC disabled=no
 add address=1.204.0.0/14 list=CTCC disabled=no
 add address=14.0.0.0/21 list=CTCC disabled=no
