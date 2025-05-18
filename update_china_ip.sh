@@ -170,34 +170,24 @@ convert_to_mikrotik() {
     # 创建IPv4脚本
     {
         echo "/ip firewall address-list remove [find list=CN]"
-        echo "/ip firewall address-list remove [find list=HK]"
-        echo "/ip firewall address-list remove [find list=MO]"
         echo "/ip firewall address-list remove [find list=CTCC]"
         echo "/ip firewall address-list remove [find list=CUCC]"
         echo "/ip firewall address-list remove [find list=CMCC]"
         echo "/ip firewall address-list"
-        
-        # 添加IPv4保留地址
-        echo "add address=10.0.0.0/8 list=CN disabled=no comment=Reserved_IP"
-        echo "add address=100.64.0.0/10 list=CN disabled=no comment=Reserved_IP"
-        echo "add address=172.16.0.0/12 list=CN disabled=no comment=Reserved_IP"
-        echo "add address=192.168.0.0/16 list=CN disabled=no comment=Reserved_IP"
-        echo "add address=198.18.0.0/15 list=CN disabled=no comment=Reserved_IP"
-        echo "add address=224.0.0.0/4 list=CN disabled=no comment=Reserved_IP"
-        
+
         # 添加中国大陆IPv4
         grep -v ":" "$DOWNLOAD_IP_DIR/cn.txt" | while read -r line; do
             [ ! -z "$line" ] && echo "add address=$line list=CN disabled=no"
         done
         
-        # 添加香港IPv4
+        # 添加香港IPv4到CN列表
         grep -v ":" "$DOWNLOAD_IP_DIR/hk.txt" | while read -r line; do
-            [ ! -z "$line" ] && echo "add address=$line list=HK disabled=no"
+            [ ! -z "$line" ] && echo "add address=$line list=CN disabled=no comment=CN_HK_IP"
         done
         
-        # 添加澳门IPv4
+        # 添加澳门IPv4到CN列表
         grep -v ":" "$DOWNLOAD_IP_DIR/mo.txt" | while read -r line; do
-            [ ! -z "$line" ] && echo "add address=$line list=MO disabled=no"
+            [ ! -z "$line" ] && echo "add address=$line list=CN disabled=no comment=CN_MO_IP"
         done
         
         # 添加中国电信IPv4
@@ -218,37 +208,66 @@ convert_to_mikrotik() {
     
     # 统计IPv4规则数量
     local ipv4_count=$(grep -c "^add address=" "$ROS_IP_DIR/china_ipv4.rsc")
-    log "IPv4地址列表生成完成: $DOWNLOAD_IP_DIR/{cn,hk,mo,chinatelecom,unicom_cnc,cmcc}.txt -> $ROS_IP_DIR/china_ipv4.rsc, 共 $ipv4_count 条规则"
+    log "中国IPv4地址列表(含港澳)生成完成: $DOWNLOAD_IP_DIR/{cn,hk,mo,chinatelecom,unicom_cnc,cmcc}.txt -> $ROS_IP_DIR/china_ipv4.rsc, 共 $ipv4_count 条规则"
+
+    log "开始生成NOCN IPv4地址列表..."
+    # 创建NOCN IPv4脚本
+    {
+        echo "/ip firewall address-list remove [find list=NOCN]"
+        echo "/ip firewall address-list"
+                
+        # 添加IPv4保留地址
+        echo "add address=10.0.0.0/8 list=NOCN disabled=no comment=NOCN_Reserved_IP"
+        echo "add address=100.64.0.0/10 list=NOCN disabled=no comment=NOCN_Reserved_IP"
+        echo "add address=127.0.0.0/8 list=NOCN disabled=no comment=NOCN_Reserved_IP"
+        echo "add address=169.254.0.0/16 list=NOCN disabled=no comment=NOCN_Reserved_IP"
+        echo "add address=172.16.0.0/12 list=NOCN disabled=no comment=NOCN_Reserved_IP"
+        echo "add address=192.168.0.0/16 list=NOCN disabled=no comment=NOCN_Reserved_IP"
+        echo "add address=198.18.0.0/15 list=NOCN disabled=no comment=NOCN_Reserved_IP"
+        echo "add address=224.0.0.0/4 list=NOCN disabled=no comment=NOCN_Reserved_IP"
+        echo "add address=240.0.0.0/4 list=NOCN disabled=no comment=NOCN_Reserved_IP"
+        echo "add address=255.255.255.255/32 list=NOCN disabled=no comment=NOCN_Reserved_IP"
+        
+        # 添加中国大陆IPv4到NOCN
+        grep -v ":" "$DOWNLOAD_IP_DIR/cn.txt" | while read -r line; do
+            [ ! -z "$line" ] && echo "add address=$line list=NOCN disabled=no"
+        done
+        
+        # 添加香港IPv4到NOCN
+        grep -v ":" "$DOWNLOAD_IP_DIR/hk.txt" | while read -r line; do
+            [ ! -z "$line" ] && echo "add address=$line list=NOCN disabled=no comment=NOCN_HK_IP"
+        done
+        
+        # 添加澳门IPv4到NOCN
+        grep -v ":" "$DOWNLOAD_IP_DIR/mo.txt" | while read -r line; do
+            [ ! -z "$line" ] && echo "add address=$line list=NOCN disabled=no comment=NOCN_MO_IP"
+        done
+    } > "$ROS_IP_DIR/nocn_ipv4.rsc"
+    local nocn_ipv4_count=$(grep -c "^add address=" "$ROS_IP_DIR/nocn_ipv4.rsc")
+    log "NOCN IPv4地址列表生成完成: $DOWNLOAD_IP_DIR/{cn,hk,mo}.txt -> $ROS_IP_DIR/nocn_ipv4.rsc, 共 $nocn_ipv4_count 条规则"
 
     log "开始生成IPv6地址列表..."
     # 创建IPv6脚本
     {
         echo "/ipv6 firewall address-list remove [find list=CN6]"
-        echo "/ipv6 firewall address-list remove [find list=HK6]"
-        echo "/ipv6 firewall address-list remove [find list=MO6]"
         echo "/ipv6 firewall address-list remove [find list=CTCC6]"
         echo "/ipv6 firewall address-list remove [find list=CUCC6]"
         echo "/ipv6 firewall address-list remove [find list=CMCC6]"
         echo "/ipv6 firewall address-list"
-        
-        # 添加IPv6保留地址
-        echo "add address=fc00::/8 list=CN6 disabled=no comment=Reserved_IP"
-        echo "add address=fd00::/8 list=CN6 disabled=no comment=Reserved_IP"
-        echo "add address=ff00::/8 list=CN6 disabled=no comment=Reserved_IP"
-        
+
         # 添加中国大陆IPv6
         grep ":" "$DOWNLOAD_IP_DIR/cn_ipv6.txt" | while read -r line; do
             [ ! -z "$line" ] && echo "add address=$line list=CN6 disabled=no"
         done
         
-        # 添加香港IPv6
+        # 添加香港IPv6到CN6列表
         grep ":" "$DOWNLOAD_IP_DIR/hk_ipv6.txt" | while read -r line; do
-            [ ! -z "$line" ] && echo "add address=$line list=HK6 disabled=no"
+            [ ! -z "$line" ] && echo "add address=$line list=CN6 disabled=no comment=CN_HK_IPv6"
         done
         
-        # 添加澳门IPv6
+        # 添加澳门IPv6到CN6列表
         grep ":" "$DOWNLOAD_IP_DIR/mo_ipv6.txt" | while read -r line; do
-            [ ! -z "$line" ] && echo "add address=$line list=MO6 disabled=no"
+            [ ! -z "$line" ] && echo "add address=$line list=CN6 disabled=no comment=CN_MO_IPv6"
         done
         
         # 添加中国电信IPv6
@@ -269,7 +288,37 @@ convert_to_mikrotik() {
     
     # 统计IPv6规则数量
     local ipv6_count=$(grep -c "^add address=" "$ROS_IP_DIR/china_ipv6.rsc")
-    log "IPv6地址列表生成完成: $DOWNLOAD_IP_DIR/{cn,hk,mo,chinatelecom,unicom_cnc,cmcc}_ipv6.txt -> $ROS_IP_DIR/china_ipv6.rsc, 共 $ipv6_count 条规则"
+    log "中国IPv6地址列表(含港澳)生成完成: $DOWNLOAD_IP_DIR/{cn,hk,mo,chinatelecom,unicom_cnc,cmcc}_ipv6.txt -> $ROS_IP_DIR/china_ipv6.rsc, 共 $ipv6_count 条规则"
+
+    log "开始生成NOCN IPv6地址列表..."
+    # 创建NOCN IPv6脚本
+    {
+        echo "/ipv6 firewall address-list remove [find list=NOCN6]"
+        echo "/ipv6 firewall address-list"
+                
+        # 添加IPv6保留地址
+        echo "add address=::1/128 list=NOCN6 disabled=no comment=NOCN_Reserved_IP"
+        echo "add address=fc00::/7 list=NOCN6 disabled=no comment=NOCN_Reserved_IP"
+        echo "add address=fe80::/10 list=NOCN6 disabled=no comment=NOCN_Reserved_IP"
+        echo "add address=ff00::/8 list=NOCN6 disabled=no comment=NOCN_Reserved_IP"
+        
+        # 添加中国大陆IPv6到NOCN6
+        grep ":" "$DOWNLOAD_IP_DIR/cn_ipv6.txt" | while read -r line; do
+            [ ! -z "$line" ] && echo "add address=$line list=NOCN6 disabled=no"
+        done
+        
+        # 添加香港IPv6到NOCN6
+        grep ":" "$DOWNLOAD_IP_DIR/hk_ipv6.txt" | while read -r line; do
+            [ ! -z "$line" ] && echo "add address=$line list=NOCN6 disabled=no comment=NOCN_HK_IPv6"
+        done
+        
+        # 添加澳门IPv6到NOCN6
+        grep ":" "$DOWNLOAD_IP_DIR/mo_ipv6.txt" | while read -r line; do
+            [ ! -z "$line" ] && echo "add address=$line list=NOCN6 disabled=no comment=NOCN_MO_IPv6"
+        done
+    } > "$ROS_IP_DIR/ncn_ipv6.rsc"
+    local ncn_ipv6_count=$(grep -c "^add address=" "$ROS_IP_DIR/ncn_ipv6.rsc")
+    log "NCN IPv6地址列表生成完成: $DOWNLOAD_IP_DIR/{cn,hk,mo}_ipv6.txt -> $ROS_IP_DIR/ncn_ipv6.rsc, 共 $ncn_ipv6_count 条规则"
 }
 
 # 5. 转换为sing-box格式
