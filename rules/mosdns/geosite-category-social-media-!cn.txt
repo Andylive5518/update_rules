@@ -506,6 +506,7 @@ domain:thefacebook.com
 domain:thefacebook.net
 domain:thefind.com
 domain:theinstagramhack.com
+domain:threads.com
 domain:threads.net
 domain:toplayerserver.com
 domain:trpger.us

@@ -693,6 +693,7 @@ add address=2401:ffc0::/32 list=CN6 disabled=no
 add address=2402:440::/32 list=CN6 disabled=no
 add address=2402:5c0::/32 list=CN6 disabled=no
 add address=2402:840::/32 list=CN6 disabled=no
+add address=2402:a60::/32 list=CN6 disabled=no
 add address=2402:e00::/32 list=CN6 disabled=no
 add address=2402:fc0::/32 list=CN6 disabled=no
 add address=2402:1000::/32 list=CN6 disabled=no
@@ -2165,12 +2166,10 @@ add address=2001:df2:2c00::/48 list=HK6 disabled=no
 add address=2001:df2:37c0::/48 list=HK6 disabled=no
 add address=2001:df2:3880::/48 list=HK6 disabled=no
 add address=2001:df2:4100::/48 list=HK6 disabled=no
-add address=2001:df2:4580::/48 list=HK6 disabled=no
 add address=2001:df2:4600::/48 list=HK6 disabled=no
 add address=2001:df2:4680::/48 list=HK6 disabled=no
 add address=2001:df2:5100::/48 list=HK6 disabled=no
 add address=2001:df2:5380::/48 list=HK6 disabled=no
-add address=2001:df2:6180::/48 list=HK6 disabled=no
 add address=2001:df2:7400::/48 list=HK6 disabled=no
 add address=2001:df2:7900::/48 list=HK6 disabled=no
 add address=2001:df2:7b80::/48 list=HK6 disabled=no
@@ -2191,14 +2190,11 @@ add address=2001:df2:d000::/48 list=HK6 disabled=no
 add address=2001:df2:d200::/48 list=HK6 disabled=no
 add address=2001:df2:d280::/48 list=HK6 disabled=no
 add address=2001:df2:d680::/48 list=HK6 disabled=no
-add address=2001:df2:d780::/48 list=HK6 disabled=no
 add address=2001:df2:d980::/48 list=HK6 disabled=no
 add address=2001:df2:da40::/48 list=HK6 disabled=no
 add address=2001:df2:dc80::/48 list=HK6 disabled=no
 add address=2001:df2:e380::/48 list=HK6 disabled=no
 add address=2001:df2:f080::/48 list=HK6 disabled=no
-add address=2001:df3:380::/48 list=HK6 disabled=no
-add address=2001:df3:980::/48 list=HK6 disabled=no
 add address=2001:df3:f80::/48 list=HK6 disabled=no
 add address=2001:df3:1c80::/48 list=HK6 disabled=no
 add address=2001:df3:1d80::/48 list=HK6 disabled=no
@@ -2272,6 +2268,7 @@ add address=2001:df5:7e80::/48 list=HK6 disabled=no
 add address=2001:df5:8300::/48 list=HK6 disabled=no
 add address=2001:df5:8380::/48 list=HK6 disabled=no
 add address=2001:df5:8480::/48 list=HK6 disabled=no
+add address=2001:df5:8540::/48 list=HK6 disabled=no
 add address=2001:df5:8580::/48 list=HK6 disabled=no
 add address=2001:df5:8b00::/48 list=HK6 disabled=no
 add address=2001:df5:9180::/48 list=HK6 disabled=no
@@ -2518,6 +2515,9 @@ add address=2401:f940::/32 list=HK6 disabled=no
 add address=2401:fc20::/32 list=HK6 disabled=no
 add address=2401:fd20::/32 list=HK6 disabled=no
 add address=2401:fe60::/32 list=HK6 disabled=no
+add address=2402:620::/32 list=HK6 disabled=no
+add address=2402:720::/32 list=HK6 disabled=no
+add address=2402:860::/32 list=HK6 disabled=no
 add address=2402:c80::/32 list=HK6 disabled=no
 add address=2402:11c0::/32 list=HK6 disabled=no
 add address=2402:1240::/32 list=HK6 disabled=no

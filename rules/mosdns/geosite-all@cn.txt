@@ -669,6 +669,7 @@ domain:cisco.cn
 domain:cisco.com.cn
 domain:clearasil.cn
 domain:clearasil.com.cn
+domain:client-update.queniuqe.com
 domain:cloudflare-cn.com
 domain:cloudflareanycast.net
 domain:cloudflarechina.cn
@@ -1051,10 +1052,16 @@ domain:skycdn.com.cn
 domain:skydweller.cn
 domain:sl916.com
 domain:speed.neu6.edu.cn
+domain:speed.nju.edu.cn
 domain:speed.nuaa.edu.cn
+domain:speed.qlu.edu.cn
+domain:speed.ujs.edu.cn
+domain:speed6.ujs.edu.cn
 domain:speedtest.cn
 domain:speedtest.mfcyun.com
 domain:speedtest.shu.edu.cn
+domain:speedtest.xaut.edu.cn
+domain:speedtest6.shu.edu.cn
 domain:sslcom.cn
 domain:st.dl.bscstorage.net
 domain:st.dl.eccdnx.com
@@ -1088,6 +1095,8 @@ domain:teslamotors.cn
 domain:teslamotors.com.cn
 domain:test.nju.edu.cn
 domain:test.ustc.edu.cn
+domain:test6.nju.edu.cn
+domain:test6.ustc.edu.cn
 domain:testipv6.cn
 domain:texasholdemcup.cn
 domain:texasholdemcup.com
@@ -1143,6 +1152,7 @@ domain:xn--fiqs8sxootzz.cn
 domain:xn--mts47c3w9b1qr.cn
 domain:xn--ohq11k7pl25iyo8a.cn
 domain:xn--owtw8cc49ajfl.cn
+domain:xnfz.seu.edu.cn
 domain:xoom.net.cn
 domain:xtracloud.cn
 domain:yahoo.cn

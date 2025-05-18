@@ -1,6 +1,7 @@
 full:alibaba.cdn.steampipe.steamcontent.com
 full:lv.queniujq.cn
 full:xz.pphimalayanrt.com
+domain:client-update.queniuqe.com
 domain:csgo.wmsj.cn
 domain:dl.steam.clngaa.com
 domain:dota2.wmsj.cn

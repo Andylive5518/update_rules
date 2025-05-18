@@ -3,13 +3,15 @@
   "rules": [
     {
       "domain_suffix": [
+        "dmhy.best",
+        "dmhy.org",
         "m-team.cc",
         "m-team.io",
         "myanonamouse.net",
+        "nebulance.io",
         "skyey2.com",
         "skyeysnow.com",
-        "torrentleech.org",
-        "u2.dmhy.org"
+        "torrentleech.org"
       ]
     }
   ]
