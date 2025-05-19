@@ -316,9 +316,9 @@ convert_to_mikrotik() {
         grep ":" "$DOWNLOAD_IP_DIR/mo_ipv6.txt" | while read -r line; do
             [ ! -z "$line" ] && echo "add address=$line list=NOCN6 disabled=no comment=NOCN_MO_IPv6"
         done
-    } > "$ROS_IP_DIR/ncn_ipv6.rsc"
-    local ncn_ipv6_count=$(grep -c "^add address=" "$ROS_IP_DIR/ncn_ipv6.rsc")
-    log "NCN IPv6地址列表生成完成: $DOWNLOAD_IP_DIR/{cn,hk,mo}_ipv6.txt -> $ROS_IP_DIR/ncn_ipv6.rsc, 共 $ncn_ipv6_count 条规则"
+    } > "$ROS_IP_DIR/nocn_ipv6.rsc"
+    local nocn_ipv6_count=$(grep -c "^add address=" "$ROS_IP_DIR/nocn_ipv6.rsc")
+    log "NCN IPv6地址列表生成完成: $DOWNLOAD_IP_DIR/{cn,hk,mo}_ipv6.txt -> $ROS_IP_DIR/nocn_ipv6.rsc, 共 $nocn_ipv6_count 条规则"
 }
 
 # 5. 转换为sing-box格式
