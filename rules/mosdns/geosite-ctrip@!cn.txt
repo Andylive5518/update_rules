@@ -7,4 +7,3 @@ domain:ctrip.sg
 domain:ctripbuy.hk
 domain:hhtravel.com.tw
 domain:trip.com
-domain:tripcdn.com

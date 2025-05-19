@@ -97,6 +97,7 @@ domain:1lib.education
 domain:1lib.eu
 domain:1lib.limited
 domain:1lib.pl
+domain:1lib.sk
 domain:1lib.to
 domain:1lib.tw
 domain:2lib.org
@@ -5978,8 +5979,12 @@ domain:yra.ac.uk
 domain:ysj.ac.uk
 domain:ystrad-mynach.ac.uk
 domain:ysulondon.ac.uk
+domain:z-lib.fm
+domain:z-lib.gd
+domain:z-lib.gl
 domain:z-lib.org
 domain:z-library.se
+domain:z-library.sk
 domain:zenodo.org
 domain:zeplerinstitute.ac.uk
 domain:zlib.life
