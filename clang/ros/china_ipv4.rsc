@@ -11421,7 +11421,6 @@ add address=202.175.64.0/19 list=CN disabled=no comment=CN_MO_IP
 add address=202.175.96.0/19 list=CN disabled=no comment=CN_MO_IP
 add address=202.175.160.0/19 list=CN disabled=no comment=CN_MO_IP
 add address=1.0.1.0/24 list=CTCC disabled=no
-add address=1.0.2.0/23 list=CTCC disabled=no
 add address=1.0.8.0/21 list=CTCC disabled=no
 add address=1.0.32.0/19 list=CTCC disabled=no
 add address=1.1.0.0/24 list=CTCC disabled=no
@@ -11454,7 +11453,6 @@ add address=1.10.0.0/21 list=CTCC disabled=no
 add address=1.10.8.0/23 list=CTCC disabled=no
 add address=1.10.11.0/24 list=CTCC disabled=no
 add address=1.10.12.0/22 list=CTCC disabled=no
-add address=1.10.16.0/20 list=CTCC disabled=no
 add address=1.10.32.0/19 list=CTCC disabled=no
 add address=1.10.64.0/18 list=CTCC disabled=no
 add address=1.48.0.0/15 list=CTCC disabled=no
