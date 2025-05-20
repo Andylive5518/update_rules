@@ -107,6 +107,7 @@ full:t21.nikkei.co.jp
 full:t21ipau.nikkei.co.jp
 full:ulrichsweb.serialssolutions.com
 full:upos-hz-mirrorakam.akamaized.net
+full:webchannel-alkalimakersuite-pa.clients6.google.com
 full:wetv.qq.com
 full:wrds-www.wharton.upenn.edu
 full:ztedevices.com
@@ -120,6 +121,7 @@ domain:1lib.education
 domain:1lib.eu
 domain:1lib.limited
 domain:1lib.pl
+domain:1lib.sk
 domain:1lib.to
 domain:1lib.tw
 domain:2lib.org
@@ -1382,6 +1384,8 @@ domain:cockcroft.ac.uk
 domain:cocorees.ac.uk
 domain:cod-health.ac.uk
 domain:code.ac.uk
+domain:coderabbit.ai
+domain:coderabbit.gallery.vsassets.io
 domain:codima.ac.uk
 domain:cods-nursing.ac.uk
 domain:coem.ac.uk
@@ -6234,7 +6238,6 @@ domain:trinitycollegebristol.ac.uk
 domain:trinitylaban.ac.uk
 domain:trinitysaintdavid.ac.uk
 domain:trip.com
-domain:tripcdn.com
 domain:trocoll.ac.uk
 domain:tropmed.ac.uk
 domain:trpger.us
@@ -6889,8 +6892,12 @@ domain:yra.ac.uk
 domain:ysj.ac.uk
 domain:ystrad-mynach.ac.uk
 domain:ysulondon.ac.uk
+domain:z-lib.fm
+domain:z-lib.gd
+domain:z-lib.gl
 domain:z-lib.org
 domain:z-library.se
+domain:z-library.sk
 domain:zenodo.org
 domain:zeplerinstitute.ac.uk
 domain:zlib.life

@@ -686,6 +686,7 @@ domain:cloudfront.cn
 domain:cn-cdn1.skymansion.net
 domain:cn.bing.com
 domain:cn.bing.net
+domain:cn.eset.com
 domain:cn.mm.bing.net
 domain:cn.pool.ntp.org
 domain:cnspeedtest.cn
@@ -1017,6 +1018,7 @@ domain:qqgameapp.com
 domain:qualcomm.cn
 domain:qualcomm.cn.cdn.cloudflare.net
 domain:quickconnect.cn
+domain:r.bing.com
 domain:razerapi.com
 domain:razersynapse.com
 domain:razerzone.com
@@ -1101,6 +1103,7 @@ domain:testipv6.cn
 domain:texasholdemcup.cn
 domain:texasholdemcup.com
 domain:texasholdemcup.net
+domain:th.bing.com
 domain:themisweeps.com
 domain:thetype.cloud
 domain:timibase.com

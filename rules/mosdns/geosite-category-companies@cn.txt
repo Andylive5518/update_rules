@@ -681,6 +681,7 @@ domain:qnap.com.cn
 domain:qualcomm.cn
 domain:qualcomm.cn.cdn.cloudflare.net
 domain:quickconnect.cn
+domain:r.bing.com
 domain:razerapi.com
 domain:razersynapse.com
 domain:razerzone.com
@@ -697,6 +698,7 @@ domain:swiftui.cn
 domain:swiftui.com.cn
 domain:synology.cn
 domain:teamviewer.cn
+domain:th.bing.com
 domain:trafficmanager.cn
 domain:trustcenter.cn
 domain:ubnt.com
