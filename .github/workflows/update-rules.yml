@@ -25,9 +25,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /var/cache/apt/archives
-          key: ${{ runner.os }}-apt-${{ hashFiles('**/lockfiles') }}
+          key: ${{ runner.os }}-apt-packages-v1 # Using a more stable key
           restore-keys: |
-            ${{ runner.os }}-apt-
+            ${{ runner.os }}-apt-packages-
 
       - name: Install dependencies
         run: |
