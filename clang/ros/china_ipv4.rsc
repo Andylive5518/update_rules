@@ -14281,6 +14281,7 @@ add address=36.128.0.0/10 list=CMCC disabled=no
 add address=39.128.0.0/10 list=CMCC disabled=no
 add address=43.239.172.0/22 list=CMCC disabled=no
 add address=43.251.244.0/22 list=CMCC disabled=no
+add address=45.65.16.0/22 list=CMCC disabled=no
 add address=45.121.68.0/22 list=CMCC disabled=no
 add address=45.121.72.0/22 list=CMCC disabled=no
 add address=45.121.172.0/22 list=CMCC disabled=no
@@ -14306,6 +14307,7 @@ add address=103.193.140.0/22 list=CMCC disabled=no
 add address=103.203.164.0/22 list=CMCC disabled=no
 add address=103.205.108.0/22 list=CMCC disabled=no
 add address=103.205.116.0/22 list=CMCC disabled=no
+add address=103.210.164.0/22 list=CMCC disabled=no
 add address=103.222.196.0/22 list=CMCC disabled=no
 add address=111.0.0.0/10 list=CMCC disabled=no
 add address=112.0.0.0/10 list=CMCC disabled=no
