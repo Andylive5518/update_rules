@@ -287,6 +287,10 @@ domain:aire-wharf-coll.ac.uk
 domain:airiti.com
 domain:airitilibrary.com
 domain:aistudio.google.com
+domain:ak-p.tripcdn.com
+domain:ak-s-cw.tripcdn.com
+domain:ak-s.tripcdn.com
+domain:akatest.tripcdn.com
 domain:alc.ac.uk
 domain:alcs.ac.uk
 domain:aldinhe.ac.uk
@@ -526,6 +530,9 @@ domain:autosub.ac.uk
 domain:avant.ac.uk
 domain:avphd.ac.uk
 domain:avprc.ac.uk
+domain:aw-d.tripcdn.com
+domain:aw-p.tripcdn.com
+domain:aw-s.tripcdn.com
 domain:awfdcp.ac.uk
 domain:awlc.ac.uk
 domain:aylesbury.ac.uk
