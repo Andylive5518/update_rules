@@ -11424,6 +11424,7 @@ add address=202.175.96.0/19 list=CN disabled=no comment=CN_MO_IP
 add address=202.175.160.0/19 list=CN disabled=no comment=CN_MO_IP
 add address=1.0.1.0/24 list=CTCC disabled=no
 add address=1.0.2.0/23 list=CTCC disabled=no
+add address=1.0.8.0/21 list=CTCC disabled=no
 add address=1.0.32.0/19 list=CTCC disabled=no
 add address=1.1.0.0/24 list=CTCC disabled=no
 add address=1.1.2.0/23 list=CTCC disabled=no
