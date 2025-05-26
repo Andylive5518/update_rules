@@ -42,6 +42,8 @@ domain:hf.co
 domain:host.livekit.cloud
 domain:huggingface.co
 domain:jasper.ai
+domain:jules.google
+domain:jules.google.com
 domain:makersuite.google.com
 domain:meta.ai
 domain:mistral.ai

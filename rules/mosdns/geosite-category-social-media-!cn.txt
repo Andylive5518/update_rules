@@ -475,6 +475,7 @@ domain:mk.yopo.work
 domain:mobilefacebook.com
 domain:mof.kemomi.me
 domain:moneywithfacebook.com
+domain:mradx.net
 domain:msk.ilnk.info
 domain:msk.kitazawa.me
 domain:mvk.com
@@ -529,6 +530,7 @@ domain:twvid.com
 domain:userapi.com
 domain:viewpointsfromfacebook.com
 domain:vine.co
+domain:vk-analytics.ru
 domain:vk-apps.com
 domain:vk-apps.ru
 domain:vk-cdn.me

@@ -3490,6 +3490,8 @@ domain:jtltraining.ac.uk
 domain:jtt.ir
 domain:jubileecentre.ac.uk
 domain:juc.ac.uk
+domain:jules.google
+domain:jules.google.com
 domain:juno.ac.uk
 domain:justincraig.ac.uk
 domain:jwfl.ac.uk
@@ -4191,6 +4193,7 @@ domain:mpags.ac.uk
 domain:mpese.ac.uk
 domain:mpsi.ac.uk
 domain:mpw.ac.uk
+domain:mradx.net
 domain:mrc.ac.uk
 domain:mrcieu.ac.uk
 domain:mrcollege.ac.uk
@@ -6599,6 +6602,7 @@ domain:vital.ac.uk
 domain:vivaldi.com
 domain:vivoglobal.com
 domain:viznet.ac.uk
+domain:vk-analytics.ru
 domain:vk-apps.com
 domain:vk-apps.ru
 domain:vk-cdn.me
