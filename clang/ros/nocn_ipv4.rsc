@@ -3408,7 +3408,6 @@ add address=103.95.240.0/22 list=NOCN disabled=no
 add address=103.95.244.0/22 list=NOCN disabled=no
 add address=103.95.248.0/22 list=NOCN disabled=no
 add address=103.95.252.0/22 list=NOCN disabled=no
-add address=103.96.0.0/22 list=NOCN disabled=no
 add address=103.96.8.0/22 list=NOCN disabled=no
 add address=103.96.124.0/22 list=NOCN disabled=no
 add address=103.96.136.0/22 list=NOCN disabled=no
@@ -5318,7 +5317,6 @@ add address=113.208.96.0/19 list=NOCN disabled=no
 add address=113.208.128.0/17 list=NOCN disabled=no
 add address=113.209.0.0/16 list=NOCN disabled=no
 add address=113.212.0.0/18 list=NOCN disabled=no
-add address=113.212.88.0/22 list=NOCN disabled=no
 add address=113.212.100.0/22 list=NOCN disabled=no
 add address=113.212.184.0/21 list=NOCN disabled=no
 add address=113.213.0.0/17 list=NOCN disabled=no
