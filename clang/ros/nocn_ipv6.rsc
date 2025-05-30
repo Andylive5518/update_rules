@@ -87,6 +87,8 @@ add address=2001:df4:c180::/48 list=NOCN6 disabled=no
 add address=2001:df4:c580::/48 list=NOCN6 disabled=no
 add address=2001:df4:c780::/48 list=NOCN6 disabled=no
 add address=2001:df4:e140::/48 list=NOCN6 disabled=no
+add address=2001:df4:e141::/48 list=NOCN6 disabled=no
+add address=2001:df4:e142::/47 list=NOCN6 disabled=no
 add address=2001:df5:1440::/48 list=NOCN6 disabled=no
 add address=2001:df5:2080::/48 list=NOCN6 disabled=no
 add address=2001:df5:2fc0::/48 list=NOCN6 disabled=no
@@ -689,6 +691,8 @@ add address=2402:440::/32 list=NOCN6 disabled=no
 add address=2402:5c0::/32 list=NOCN6 disabled=no
 add address=2402:840::/32 list=NOCN6 disabled=no
 add address=2402:a60::/32 list=NOCN6 disabled=no
+add address=2402:c20::/32 list=NOCN6 disabled=no
+add address=2402:c60::/32 list=NOCN6 disabled=no
 add address=2402:e00::/32 list=NOCN6 disabled=no
 add address=2402:fc0::/32 list=NOCN6 disabled=no
 add address=2402:1000::/32 list=NOCN6 disabled=no
@@ -2255,7 +2259,6 @@ add address=2001:df5:3640::/48 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
 add address=2001:df5:41c0::/48 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
 add address=2001:df5:5200::/48 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
 add address=2001:df5:5780::/48 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
-add address=2001:df5:5dc0::/48 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
 add address=2001:df5:6140::/48 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
 add address=2001:df5:6900::/48 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
 add address=2001:df5:7300::/48 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
@@ -2514,6 +2517,7 @@ add address=2402:620::/32 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
 add address=2402:720::/32 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
 add address=2402:860::/32 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
 add address=2402:c80::/32 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
+add address=2402:e60::/32 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
 add address=2402:11c0::/32 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
 add address=2402:1240::/32 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
 add address=2402:1540::/32 list=NOCN6 disabled=no comment=NOCN_HK_IPv6
