@@ -21,25 +21,43 @@ jobs:
         run: |
           mkdir -p rules/{mosdns,sing-box,json} clang/{ros,ip}
 
-      - name: Clean apt cache before restore
-        run: |
-          sudo rm -f /var/cache/apt/archives/lock
-          sudo rm -rf /var/cache/apt/archives/partial
-          sudo mkdir -p /var/cache/apt/archives/partial
-
-      - name: Cache apt packages
+      - name: Cache APT archives
         uses: actions/cache@v4
+        id: cache-apt-archives-step
         with:
-          path: /var/cache/apt/archives
-          key: ${{ runner.os }}-apt-packages-v1
+          path: .cache/apt/archives
+          key: ${{ runner.os }}-apt-packages-v2-${{ hashFiles('**/lockfiles') }} # 更具体的key
           restore-keys: |
-            ${{ runner.os }}-apt-packages-
+            ${{ runner.os }}-apt-packages-v2-
+
+      - name: Restore APT archives from cache
+        if: steps.cache-apt-archives-step.outputs.cache-hit == 'true'
+        run: |
+          echo "APT cache hit, restoring from .cache/apt/archives"
+          sudo mkdir -p /var/cache/apt/archives
+          sudo rsync -avh .cache/apt/archives/ /var/cache/apt/archives/
+          # Ensure correct ownership and permissions for apt
+          # sudo chown -R _apt:_apt /var/cache/apt/archives || true 
+          # sudo find /var/cache/apt/archives -type f -exec chmod 640 {} \;
+          # sudo find /var/cache/apt/archives -type d -exec chmod 750 {} \;
+          # The above chown/chmod might be too restrictive or incorrect for some setups, 
+          # apt itself should handle permissions if files are just placed correctly.
+          # Removing lock file if it was cached, and ensuring partial dir exists.
+          sudo rm -f /var/cache/apt/archives/lock
+          sudo mkdir -p /var/cache/apt/archives/partial
 
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y jq curl wget
-          sudo chown -R runner:runner /var/cache/apt/archives
+
+      - name: Prepare APT cache for saving
+        run: |
+          echo "Preparing .cache/apt/archives for saving"
+          mkdir -p .cache/apt/archives
+          sudo rsync -avh --delete /var/cache/apt/archives/ .cache/apt/archives/
+          # Ensure runner has access to created cache directory for the cache action to read
+          sudo chown -R $(whoami):$(whoami) .cache
 
       - name: Install sing-box
         run: |
