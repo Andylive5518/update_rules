@@ -13387,6 +13387,7 @@ add address=223.220.0.0/15 list=CTCC disabled=no
 add address=223.240.0.0/13 list=CTCC disabled=no
 add address=223.255.252.0/23 list=CTCC disabled=no
 add address=1.24.0.0/13 list=CUCC disabled=no
+add address=1.56.0.0/13 list=CUCC disabled=no
 add address=1.188.0.0/14 list=CUCC disabled=no
 add address=14.204.0.0/15 list=CUCC disabled=no
 add address=27.0.128.0/22 list=CUCC disabled=no
