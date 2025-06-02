@@ -3883,7 +3883,6 @@ add address=103.146.90.0/23 list=NOCN disabled=no
 add address=103.146.124.0/23 list=NOCN disabled=no
 add address=103.146.126.0/23 list=NOCN disabled=no
 add address=103.146.138.0/23 list=NOCN disabled=no
-add address=103.146.230.0/23 list=NOCN disabled=no
 add address=103.146.236.0/23 list=NOCN disabled=no
 add address=103.146.252.0/23 list=NOCN disabled=no
 add address=103.147.12.0/23 list=NOCN disabled=no
@@ -9731,6 +9730,7 @@ add address=103.146.78.0/23 list=NOCN disabled=no comment=NOCN_HK_IP
 add address=103.146.82.0/23 list=NOCN disabled=no comment=NOCN_HK_IP
 add address=103.146.158.0/23 list=NOCN disabled=no comment=NOCN_HK_IP
 add address=103.146.178.0/23 list=NOCN disabled=no comment=NOCN_HK_IP
+add address=103.146.230.0/23 list=NOCN disabled=no comment=NOCN_HK_IP
 add address=103.147.16.0/23 list=NOCN disabled=no comment=NOCN_HK_IP
 add address=103.147.18.0/23 list=NOCN disabled=no comment=NOCN_HK_IP
 add address=103.147.20.0/23 list=NOCN disabled=no comment=NOCN_HK_IP

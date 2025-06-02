@@ -3876,7 +3876,6 @@ add address=103.146.90.0/23 list=CN disabled=no
 add address=103.146.124.0/23 list=CN disabled=no
 add address=103.146.126.0/23 list=CN disabled=no
 add address=103.146.138.0/23 list=CN disabled=no
-add address=103.146.230.0/23 list=CN disabled=no
 add address=103.146.236.0/23 list=CN disabled=no
 add address=103.146.252.0/23 list=CN disabled=no
 add address=103.147.12.0/23 list=CN disabled=no
@@ -9724,6 +9723,7 @@ add address=103.146.78.0/23 list=CN disabled=no comment=CN_HK_IP
 add address=103.146.82.0/23 list=CN disabled=no comment=CN_HK_IP
 add address=103.146.158.0/23 list=CN disabled=no comment=CN_HK_IP
 add address=103.146.178.0/23 list=CN disabled=no comment=CN_HK_IP
+add address=103.146.230.0/23 list=CN disabled=no comment=CN_HK_IP
 add address=103.147.16.0/23 list=CN disabled=no comment=CN_HK_IP
 add address=103.147.18.0/23 list=CN disabled=no comment=CN_HK_IP
 add address=103.147.20.0/23 list=CN disabled=no comment=CN_HK_IP
@@ -13393,7 +13393,6 @@ add address=14.204.0.0/15 list=CUCC disabled=no
 add address=27.0.128.0/22 list=CUCC disabled=no
 add address=27.8.0.0/13 list=CUCC disabled=no
 add address=27.36.0.0/14 list=CUCC disabled=no
-add address=27.40.0.0/13 list=CUCC disabled=no
 add address=27.50.128.0/17 list=CUCC disabled=no
 add address=27.54.192.0/18 list=CUCC disabled=no
 add address=27.98.224.0/19 list=CUCC disabled=no
