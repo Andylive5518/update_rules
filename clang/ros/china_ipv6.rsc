@@ -1762,7 +1762,6 @@ add address=2406:9480::/32 list=CN6 disabled=no
 add address=2406:94c0::/32 list=CN6 disabled=no
 add address=2406:9780::/32 list=CN6 disabled=no
 add address=2406:9d80::/32 list=CN6 disabled=no
-add address=2406:9e40::/32 list=CN6 disabled=no
 add address=2406:9e80::/32 list=CN6 disabled=no
 add address=2406:9f80::/32 list=CN6 disabled=no
 add address=2406:a080::/32 list=CN6 disabled=no
@@ -2238,7 +2237,6 @@ add address=2001:df4:4780::/48 list=CN6 disabled=no comment=CN_HK_IPv6
 add address=2001:df4:6b00::/48 list=CN6 disabled=no comment=CN_HK_IPv6
 add address=2001:df4:7000::/48 list=CN6 disabled=no comment=CN_HK_IPv6
 add address=2001:df4:7a00::/48 list=CN6 disabled=no comment=CN_HK_IPv6
-add address=2001:df4:7d00::/48 list=CN6 disabled=no comment=CN_HK_IPv6
 add address=2001:df4:8c00::/48 list=CN6 disabled=no comment=CN_HK_IPv6
 add address=2001:df4:a0c0::/48 list=CN6 disabled=no comment=CN_HK_IPv6
 add address=2001:df4:be40::/48 list=CN6 disabled=no comment=CN_HK_IPv6

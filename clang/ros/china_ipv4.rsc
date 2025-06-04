@@ -9583,7 +9583,6 @@ add address=103.109.4.0/23 list=CN disabled=no comment=CN_HK_IP
 add address=103.109.100.0/22 list=CN disabled=no comment=CN_HK_IP
 add address=103.109.104.0/24 list=CN disabled=no comment=CN_HK_IP
 add address=103.110.80.0/23 list=CN disabled=no comment=CN_HK_IP
-add address=103.111.124.0/24 list=CN disabled=no comment=CN_HK_IP
 add address=103.112.28.0/22 list=CN disabled=no comment=CN_HK_IP
 add address=103.112.67.0/24 list=CN disabled=no comment=CN_HK_IP
 add address=103.112.78.0/23 list=CN disabled=no comment=CN_HK_IP
