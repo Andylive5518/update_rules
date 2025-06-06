@@ -11164,7 +11164,6 @@ add address=203.161.224.0/19 list=CN disabled=no comment=CN_HK_IP
 add address=203.166.220.0/22 list=CN disabled=no comment=CN_HK_IP
 add address=203.168.132.0/22 list=CN disabled=no comment=CN_HK_IP
 add address=203.168.192.0/20 list=CN disabled=no comment=CN_HK_IP
-add address=203.168.208.0/21 list=CN disabled=no comment=CN_HK_IP
 add address=203.168.220.0/22 list=CN disabled=no comment=CN_HK_IP
 add address=203.168.224.0/19 list=CN disabled=no comment=CN_HK_IP
 add address=203.169.32.0/20 list=CN disabled=no comment=CN_HK_IP
