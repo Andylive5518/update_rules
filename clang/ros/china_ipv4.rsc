@@ -12679,6 +12679,7 @@ add address=203.17.39.0/24 list=CTCC disabled=no
 add address=203.17.56.0/24 list=CTCC disabled=no
 add address=203.17.74.0/23 list=CTCC disabled=no
 add address=203.17.88.0/23 list=CTCC disabled=no
+add address=203.17.136.0/24 list=CTCC disabled=no
 add address=203.17.164.0/24 list=CTCC disabled=no
 add address=203.17.187.0/24 list=CTCC disabled=no
 add address=203.17.190.0/23 list=CTCC disabled=no
