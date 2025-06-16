@@ -11169,7 +11169,7 @@ add address=203.161.4.0/22 list=NOCN disabled=no comment=NOCN_HK_IP
 add address=203.161.224.0/19 list=NOCN disabled=no comment=NOCN_HK_IP
 add address=203.166.220.0/22 list=NOCN disabled=no comment=NOCN_HK_IP
 add address=203.168.132.0/22 list=NOCN disabled=no comment=NOCN_HK_IP
-add address=203.168.192.0/20 list=NOCN disabled=no comment=NOCN_HK_IP
+add address=203.168.200.0/21 list=NOCN disabled=no comment=NOCN_HK_IP
 add address=203.168.220.0/22 list=NOCN disabled=no comment=NOCN_HK_IP
 add address=203.168.224.0/19 list=NOCN disabled=no comment=NOCN_HK_IP
 add address=203.169.32.0/20 list=NOCN disabled=no comment=NOCN_HK_IP
