@@ -147,9 +147,9 @@ domain:yxwsgame.com
 domain:yzyxgame.com
 domain:zcjbgame.com
 domain:zhuoyuegame.com
+regexp:^.+-mihayo\.akamaized\.net$
 regexp:^cdn\d-epicgames-\d+\.file\.myqcloud\.com$
 regexp:^epicgames-download\d-\d+\.file\.myqcloud\.com$
 regexp:^cdn-akamai-.+\.gog-services\.com$
 regexp:^gog-cdn-.+\.footprint\.net$
 regexp:^images(-\d)?\.gog-statics\.com$
-regexp:^.+-mihayo\.akamaized\.net$

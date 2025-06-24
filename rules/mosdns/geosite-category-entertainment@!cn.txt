@@ -2,7 +2,6 @@ full:p16-tiktokcdn-com.akamaized.net
 domain:byteoversea.com
 domain:muscdn.com
 domain:musical.ly
-domain:supercell.com
 domain:tik-tokapi.com
 domain:tiktok.com
 domain:tiktokcdn-eu.com
