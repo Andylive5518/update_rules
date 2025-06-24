@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
-      contents: write
+      contents: write  # 需要此权限来创建Release和上传文件
     
     steps:
       - name: Checkout repository
@@ -26,7 +26,8 @@ jobs:
         id: cache-apt-archives-step
         with:
           path: .cache/apt/archives
-          key: ${{ runner.os }}-apt-packages-v2-${{ hashFiles('**/lockfiles') }} # 更具体的key
+          key: ${{ runner.os }}-apt-packages-v2-${{ hashFiles('**/package.json', '**/requirements.txt') }}
+          # key: ${{ runner.os }}-apt-packages-v2-${{ hashFiles('**/lockfiles') }} # 更具体的key
           restore-keys: |
             ${{ runner.os }}-apt-packages-v2-
 
@@ -62,11 +63,15 @@ jobs:
       - name: Install sing-box
         run: |
           set -e
-          LATEST_TAG=$(curl -s https://api.github.com/repos/SagerNet/sing-box/releases/latest | jq -r .tag_name)
-          echo "Latest sing-box tag: $LATEST_TAG"
-          wget https://github.com/SagerNet/sing-box/releases/download/${LATEST_TAG}/sing-box-${LATEST_TAG#v}-linux-amd64.tar.gz
-          tar -xzf sing-box-*-linux-amd64.tar.gz
-          sudo install sing-box-*/sing-box /usr/local/bin
+          RELEASE_INFO=$(curl -s https://api.github.com/repos/SagerNet/sing-box/releases/latest | jq -r '.assets[] | select(.name | contains("linux-amd64.tar.gz")) | {url: .browser_download_url, name: .name}')
+          DOWNLOAD_URL=$(echo "$RELEASE_INFO" | jq -r '.url')
+          FILE_NAME=$(echo "$RELEASE_INFO" | jq -r '.name')
+          echo "sing-box download URL: $DOWNLOAD_URL"
+          echo "sing-box file name: $FILE_NAME"
+          wget "$DOWNLOAD_URL"
+          tar -xzf "$FILE_NAME"
+          EXTRACTED_DIR=$(basename "$FILE_NAME" .tar.gz)
+          sudo install "$EXTRACTED_DIR/sing-box" /usr/local/bin
           sing-box version
 
       - name: Execute china ip update
@@ -79,10 +84,55 @@ jobs:
           chmod +x update_mosdns_rules.sh
           ./update_mosdns_rules.sh
 
-      - name: Commit changes
+      - name: Check for changes
+        id: check_changes
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add rules clang
-          git commit -m "chore: update rules $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
-          git push
+          if [ -n "$(git status --porcelain rules clang)" ]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected in rules and clang directories"
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
+          fi
+
+      - name: Create release archive
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          # Create timestamp for release
+          TIMESTAMP=$(date '+%Y%m%d-%H%M%S')
+          echo "RELEASE_TAG=rules-$TIMESTAMP" >> $GITHUB_ENV
+          echo "RELEASE_NAME=Network Rules Update $TIMESTAMP" >> $GITHUB_ENV
+          
+          # Create archive with updated rules
+          tar -czf network-rules-$TIMESTAMP.tar.gz rules/ clang/
+          echo "ARCHIVE_NAME=network-rules-$TIMESTAMP.tar.gz" >> $GITHUB_ENV
+          
+          # Generate release notes
+          echo "## 📋 更新内容" > release-notes.md
+          echo "" >> release-notes.md
+          echo "本次更新包含以下文件：" >> release-notes.md
+          echo "" >> release-notes.md
+          echo "### 🌐 网络规则文件" >> release-notes.md
+          echo "- **rules/**: 包含各种网络规则配置文件" >> release-notes.md
+          echo "- **clang/**: 包含IP地址列表和路由规则" >> release-notes.md
+          echo "" >> release-notes.md
+          echo "### 📊 统计信息" >> release-notes.md
+          echo "- 规则文件数量: $(find rules/ -name '*.json' | wc -l)" >> release-notes.md
+          echo "- IP列表文件数量: $(find clang/ip/ -name '*.txt' | wc -l)" >> release-notes.md
+          echo "- 路由规则文件数量: $(find clang/ros/ -name '*.rsc' | wc -l)" >> release-notes.md
+          echo "" >> release-notes.md
+          echo "### ⏰ 更新时间" >> release-notes.md
+          echo "$(date '+%Y年%m月%d日 %H:%M:%S UTC')" >> release-notes.md
+
+      - name: Create GitHub Release
+        if: steps.check_changes.outputs.changes == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: ${{ env.RELEASE_NAME }}
+          body_path: release-notes.md
+          files: ${{ env.ARCHIVE_NAME }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
