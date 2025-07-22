@@ -9,7 +9,7 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     permissions:
       contents: write  # 需要此权限来创建Release和上传文件
     
@@ -23,42 +23,16 @@ jobs:
 
       - name: Cache APT archives
         uses: actions/cache@v4
-        id: cache-apt-archives-step
         with:
-          path: .cache/apt/archives
-          key: ${{ runner.os }}-apt-packages-v2-${{ hashFiles('**/package.json', '**/requirements.txt') }}
-          # key: ${{ runner.os }}-apt-packages-v2-${{ hashFiles('**/lockfiles') }} # 更具体的key
+          path: ~/.cache/apt/archives
+          key: ${{ runner.os }}-apt-packages-${{ hashFiles('**/update_*.sh') }}
           restore-keys: |
-            ${{ runner.os }}-apt-packages-v2-
-
-      - name: Restore APT archives from cache
-        if: steps.cache-apt-archives-step.outputs.cache-hit == 'true'
-        run: |
-          echo "APT cache hit, restoring from .cache/apt/archives"
-          sudo mkdir -p /var/cache/apt/archives
-          sudo rsync -avh .cache/apt/archives/ /var/cache/apt/archives/
-          # Ensure correct ownership and permissions for apt
-          # sudo chown -R _apt:_apt /var/cache/apt/archives || true 
-          # sudo find /var/cache/apt/archives -type f -exec chmod 640 {} \;
-          # sudo find /var/cache/apt/archives -type d -exec chmod 750 {} \;
-          # The above chown/chmod might be too restrictive or incorrect for some setups, 
-          # apt itself should handle permissions if files are just placed correctly.
-          # Removing lock file if it was cached, and ensuring partial dir exists.
-          sudo rm -f /var/cache/apt/archives/lock
-          sudo mkdir -p /var/cache/apt/archives/partial
+            ${{ runner.os }}-apt-packages-
 
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y jq curl wget
-
-      - name: Prepare APT cache for saving
-        run: |
-          echo "Preparing .cache/apt/archives for saving"
-          mkdir -p .cache/apt/archives
-          sudo rsync -avh --delete /var/cache/apt/archives/ .cache/apt/archives/
-          # Ensure runner has access to created cache directory for the cache action to read
-          sudo chown -R $(whoami):$(whoami) .cache
 
       - name: Install sing-box
         run: |
@@ -77,12 +51,18 @@ jobs:
       - name: Execute china ip update
         run: |
           chmod +x update_china_ip.sh
-          ./update_china_ip.sh
+          if ! ./update_china_ip.sh; then
+            echo "错误：中国IP更新脚本执行失败"
+            exit 1
+          fi
 
       - name: Execute mosdns rules update
         run: |
           chmod +x update_mosdns_rules.sh
-          ./update_mosdns_rules.sh
+          if ! ./update_mosdns_rules.sh; then
+            echo "错误：MosDNS规则更新脚本执行失败"
+            exit 1
+          fi
 
       - name: Check for changes
         id: check_changes
