@@ -84,7 +84,7 @@ jobs:
           echo "RELEASE_NAME=Network Rules Update $TIMESTAMP" >> $GITHUB_ENV
           
           # Create archive with updated rules
-          tar -czf network-rules-$TIMESTAMP.tar.gz rules/ clang/
+          tar -czf network-rules-$TIMESTAMP.tar.gz rules/
           echo "ARCHIVE_NAME=network-rules-$TIMESTAMP.tar.gz" >> $GITHUB_ENV
           
           # Generate release notes
@@ -93,13 +93,16 @@ jobs:
           echo "本次更新包含以下文件：" >> release-notes.md
           echo "" >> release-notes.md
           echo "### 🌐 网络规则文件" >> release-notes.md
-          echo "- **rules/**: 包含各种网络规则配置文件" >> release-notes.md
-          echo "- **clang/**: 包含IP地址列表和路由规则" >> release-notes.md
+          echo "- **network-rules-\$TIMESTAMP.tar.gz**: 打包的规则文件（JSON、MosDNS、Sing-Box格式）" >> release-notes.md
+          echo "- **clang/ros/**: Mikrotik RouterOS 路由规则文件（.rsc格式）" >> release-notes.md
+          echo "- **clang/ip/**: 原始IP地址列表文件（.txt格式）" >> release-notes.md
           echo "" >> release-notes.md
           echo "### 📊 统计信息" >> release-notes.md
-          echo "- 规则文件数量: $(find rules/ -name '*.json' | wc -l)" >> release-notes.md
-          echo "- IP列表文件数量: $(find clang/ip/ -name '*.txt' | wc -l)" >> release-notes.md
-          echo "- 路由规则文件数量: $(find clang/ros/ -name '*.rsc' | wc -l)" >> release-notes.md
+          echo "- JSON规则文件数量: $(find rules/json/ -name '*.json' | wc -l)" >> release-notes.md
+          echo "- MosDNS规则文件数量: $(find rules/mosdns/ -name '*.txt' | wc -l)" >> release-notes.md
+          echo "- Sing-Box规则文件数量: $(find rules/sing-box/ -name '*.srs' | wc -l)" >> release-notes.md
+          echo "- RouterOS规则文件数量: $(find clang/ros/ -name '*.rsc' | wc -l)" >> release-notes.md
+          echo "- IP地址文件数量: $(find clang/ip/ -name '*.txt' | wc -l)" >> release-notes.md
           echo "" >> release-notes.md
           echo "### ⏰ 更新时间" >> release-notes.md
           echo "$(date '+%Y年%m月%d日 %H:%M:%S UTC')" >> release-notes.md
@@ -111,8 +114,31 @@ jobs:
           tag_name: ${{ env.RELEASE_TAG }}
           name: ${{ env.RELEASE_NAME }}
           body_path: release-notes.md
-          files: ${{ env.ARCHIVE_NAME }}
+          files: |
+            ${{ env.ARCHIVE_NAME }}
+            clang/ros/*.rsc
+            clang/ip/*.txt
           draft: false
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clean old releases
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          # 获取3天前的时间戳
+          CUTOFF_DATE=$(date -d "3 days ago" -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "删除早于 $CUTOFF_DATE 的release"
+          
+          # 获取所有release并删除超过3天的
+          gh release list --limit 100 --json tagName,createdAt,name | \
+          jq -r --arg cutoff "$CUTOFF_DATE" \
+            '.[] | select(.createdAt < $cutoff) | .tagName' | \
+          while read -r tag; do
+            if [ ! -z "$tag" ]; then
+              echo "删除release: $tag"
+              gh release delete "$tag" --yes --cleanup-tag || echo "删除失败: $tag"
+            fi
+          done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
