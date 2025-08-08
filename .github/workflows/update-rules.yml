@@ -126,14 +126,14 @@ jobs:
       - name: Clean old releases
         if: steps.check_changes.outputs.changes == 'true'
         run: |
-          # 获取3天前的时间戳
-          CUTOFF_DATE=$(date -d "3 days ago" -u +"%Y-%m-%dT%H:%M:%SZ")
-          echo "删除早于 $CUTOFF_DATE 的release"
+          # 获取7天前的时间戳（增加安全边距）
+          CUTOFF_DATE=$(date -d "7 days ago" -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "删除早于 $CUTOFF_DATE 的release（排除当前release: $RELEASE_TAG）"
           
-          # 获取所有release并删除超过3天的
+          # 获取所有release并删除超过7天的，但排除当前创建的release
           gh release list --limit 100 --json tagName,createdAt,name | \
-          jq -r --arg cutoff "$CUTOFF_DATE" \
-            '.[] | select(.createdAt < $cutoff) | .tagName' | \
+          jq -r --arg cutoff "$CUTOFF_DATE" --arg current "$RELEASE_TAG" \
+            '.[] | select(.createdAt < $cutoff and .tagName != $current) | .tagName' | \
           while read -r tag; do
             if [ ! -z "$tag" ]; then
               echo "删除release: $tag"
