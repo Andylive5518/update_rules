@@ -131,7 +131,13 @@ merge_ip_files() {
     
     # 合并中国大陆IP
     log "合并中国大陆IPv4和IPv6地址..."
-    if cat "$DOWNLOAD_IP_DIR/cn.txt" "$DOWNLOAD_IP_DIR/cn_ipv6.txt" > "$MOSDNS_RULES_DIR/cn_all.txt"; then
+    {
+        cat "$DOWNLOAD_IP_DIR/cn.txt"
+        echo  # 确保有换行符
+        cat "$DOWNLOAD_IP_DIR/cn_ipv6.txt"
+    } | grep -v '^$' > "$MOSDNS_RULES_DIR/cn_all.txt"
+    
+    if [ $? -eq 0 ]; then
         local cn_count=$(wc -l < "$MOSDNS_RULES_DIR/cn_all.txt")
         log "中国大陆IP合并完成: $DOWNLOAD_IP_DIR/cn.txt + $DOWNLOAD_IP_DIR/cn_ipv6.txt -> $MOSDNS_RULES_DIR/cn_all.txt, 共 $cn_count 条记录"
     else
@@ -141,7 +147,13 @@ merge_ip_files() {
     
     # 合并香港IP
     log "合并香港IPv4和IPv6地址..."
-    if cat "$DOWNLOAD_IP_DIR/hk.txt" "$DOWNLOAD_IP_DIR/hk_ipv6.txt" > "$MOSDNS_RULES_DIR/hk_all.txt"; then
+    {
+        cat "$DOWNLOAD_IP_DIR/hk.txt"
+        echo  # 确保有换行符
+        cat "$DOWNLOAD_IP_DIR/hk_ipv6.txt"
+    } | grep -v '^$' > "$MOSDNS_RULES_DIR/hk_all.txt"
+    
+    if [ $? -eq 0 ]; then
         local hk_count=$(wc -l < "$MOSDNS_RULES_DIR/hk_all.txt")
         log "香港IP合并完成: $DOWNLOAD_IP_DIR/hk.txt + $DOWNLOAD_IP_DIR/hk_ipv6.txt -> $MOSDNS_RULES_DIR/hk_all.txt, 共 $hk_count 条记录"
     else
@@ -151,7 +163,13 @@ merge_ip_files() {
     
     # 合并澳门IP
     log "合并澳门IPv4和IPv6地址..."
-    if cat "$DOWNLOAD_IP_DIR/mo.txt" "$DOWNLOAD_IP_DIR/mo_ipv6.txt" > "$MOSDNS_RULES_DIR/mo_all.txt"; then
+    {
+        cat "$DOWNLOAD_IP_DIR/mo.txt"
+        echo  # 确保有换行符
+        cat "$DOWNLOAD_IP_DIR/mo_ipv6.txt"
+    } | grep -v '^$' > "$MOSDNS_RULES_DIR/mo_all.txt"
+    
+    if [ $? -eq 0 ]; then
         local mo_count=$(wc -l < "$MOSDNS_RULES_DIR/mo_all.txt")
         log "澳门IP合并完成: $DOWNLOAD_IP_DIR/mo.txt + $DOWNLOAD_IP_DIR/mo_ipv6.txt -> $MOSDNS_RULES_DIR/mo_all.txt, 共 $mo_count 条记录"
     else
