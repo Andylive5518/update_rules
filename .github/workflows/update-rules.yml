@@ -25,7 +25,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/apt/archives
-          key: ${{ runner.os }}-apt-packages-${{ hashFiles('**/update_*.sh') }}
+          key: ${{ runner.os }}-apt-packages-${{ hashFiles('**/update_rules.py') }}
           restore-keys: |
             ${{ runner.os }}-apt-packages-
 
@@ -48,21 +48,9 @@ jobs:
           sudo install "$EXTRACTED_DIR/sing-box" /usr/local/bin
           sing-box version
 
-      - name: Execute china ip update
+      - name: Execute rules update
         run: |
-          chmod +x update_china_ip.sh
-          if ! ./update_china_ip.sh; then
-            echo "错误：中国IP更新脚本执行失败"
-            exit 1
-          fi
-
-      - name: Execute mosdns rules update
-        run: |
-          chmod +x update_mosdns_rules.sh
-          if ! ./update_mosdns_rules.sh; then
-            echo "错误：MosDNS规则更新脚本执行失败"
-            exit 1
-          fi
+          python3 update_rules.py
 
       - name: Check for changes
         id: check_changes
