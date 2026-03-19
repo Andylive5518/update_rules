@@ -13,6 +13,116 @@ log() {
     echo "$timestamp $1"
 }
 
+# IP段去重函数（基本去重 + 子网包含检测）
+deduplicate_ip_ranges() {
+    local input_file="$1"
+    local output_file="$2"
+    local ip_type="$3"
+    
+    python3 - "$input_file" "$output_file" "$ip_type" << 'PYEOF'
+import sys
+
+def ip_to_int(ip, is_ipv6=False):
+    if is_ipv6:
+        parts = ip.split(':')
+        result = 0
+        for part in parts:
+            if part:
+                result = (result << 16) + int(part, 16)
+        return result
+    else:
+        parts = ip.split('.')
+        return (int(parts[0]) << 24) + (int(parts[1]) << 16) + (int(parts[2]) << 8) + int(parts[3])
+
+def parse_cidr(cidr, is_ipv6=False):
+    if '/' in cidr:
+        ip, prefix = cidr.split('/')
+        prefix = int(prefix)
+    else:
+        ip = cidr
+        prefix = 128 if is_ipv6 else 32
+    
+    ip_int = ip_to_int(ip, is_ipv6)
+    
+    if is_ipv6:
+        mask = ((1 << prefix) - 1) << (128 - prefix) if prefix > 0 else 0
+    else:
+        mask = ((1 << prefix) - 1) << (32 - prefix) if prefix > 0 else 0
+    
+    network = ip_int & mask
+    return network, prefix
+
+def is_subnet_contained(child_cidr, parent_cidr, is_ipv6=False):
+    child_net, child_prefix = parse_cidr(child_cidr, is_ipv6)
+    parent_net, parent_prefix = parse_cidr(parent_cidr, is_ipv6)
+    
+    if child_prefix < parent_prefix:
+        return False
+    
+    if is_ipv6:
+        mask = ((1 << parent_prefix) - 1) << (128 - parent_prefix)
+    else:
+        mask = ((1 << parent_prefix) - 1) << (32 - parent_prefix)
+    
+    return (child_net & mask) == parent_net
+
+def deduplicate_ip_file(input_path, output_path, is_ipv6):
+    try:
+        with open(input_path, 'r') as f:
+            cidr_list = [line.strip() for line in f if line.strip() and line.strip() != '#']
+    except FileNotFoundError:
+        print(f"文件不存在: {input_path}", file=sys.stderr)
+        return False
+    
+    unique_cidrs = list(set(cidr_list))
+    
+    def get_prefix(cidr):
+        if '/' in cidr:
+            return int(cidr.split('/')[1])
+        return 128 if is_ipv6 else 32
+    
+    unique_cidrs.sort(key=get_prefix, reverse=True)
+    
+    result = []
+    for cidr in unique_cidrs:
+        is_contained = False
+        for existing in result:
+            if is_subnet_contained(cidr, existing, is_ipv6):
+                is_contained = True
+                break
+        if not is_contained:
+            result.append(cidr)
+    
+    def sort_key(cidr):
+        if is_ipv6:
+            net, _ = parse_cidr(cidr, True)
+            return net
+        else:
+            net, _ = parse_cidr(cidr, False)
+            return net
+    
+    result.sort(key=sort_key)
+    
+    with open(output_path, 'w') as f:
+        for cidr in result:
+            f.write(cidr + '\n')
+    
+    original_count = len(cidr_list)
+    final_count = len(result)
+    removed = original_count - final_count
+    print(f"去重完成: {original_count} -> {final_count} (移除 {removed} 条)")
+    return True
+
+if __name__ == '__main__':
+    input_file = sys.argv[2] if len(sys.argv) > 2 else ''
+    output_file = sys.argv[3] if len(sys.argv) > 3 else ''
+    ip_type = sys.argv[4] if len(sys.argv) > 4 else 'ipv4'
+    
+    is_ipv6 = (ip_type == 'ipv6')
+    deduplicate_ip_file(input_file, output_file, is_ipv6)
+PYEOF
+}
+
 # 1. 初始化目录和检查命令
 init_env() {
     log "开始初始化环境..."
@@ -122,6 +232,23 @@ download_ip_lists() {
         fi
     done
     
+    # 对下载的IP文件进行去重（包括基本去重和子网包含检测）
+    log "开始对下载的IP文件进行去重..."
+    
+    for file in "${ipv4_files[@]}"; do
+        if [[ -f "$file" ]] && [[ -s "$file" ]]; then
+            log "去重 IPv4: $file"
+            deduplicate_ip_ranges "$file" "$file" "ipv4"
+        fi
+    done
+    
+    for file in "${ipv6_files[@]}"; do
+        if [[ -f "$file" ]] && [[ -s "$file" ]]; then
+            log "去重 IPv6: $file"
+            deduplicate_ip_ranges "$file" "$file" "ipv6"
+        fi
+    done
+    
     log "IP地址列表下载完成"
 }
 
@@ -129,11 +256,11 @@ download_ip_lists() {
 merge_ip_files() {
     log "开始合并IP文件..."
     
-    # 合并中国大陆IP
+    # 合并中国大陆IP（源文件已去重）
     log "合并中国大陆IPv4和IPv6地址..."
     {
         cat "$DOWNLOAD_IP_DIR/cn.txt"
-        echo  # 确保有换行符
+        echo
         cat "$DOWNLOAD_IP_DIR/cn_ipv6.txt"
     } | grep -v '^$' > "$MOSDNS_RULES_DIR/cn_all.txt"
     
@@ -149,7 +276,7 @@ merge_ip_files() {
     log "合并香港IPv4和IPv6地址..."
     {
         cat "$DOWNLOAD_IP_DIR/hk.txt"
-        echo  # 确保有换行符
+        echo
         cat "$DOWNLOAD_IP_DIR/hk_ipv6.txt"
     } | grep -v '^$' > "$MOSDNS_RULES_DIR/hk_all.txt"
     
@@ -165,7 +292,7 @@ merge_ip_files() {
     log "合并澳门IPv4和IPv6地址..."
     {
         cat "$DOWNLOAD_IP_DIR/mo.txt"
-        echo  # 确保有换行符
+        echo
         cat "$DOWNLOAD_IP_DIR/mo_ipv6.txt"
     } | grep -v '^$' > "$MOSDNS_RULES_DIR/mo_all.txt"
     

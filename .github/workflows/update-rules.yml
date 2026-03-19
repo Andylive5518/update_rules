@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y jq curl wget
+          sudo apt-get install -y jq curl wget python3
 
       - name: Install sing-box
         run: |
