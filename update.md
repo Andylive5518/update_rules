@@ -93,6 +93,17 @@ python3 update_rules.py --geosite-only
 6. 按网络地址排序输出
 ```
 
+### Mikrotik规则去重
+在生成 Mikrotik 规则时，同一 IP 段可能来自多个数据源（如 cn.txt 和 hk.txt 都有相同的 IP）。去重逻辑：
+
+- **CN list**：优先使用 CN 的条目，HK 和 MO 只添加不在 CN 中的
+- **优先级**：CN > HK > MO
+
+例如：
+- cn.txt 有 `27.0.132.0/22`
+- hk.txt 也有 `27.0.132.0/22`
+- 生成规则时只保留 CN 的条目，不重复添加
+
 ---
 
 ## 目录结构
@@ -150,6 +161,12 @@ python3 update_rules.py --geosite-only
 3. 检查文件是否有变化
 4. 如有变化，创建 GitHub Release
 5. 清理7天前的旧 Release
+
+### 更新日志
+
+#### 2025-03-20
+- 修复 APT 缓存路径验证错误：将 "Cache APT archives" 步骤移至 "Install dependencies" 步骤之后，确保缓存时目录已存在
+- 升级 `softprops/action-gh-release@v1` → `v2`，解决 Node.js 20 弃用警告
 
 ---
 
