@@ -21,6 +21,11 @@ jobs:
         run: |
           mkdir -p rules/{mosdns,sing-box,json} clang/{ros,ip}
 
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq curl wget python3
+
       - name: Cache APT archives
         uses: actions/cache@v4
         with:
@@ -28,11 +33,6 @@ jobs:
           key: ${{ runner.os }}-apt-packages-${{ hashFiles('**/update_rules.py') }}
           restore-keys: |
             ${{ runner.os }}-apt-packages-
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq curl wget python3
 
       - name: Install sing-box
         run: |
@@ -97,7 +97,7 @@ jobs:
 
       - name: Create GitHub Release
         if: steps.check_changes.outputs.changes == 'true'
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           name: ${{ env.RELEASE_NAME }}

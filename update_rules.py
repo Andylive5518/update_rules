@@ -352,19 +352,176 @@ def convert_to_mikrotik():
     lines.append("/ip firewall address-list")
 
     cn_ips = read_ip_lines(os.path.join(DOWNLOAD_IP_DIR, "cn.txt"), filter_ipv6=False)
-    for ip in cn_ips:
-        lines.append(f"add address={ip} list=CN disabled=no")
-
     hk_ips = read_ip_lines(os.path.join(DOWNLOAD_IP_DIR, "hk.txt"), filter_ipv6=False)
-    for ip in hk_ips:
-        lines.append(f"add address={ip} list=CN disabled=no comment=CN_HK_IP")
-
     mo_ips = read_ip_lines(os.path.join(DOWNLOAD_IP_DIR, "mo.txt"), filter_ipv6=False)
-    for ip in mo_ips:
-        lines.append(f"add address={ip} list=CN disabled=no comment=CN_MO_IP")
-
     ctcc_ips = read_ip_lines(
         os.path.join(DOWNLOAD_IP_DIR, "chinatelecom.txt"), filter_ipv6=False
+    )
+    cucc_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "unicom_cnc.txt"), filter_ipv6=False
+    )
+    cmcc_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "cmcc.txt"), filter_ipv6=False
+    )
+
+    # CN list: 合并cn+hk+mo，去重（已处理过子网包含，这里只需基本去重）
+    cn_set = set(cn_ips)
+    hk_set = set(hk_ips)
+    mo_set = set(mo_ips)
+
+    # 优先使用CN的条目，HK和MO只添加不在CN中的
+    for ip in cn_ips:
+        lines.append(f"add address={ip} list=CN disabled=no")
+    for ip in hk_ips:
+        if ip not in cn_set:
+            lines.append(f"add address={ip} list=CN disabled=no comment=CN_HK_IP")
+    for ip in mo_ips:
+        if ip not in cn_set and ip not in hk_set:
+            lines.append(f"add address={ip} list=CN disabled=no comment=CN_MO_IP")
+
+    # CTCC/CUCC/CMCC 各自去重（可能存在子网重叠）
+    ctcc_set = set(ctcc_ips)
+    cucc_set = set(cucc_ips)
+    cmcc_set = set(cmcc_ips)
+    for ip in ctcc_ips:
+        lines.append(f"add address={ip} list=CTCC disabled=no")
+    for ip in cucc_ips:
+        lines.append(f"add address={ip} list=CUCC disabled=no")
+    for ip in cmcc_ips:
+        lines.append(f"add address={ip} list=CMCC disabled=no")
+
+    rsc_path = os.path.join(ROS_IP_DIR, "china_ipv4.rsc")
+    with open(rsc_path, "w") as f:
+        f.write("\n".join(lines) + "\n")
+
+    ipv4_count = sum(1 for l in lines if l.startswith("add address="))
+    log(
+        "INFO",
+        f"中国IPv4地址列表(含港澳)生成完成: $DOWNLOAD_IP_DIR/{{cn,hk,mo,chinatelecom,unicom_cnc,cmcc}}.txt -> {rsc_path}, 共 {ipv4_count} 条规则",
+    )
+
+    # nocn_ipv4.rsc
+    log("INFO", "开始生成NOCN IPv4地址列表...")
+    lines = []
+    lines.append("/ip firewall address-list remove [find list=NOCN]")
+    lines.append("/ip firewall address-list")
+
+    for reserved in IPV4_RESERVED:
+        lines.append(
+            f"add address={reserved} list=NOCN disabled=no comment=NOCN_Reserved_IP"
+        )
+
+    # NOCN: cn + hk + mo，去重逻辑同CN
+    for ip in cn_ips:
+        lines.append(f"add address={ip} list=NOCN disabled=no")
+    for ip in hk_ips:
+        if ip not in cn_set:
+            lines.append(f"add address={ip} list=NOCN disabled=no comment=NOCN_HK_IP")
+    for ip in mo_ips:
+        if ip not in cn_set and ip not in hk_set:
+            lines.append(f"add address={ip} list=NOCN disabled=no comment=NOCN_MO_IP")
+
+    rsc_path = os.path.join(ROS_IP_DIR, "nocn_ipv4.rsc")
+    with open(rsc_path, "w") as f:
+        f.write("\n".join(lines) + "\n")
+
+    nocn_ipv4_count = sum(1 for l in lines if l.startswith("add address="))
+    log(
+        "INFO",
+        f"NOCN IPv4地址列表生成完成: $DOWNLOAD_IP_DIR/{{cn,hk,mo}}.txt -> {rsc_path}, 共 {nocn_ipv4_count} 条规则",
+    )
+
+    # china_ipv6.rsc
+    log("INFO", "开始生成IPv6地址列表...")
+    lines = []
+    lines.append("/ipv6 firewall address-list remove [find list=CN6]")
+    lines.append("/ipv6 firewall address-list remove [find list=CTCC6]")
+    lines.append("/ipv6 firewall address-list remove [find list=CUCC6]")
+    lines.append("/ipv6 firewall address-list remove [find list=CMCC6]")
+    lines.append("/ipv6 firewall address-list")
+
+    cn6_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "cn_ipv6.txt"), filter_ipv6=True
+    )
+    hk6_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "hk_ipv6.txt"), filter_ipv6=True
+    )
+    mo6_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "mo_ipv6.txt"), filter_ipv6=True
+    )
+    ctcc6_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "chinatelecom_ipv6.txt"), filter_ipv6=True
+    )
+    cucc6_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "unicom_cnc_ipv6.txt"), filter_ipv6=True
+    )
+    cmcc6_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "cmcc_ipv6.txt"), filter_ipv6=True
+    )
+
+    # CN6: 合并cn6+hk6+mo6，去重
+    cn6_set = set(cn6_ips)
+    hk6_set = set(hk6_ips)
+    mo6_set = set(mo6_ips)
+
+    for ip in cn6_ips:
+        lines.append(f"add address={ip} list=CN6 disabled=no")
+    for ip in hk6_ips:
+        if ip not in cn6_set:
+            lines.append(f"add address={ip} list=CN6 disabled=no comment=CN_HK_IPv6")
+    for ip in mo6_ips:
+        if ip not in cn6_set and ip not in hk6_set:
+            lines.append(f"add address={ip} list=CN6 disabled=no comment=CN_MO_IPv6")
+
+    for ip in ctcc6_ips:
+        lines.append(f"add address={ip} list=CTCC6 disabled=no")
+    for ip in cucc6_ips:
+        lines.append(f"add address={ip} list=CUCC6 disabled=no")
+    for ip in cmcc6_ips:
+        lines.append(f"add address={ip} list=CMCC6 disabled=no")
+
+    rsc_path = os.path.join(ROS_IP_DIR, "china_ipv6.rsc")
+    with open(rsc_path, "w") as f:
+        f.write("\n".join(lines) + "\n")
+
+    ipv6_count = sum(1 for l in lines if l.startswith("add address="))
+    log(
+        "INFO",
+        f"中国IPv6地址列表(含港澳)生成完成: $DOWNLOAD_IP_DIR/{{cn,hk,mo,chinatelecom,unicom_cnc,cmcc}}_ipv6.txt -> {rsc_path}, 共 {ipv6_count} 条规则",
+    )
+
+    # nocn_ipv6.rsc
+    log("INFO", "开始生成NOCN IPv6地址列表...")
+    lines = []
+    lines.append("/ipv6 firewall address-list remove [find list=NOCN6]")
+    lines.append("/ipv6 firewall address-list")
+
+    for reserved in IPV6_RESERVED:
+        lines.append(
+            f"add address={reserved} list=NOCN6 disabled=no comment=NOCN_Reserved_IP"
+        )
+
+    for ip in cn6_ips:
+        lines.append(f"add address={ip} list=NOCN6 disabled=no")
+    for ip in hk6_ips:
+        if ip not in cn6_set:
+            lines.append(
+                f"add address={ip} list=NOCN6 disabled=no comment=NOCN_HK_IPv6"
+            )
+    for ip in mo6_ips:
+        if ip not in cn6_set and ip not in hk6_set:
+            lines.append(
+                f"add address={ip} list=NOCN6 disabled=no comment=NOCN_MO_IPv6"
+            )
+
+    rsc_path = os.path.join(ROS_IP_DIR, "nocn_ipv6.rsc")
+    with open(rsc_path, "w") as f:
+        f.write("\n".join(lines) + "\n")
+
+    nocn_ipv6_count = sum(1 for l in lines if l.startswith("add address="))
+    log(
+        "INFO",
+        f"NOCN IPv6地址列表生成完成: $DOWNLOAD_IP_DIR/{{cn,hk,mo}}_ipv6.txt -> {rsc_path}, 共 {nocn_ipv6_count} 条规则",
     )
     for ip in ctcc_ips:
         lines.append(f"add address={ip} list=CTCC disabled=no")
