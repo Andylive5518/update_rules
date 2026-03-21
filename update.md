@@ -8,7 +8,16 @@
 
 ### update_rules.py（推荐）
 
-统一的 Python 脚本，整合了原有两个 bash 脚本的所有功能。
+统一的 Python 脚本，已拆分为多个模块：
+
+| 文件 | 职责 |
+|------|------|
+| `update_rules.py` | 主入口 + CLI |
+| `config.py` | 所有常量配置（目录路径、URL、IP列表、保留地址） |
+| `utils.py` | 公共工具（log、download、并发下载、run_command） |
+| `ip_dedup.py` | IP 去重模块（O(n log n) 排序+线性扫描算法） |
+| `ip_module.py` | IP 下载、合并、Mikrotik/sing-box 转换 |
+| `geosite_module.py` | GeoSite 规则下载、转换、合并 |
 
 ```bash
 # 全部更新
@@ -21,7 +30,7 @@ python3 update_rules.py --ip-only
 python3 update_rules.py --geosite-only
 ```
 
-### 原有脚本（保留）
+### 原有脚本（已弃用，保留备份）
 
 - `update_china_ip.sh` - 更新中国IP段（IPv4/IPv6）
 - `update_mosdns_rules.sh` - 更新GeoSite域名规则
@@ -81,53 +90,41 @@ python3 update_rules.py --geosite-only
 - IPv4：32位地址，前缀长度 0-32
 - IPv6：128位地址，前缀长度 0-128，支持 `::` 压缩表示法
 
-### 基本去重
-- 去除完全相同的 IP 段
+### O(n log n) 排序+线性扫描算法
 
-### 子网包含检测
-- 如果一个 IP 段被另一个更大的 IP 段包含，则去除冗余的子网
-- 例如：`10.0.0.0/8` 包含 `10.0.1.0/24`，后者会被去除
+旧算法使用 O(n²) 暴力遍历比较每对 CIDR，在数千条 IP 数据上导致 GitHub Actions 运行超时（30分钟+）。
 
-### 算法流程
-```
-1. 读取所有IP段，跳过无效CIDR
-2. 使用 set() 基本去重
-3. 按前缀长度正序排列（/8 > /16 > /24 > /32 > ...，大网段优先）
-4. 依次处理每个IP段：
-   a. 反向清除：如果当前IP段包含result中已有的小网段，先删除它们
-   b. 正向检查：如果当前IP段被result中已有的大网段包含，则跳过
-   c. 都不满足则加入result
-5. 按网络地址排序输出
-```
-
-### 关键函数
+新算法：
+1. 解析所有 CIDR 为 `ipaddress.ip_network` 对象
+2. 按 `(network_address, prefixlen)` 排序 — 大网段在前，其子网紧随其后
+3. 线性扫描：如果当前网段被上一个保留网段包含（`subnet_of`），跳过；否则保留
+4. 时间复杂度从 O(n²) 降低到 O(n log n)
 
 ```python
 import ipaddress
 
-def parse_cidr(cidr_str, is_ipv6=False):
-    """解析CIDR，返回 (network_address_int, prefix) 元组"""
-    net = ipaddress.IPv6Network(cidr_str, strict=False) if is_ipv6 \
-          else ipaddress.IPv4Network(cidr_str, strict=False)
-    return int(net.network_address), net.prefixlen
+def deduplicate_ip_list(cidr_list, is_ipv6=False):
+    networks = sorted(set(
+        ipaddress.ip_network(cidr, strict=False) for cidr in cidr_list
+    ), key=lambda n: (n.network_address, n.prefixlen))
 
-def is_subnet_contained(child_cidr, parent_cidr, is_ipv6=False):
-    """检查child_cidr是否被parent_cidr包含"""
-    child_net, child_prefix = parse_cidr(child_cidr, is_ipv6)
-    parent_net, parent_prefix = parse_cidr(parent_cidr, is_ipv6)
-    if child_prefix < parent_prefix:
-        return False
-    bits = 128 if is_ipv6 else 32
-    mask = (1 << bits) - (1 << (bits - parent_prefix))
-    return (child_net & mask) == parent_net
+    result = []
+    for net in networks:
+        if result and net.subnet_of(result[-1]):
+            continue
+        result.append(net)
+    return [str(n) for n in result]
 ```
 
-### 多阶段去重
-去重在以下三个阶段执行，IPv4 和 IPv6 分开处理：
+### 一次去重，多处复用
 
-1. **下载阶段**：对每个原始 IP 文件（cn.txt, hk.txt, cn_ipv6.txt 等）单独去重
-2. **合并阶段**：分别对 IPv4 和 IPv6 去重后合并到同一个文件（cn_all.txt 包含 IPv4 和 IPv6）
-3. **生成规则阶段**：在生成 rsc/srs 文件前，分别对所有 IPv4 和 IPv6 来源做最终去重（包括跨文件的子网包含检测）
+旧代码在 `merge_ip_files()` 和 `convert_to_mikrotik()` 中分别对同一数据去重，产生大量重复计算。
+
+新架构通过 `_load_all_ip_data()` 一次加载并去重所有 IP 数据，返回缓存 dict，后续 `merge_ip_files(data)` 和 `convert_to_mikrotik(data)` 直接使用已去重的数据。
+
+### 并发下载
+
+所有 IP 文件和 GeoSite 规则使用 `concurrent.futures.ThreadPoolExecutor` 并发下载（最多 8 线程），替代原来的逐个串行下载。
 
 ### Mikrotik规则合并去重
 
@@ -157,9 +154,14 @@ def is_subnet_contained(child_cidr, parent_cidr, is_ipv6=False):
 
 ```
 /opt/update_rules/
-├── update_rules.py              # 统一更新脚本
-├── update_china_ip.sh           # 保留：原IP更新脚本
-├── update_mosdns_rules.sh       # 保留：原GeoSite更新脚本
+├── update_rules.py              # 主入口 + CLI
+├── config.py                    # 常量配置
+├── utils.py                     # 公共工具（log、下载、并发下载）
+├── ip_dedup.py                  # IP 去重算法（O(n log n)）
+├── ip_module.py                 # IP 下载、合并、格式转换
+├── geosite_module.py            # GeoSite 规则处理
+├── update_china_ip.sh           # 已弃用：原IP更新脚本
+├── update_mosdns_rules.sh       # 已弃用：原GeoSite更新脚本
 ├── update.md                    # 本说明文件
 ├── README.md
 ├── .github/workflows/
@@ -211,6 +213,13 @@ def is_subnet_contained(child_cidr, parent_cidr, is_ipv6=False):
 
 ### 更新日志
 
+#### 2026-03-21（v2 架构重构）
+- 拆分单文件为模块化架构：`update_rules.py` → `config.py` + `utils.py` + `ip_dedup.py` + `ip_module.py` + `geosite_module.py` + `update_rules.py`
+- IP 去重算法从 O(n²) 优化到 O(n log n)：排序后线性扫描，使用 `ipaddress` 模块内置的 `subnet_of()` 替代手动位运算
+- 消除重复去重：`_load_all_ip_data()` 一次去重，`merge_ip_files` 和 `convert_to_mikrotik` 共用缓存数据
+- 并发下载：`concurrent.futures.ThreadPoolExecutor` 8线程并行下载，替代串行下载
+- `merge_dedup_with_source()` 同样优化为 O(n log n) 排序+线性扫描
+
 #### 2026-03-21
 - 修复重复生成问题：`convert_to_mikrotik()` 函数中存在重复代码，导致每个 rsc 文件被生成2-3次，删除重复代码后每个文件只生成一次
 - 修复 nocn 文件内容：nocn 文件包含所有来源（cn/hk/mo/chinatelecom/unicom_cnc/cmcc + 保留地址）合并去重到统一 list
@@ -236,4 +245,4 @@ def is_subnet_contained(child_cidr, parent_cidr, is_ipv6=False):
 
 ### Q: 为什么需要保留原有的 bash 脚本？
 
-保留原脚本是为了兼容性和备份。如果 Python 脚本出现问题，可以回退使用 bash 版本。
+原 bash 脚本已弃用，保留仅作为备份参考。当前使用模块化 Python 架构。
