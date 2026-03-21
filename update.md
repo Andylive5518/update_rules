@@ -93,11 +93,19 @@ python3 update_rules.py --geosite-only
 6. 按网络地址排序输出
 ```
 
+### 多阶段去重
+去重在以下三个阶段执行，IPv4 和 IPv6 分开处理：
+
+1. **下载阶段**：对每个原始 IP 文件（cn.txt, hk.txt, cn_ipv6.txt 等）单独去重
+2. **合并阶段**：分别对 IPv4 和 IPv6 去重后合并到同一个文件（cn_all.txt 包含 IPv4 和 IPv6）
+3. **生成规则阶段**：在生成 rsc/srs 文件前，分别对所有 IPv4 和 IPv6 来源做最终去重（包括跨文件的子网包含检测）
+
 ### Mikrotik规则去重
 在生成 Mikrotik 规则时，同一 IP 段可能来自多个数据源（如 cn.txt 和 hk.txt 都有相同的 IP）。去重逻辑：
 
 - **CN list**：优先使用 CN 的条目，HK 和 MO 只添加不在 CN 中的
 - **优先级**：CN > HK > MO
+- **跨文件子网包含**：即使 IP 段不完全相同，如果存在子网包含关系也会去重
 
 例如：
 - cn.txt 有 `27.0.132.0/22`

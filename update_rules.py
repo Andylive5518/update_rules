@@ -317,23 +317,27 @@ def read_ip_lines(filepath, filter_ipv6=None):
 def merge_ip_files():
     log("INFO", "开始合并IP文件...")
 
-    merges = [
-        ("cn", "中国大陆"),
-        ("hk", "香港"),
-        ("mo", "澳门"),
-    ]
+    regions = [("cn", "中国大陆"), ("hk", "香港"), ("mo", "澳门")]
 
-    for prefix, name in merges:
-        log("INFO", f"合并{name}IPv4和IPv6地址...")
-        v4 = read_ip_lines(os.path.join(DOWNLOAD_IP_DIR, f"{prefix}.txt"))
-        v6 = read_ip_lines(os.path.join(DOWNLOAD_IP_DIR, f"{prefix}_ipv6.txt"))
-        all_ips = v4 + v6
+    for prefix, name in regions:
+        v4_file = os.path.join(DOWNLOAD_IP_DIR, f"{prefix}.txt")
+        v6_file = os.path.join(DOWNLOAD_IP_DIR, f"{prefix}_ipv6.txt")
+
+        v4 = read_ip_lines(v4_file, filter_ipv6=False)
+        v6 = read_ip_lines(v6_file, filter_ipv6=True)
+
+        v4_dedup = deduplicate_ip_list(v4, is_ipv6=False)
+        v6_dedup = deduplicate_ip_list(v6, is_ipv6=True)
+
+        all_ips = v4_dedup + v6_dedup
+
         out_path = os.path.join(MOSDNS_RULES_DIR, f"{prefix}_all.txt")
         with open(out_path, "w") as f:
             f.write("\n".join(all_ips) + "\n")
+
         log(
             "INFO",
-            f"{name}IP合并完成: {DOWNLOAD_IP_DIR}/{prefix}.txt + {DOWNLOAD_IP_DIR}/{prefix}_ipv6.txt -> {out_path}, 共 {len(all_ips)} 条记录",
+            f"{name}IP合并完成: {prefix}.txt + {prefix}_ipv6.txt -> {out_path}, IPv4: {len(v4_dedup)}, IPv6: {len(v6_dedup)}",
         )
 
     log("INFO", "IP文件合并完成")
@@ -342,7 +346,65 @@ def merge_ip_files():
 def convert_to_mikrotik():
     log("INFO", "开始转换为Mikrotik格式...")
 
-    # china_ipv4.rsc
+    cn_ips = read_ip_lines(os.path.join(DOWNLOAD_IP_DIR, "cn.txt"), filter_ipv6=False)
+    hk_ips = read_ip_lines(os.path.join(DOWNLOAD_IP_DIR, "hk.txt"), filter_ipv6=False)
+    mo_ips = read_ip_lines(os.path.join(DOWNLOAD_IP_DIR, "mo.txt"), filter_ipv6=False)
+    ctcc_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "chinatelecom.txt"), filter_ipv6=False
+    )
+    cucc_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "unicom_cnc.txt"), filter_ipv6=False
+    )
+    cmcc_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "cmcc.txt"), filter_ipv6=False
+    )
+
+    cn6_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "cn_ipv6.txt"), filter_ipv6=True
+    )
+    hk6_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "hk_ipv6.txt"), filter_ipv6=True
+    )
+    mo6_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "mo_ipv6.txt"), filter_ipv6=True
+    )
+    ctcc6_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "chinatelecom_ipv6.txt"), filter_ipv6=True
+    )
+    cucc6_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "unicom_cnc_ipv6.txt"), filter_ipv6=True
+    )
+    cmcc6_ips = read_ip_lines(
+        os.path.join(DOWNLOAD_IP_DIR, "cmcc_ipv6.txt"), filter_ipv6=True
+    )
+
+    cn_ips_dedup = deduplicate_ip_list(cn_ips, is_ipv6=False)
+    hk_ips_dedup = deduplicate_ip_list(hk_ips, is_ipv6=False)
+    mo_ips_dedup = deduplicate_ip_list(mo_ips, is_ipv6=False)
+    ctcc_ips_dedup = deduplicate_ip_list(ctcc_ips, is_ipv6=False)
+    cucc_ips_dedup = deduplicate_ip_list(cucc_ips, is_ipv6=False)
+    cmcc_ips_dedup = deduplicate_ip_list(cmcc_ips, is_ipv6=False)
+
+    cn6_ips_dedup = deduplicate_ip_list(cn6_ips, is_ipv6=True)
+    hk6_ips_dedup = deduplicate_ip_list(hk6_ips, is_ipv6=True)
+    mo6_ips_dedup = deduplicate_ip_list(mo6_ips, is_ipv6=True)
+    ctcc6_ips_dedup = deduplicate_ip_list(ctcc6_ips, is_ipv6=True)
+    cucc6_ips_dedup = deduplicate_ip_list(cucc6_ips, is_ipv6=True)
+    cmcc6_ips_dedup = deduplicate_ip_list(cmcc6_ips, is_ipv6=True)
+
+    cn_set = set(cn_ips_dedup)
+    hk_set = set(hk_ips_dedup)
+    mo_set = set(mo_ips_dedup)
+
+    cn_list = cn_ips_dedup.copy()
+    hk_list = [ip for ip in hk_ips_dedup if ip not in cn_set]
+    mo_list = [ip for ip in mo_ips_dedup if ip not in cn_set and ip not in hk_set]
+
+    all_ipv4 = (
+        cn_list + hk_list + mo_list + ctcc_ips_dedup + cucc_ips_dedup + cmcc_ips_dedup
+    )
+    all_ipv4_dedup = deduplicate_ip_list(all_ipv4, is_ipv6=False)
+
     log("INFO", "开始生成IPv4地址列表...")
     lines = []
     lines.append("/ip firewall address-list remove [find list=CN]")
@@ -351,12 +413,133 @@ def convert_to_mikrotik():
     lines.append("/ip firewall address-list remove [find list=CMCC]")
     lines.append("/ip firewall address-list")
 
-    cn_ips = read_ip_lines(os.path.join(DOWNLOAD_IP_DIR, "cn.txt"), filter_ipv6=False)
-    hk_ips = read_ip_lines(os.path.join(DOWNLOAD_IP_DIR, "hk.txt"), filter_ipv6=False)
-    mo_ips = read_ip_lines(os.path.join(DOWNLOAD_IP_DIR, "mo.txt"), filter_ipv6=False)
-    ctcc_ips = read_ip_lines(
-        os.path.join(DOWNLOAD_IP_DIR, "chinatelecom.txt"), filter_ipv6=False
+    for ip in cn_list:
+        lines.append(f"add address={ip} list=CN disabled=no")
+    for ip in hk_list:
+        lines.append(f"add address={ip} list=CN disabled=no comment=CN_HK_IP")
+    for ip in mo_list:
+        lines.append(f"add address={ip} list=CN disabled=no comment=CN_MO_IP")
+    for ip in ctcc_ips_dedup:
+        lines.append(f"add address={ip} list=CTCC disabled=no")
+    for ip in cucc_ips_dedup:
+        lines.append(f"add address={ip} list=CUCC disabled=no")
+    for ip in cmcc_ips_dedup:
+        lines.append(f"add address={ip} list=CMCC disabled=no")
+
+    rsc_path = os.path.join(ROS_IP_DIR, "china_ipv4.rsc")
+    with open(rsc_path, "w") as f:
+        f.write("\n".join(lines) + "\n")
+
+    ipv4_count = (
+        len(cn_list)
+        + len(hk_list)
+        + len(mo_list)
+        + len(ctcc_ips_dedup)
+        + len(cucc_ips_dedup)
+        + len(cmcc_ips_dedup)
     )
+    log("INFO", f"中国IPv4地址列表(含港澳)生成完成: {rsc_path}, 共 {ipv4_count} 条规则")
+
+    log("INFO", "开始生成NOCN IPv4地址列表...")
+    lines = []
+    lines.append("/ip firewall address-list remove [find list=NOCN]")
+    lines.append("/ip firewall address-list")
+
+    for reserved in IPV4_RESERVED:
+        lines.append(
+            f"add address={reserved} list=NOCN disabled=no comment=NOCN_Reserved_IP"
+        )
+
+    for ip in cn_list:
+        lines.append(f"add address={ip} list=NOCN disabled=no")
+    for ip in hk_list:
+        lines.append(f"add address={ip} list=NOCN disabled=no comment=NOCN_HK_IP")
+    for ip in mo_list:
+        lines.append(f"add address={ip} list=NOCN disabled=no comment=NOCN_MO_IP")
+
+    rsc_path = os.path.join(ROS_IP_DIR, "nocn_ipv4.rsc")
+    with open(rsc_path, "w") as f:
+        f.write("\n".join(lines) + "\n")
+
+    nocn_ipv4_count = len(IPV4_RESERVED) + len(cn_list) + len(hk_list) + len(mo_list)
+    log("INFO", f"NOCN IPv4地址列表生成完成: {rsc_path}, 共 {nocn_ipv4_count} 条规则")
+
+    cn6_set = set(cn6_ips_dedup)
+    hk6_set = set(hk6_ips_dedup)
+    mo6_set = set(mo6_ips_dedup)
+
+    cn6_list = cn6_ips_dedup.copy()
+    hk6_list = [ip for ip in hk6_ips_dedup if ip not in cn6_set]
+    mo6_list = [ip for ip in mo6_ips_dedup if ip not in cn6_set and ip not in hk6_set]
+
+    all_ipv6 = (
+        cn6_list
+        + hk6_list
+        + mo6_list
+        + ctcc6_ips_dedup
+        + cucc6_ips_dedup
+        + cmcc6_ips_dedup
+    )
+    all_ipv6_dedup = deduplicate_ip_list(all_ipv6, is_ipv6=True)
+
+    log("INFO", "开始生成IPv6地址列表...")
+    lines = []
+    lines.append("/ipv6 firewall address-list remove [find list=CN6]")
+    lines.append("/ipv6 firewall address-list remove [find list=CTCC6]")
+    lines.append("/ipv6 firewall address-list remove [find list=CUCC6]")
+    lines.append("/ipv6 firewall address-list remove [find list=CMCC6]")
+    lines.append("/ipv6 firewall address-list")
+
+    for ip in cn6_list:
+        lines.append(f"add address={ip} list=CN6 disabled=no")
+    for ip in hk6_list:
+        lines.append(f"add address={ip} list=CN6 disabled=no comment=CN_HK_IPv6")
+    for ip in mo6_list:
+        lines.append(f"add address={ip} list=CN6 disabled=no comment=CN_MO_IPv6")
+    for ip in ctcc6_ips_dedup:
+        lines.append(f"add address={ip} list=CTCC6 disabled=no")
+    for ip in cucc6_ips_dedup:
+        lines.append(f"add address={ip} list=CUCC6 disabled=no")
+    for ip in cmcc6_ips_dedup:
+        lines.append(f"add address={ip} list=CMCC6 disabled=no")
+
+    rsc_path = os.path.join(ROS_IP_DIR, "china_ipv6.rsc")
+    with open(rsc_path, "w") as f:
+        f.write("\n".join(lines) + "\n")
+
+    ipv6_count = (
+        len(cn6_list)
+        + len(hk6_list)
+        + len(mo6_list)
+        + len(ctcc6_ips_dedup)
+        + len(cucc6_ips_dedup)
+        + len(cmcc6_ips_dedup)
+    )
+    log("INFO", f"中国IPv6地址列表(含港澳)生成完成: {rsc_path}, 共 {ipv6_count} 条规则")
+
+    log("INFO", "开始生成NOCN IPv6地址列表...")
+    lines = []
+    lines.append("/ipv6 firewall address-list remove [find list=NOCN6]")
+    lines.append("/ipv6 firewall address-list")
+
+    for reserved in IPV6_RESERVED:
+        lines.append(
+            f"add address={reserved} list=NOCN6 disabled=no comment=NOCN_Reserved_IP"
+        )
+
+    for ip in cn6_list:
+        lines.append(f"add address={ip} list=NOCN6 disabled=no")
+    for ip in hk6_list:
+        lines.append(f"add address={ip} list=NOCN6 disabled=no comment=NOCN_HK_IPv6")
+    for ip in mo6_list:
+        lines.append(f"add address={ip} list=NOCN6 disabled=no comment=NOCN_MO_IPv6")
+
+    rsc_path = os.path.join(ROS_IP_DIR, "nocn_ipv6.rsc")
+    with open(rsc_path, "w") as f:
+        f.write("\n".join(lines) + "\n")
+
+    nocn_ipv6_count = len(IPV6_RESERVED) + len(cn6_list) + len(hk6_list) + len(mo6_list)
+    log("INFO", f"NOCN IPv6地址列表生成完成: {rsc_path}, 共 {nocn_ipv6_count} 条规则")
     cucc_ips = read_ip_lines(
         os.path.join(DOWNLOAD_IP_DIR, "unicom_cnc.txt"), filter_ipv6=False
     )
