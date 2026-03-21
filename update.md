@@ -92,10 +92,12 @@ python3 update_rules.py --geosite-only
 ```
 1. 读取所有IP段，跳过无效CIDR
 2. 使用 set() 基本去重
-3. 按前缀长度倒序排列（/32 > /24 > /16 > /8 > ...）
-4. 依次检查每个IP段是否被已保留的IP段包含
-5. 不被包含的IP段加入结果集
-6. 按网络地址排序输出
+3. 按前缀长度正序排列（/8 > /16 > /24 > /32 > ...，大网段优先）
+4. 依次处理每个IP段：
+   a. 反向清除：如果当前IP段包含result中已有的小网段，先删除它们
+   b. 正向检查：如果当前IP段被result中已有的大网段包含，则跳过
+   c. 都不满足则加入result
+5. 按网络地址排序输出
 ```
 
 ### 关键函数
@@ -127,17 +129,27 @@ def is_subnet_contained(child_cidr, parent_cidr, is_ipv6=False):
 2. **合并阶段**：分别对 IPv4 和 IPv6 去重后合并到同一个文件（cn_all.txt 包含 IPv4 和 IPv6）
 3. **生成规则阶段**：在生成 rsc/srs 文件前，分别对所有 IPv4 和 IPv6 来源做最终去重（包括跨文件的子网包含检测）
 
-### Mikrotik规则去重
-在生成 Mikrotik 规则时，同一 IP 段可能来自多个数据源（如 cn.txt 和 hk.txt 都有相同的 IP）。去重逻辑：
+### Mikrotik规则合并去重
 
-- **CN list**：优先使用 CN 的条目，HK 和 MO 只添加不在 CN 中的
-- **优先级**：CN > HK > MO
-- **跨文件子网包含**：即使 IP 段不完全相同，如果存在子网包含关系也会去重
+通过 `merge_dedup_with_source()` 函数实现多来源合并去重，按优先级处理：
 
-例如：
-- cn.txt 有 `27.0.132.0/22`
-- hk.txt 也有 `27.0.132.0/22`
-- 生成规则时只保留 CN 的条目，不重复添加
+**china_ipv4.rsc / china_ipv6.rsc：**
+- cn + hk + mo 合并去重到 `list=CN`（优先级：CN > HK > MO）
+- chinatelecom 独立写入 `list=CTCC`
+- unicom_cnc 独立写入 `list=CUCC`
+- cmcc 独立写入 `list=CMCC`
+
+**nocn_ipv4.rsc / nocn_ipv6.rsc：**
+- 保留地址 + cn + hk + mo + chinatelecom + unicom_cnc + cmcc 全部合并去重到 `list=NOCN`
+
+**合并去重规则：**
+1. 按来源优先级依次处理，相同IP保留第一个来源的条目
+2. 重复的IP在comment中标注后续来源（如 `CN_HK_IP`、`CN_CTCC_IP`）
+3. 子网包含关系也算重复（大网段已包含小网段则跳过小网段）
+
+示例：
+- china文件：cn.txt 和 hk.txt 都有 `1.64.0.0/15`，合并后保留一条：`add address=1.64.0.0/15 list=CN disabled=no comment=CN_HK_IP`
+- nocn文件：cn.txt 和 chinatelecom.txt 都有 `1.68.0.0/14`，合并后保留一条：`add address=1.68.0.0/14 list=NOCN disabled=no comment=CN_CTCC_IP`
 
 ---
 
@@ -201,9 +213,10 @@ def is_subnet_contained(child_cidr, parent_cidr, is_ipv6=False):
 
 #### 2026-03-21
 - 修复重复生成问题：`convert_to_mikrotik()` 函数中存在重复代码，导致每个 rsc 文件被生成2-3次，删除重复代码后每个文件只生成一次
-- 修复 nocn 文件内容：nocn_ipv4.rsc 和 nocn_ipv6.rsc 现在正确包含 cn/hk/mo/chinatelecom/unicom_cnc/cmcc 以及保留地址
+- 修复 nocn 文件内容：nocn 文件包含所有来源（cn/hk/mo/chinatelecom/unicom_cnc/cmcc + 保留地址）合并去重到统一 list
 - 重构 IP 去重算法：使用 Python 内置 `ipaddress` 模块替代手动位运算，解决 IPv6 `::` 压缩表示法无法解析的问题
-- IPv4/IPv6 统一处理：通过 `ipaddress.IPv4Network` 和 `ipaddress.IPv6Network` 正确处理两种协议
+- 新增 `merge_dedup_with_source()` 函数：支持多来源合并去重并在 comment 中标注重复来源
+- 修复 `deduplicate_ip_list()` 子网冗余检测bug：改为大网段优先排序 + 反向清除已有子网，确保大网段能正确淘汰小网段
 
 #### 2025-03-20
 - 修复 APT 缓存路径验证错误：将 "Cache APT archives" 步骤移至 "Install dependencies" 步骤之后，确保缓存时目录已存在
