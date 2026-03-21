@@ -76,6 +76,11 @@ python3 update_rules.py --geosite-only
 
 ## IP去重算法
 
+### 实现方式
+使用 Python 内置 `ipaddress` 模块处理 IP 地址解析和比较，支持：
+- IPv4：32位地址，前缀长度 0-32
+- IPv6：128位地址，前缀长度 0-128，支持 `::` 压缩表示法
+
 ### 基本去重
 - 去除完全相同的 IP 段
 
@@ -85,12 +90,34 @@ python3 update_rules.py --geosite-only
 
 ### 算法流程
 ```
-1. 读取所有IP段
+1. 读取所有IP段，跳过无效CIDR
 2. 使用 set() 基本去重
 3. 按前缀长度倒序排列（/32 > /24 > /16 > /8 > ...）
 4. 依次检查每个IP段是否被已保留的IP段包含
 5. 不被包含的IP段加入结果集
 6. 按网络地址排序输出
+```
+
+### 关键函数
+
+```python
+import ipaddress
+
+def parse_cidr(cidr_str, is_ipv6=False):
+    """解析CIDR，返回 (network_address_int, prefix) 元组"""
+    net = ipaddress.IPv6Network(cidr_str, strict=False) if is_ipv6 \
+          else ipaddress.IPv4Network(cidr_str, strict=False)
+    return int(net.network_address), net.prefixlen
+
+def is_subnet_contained(child_cidr, parent_cidr, is_ipv6=False):
+    """检查child_cidr是否被parent_cidr包含"""
+    child_net, child_prefix = parse_cidr(child_cidr, is_ipv6)
+    parent_net, parent_prefix = parse_cidr(parent_cidr, is_ipv6)
+    if child_prefix < parent_prefix:
+        return False
+    bits = 128 if is_ipv6 else 32
+    mask = (1 << bits) - (1 << (bits - parent_prefix))
+    return (child_net & mask) == parent_net
 ```
 
 ### 多阶段去重
@@ -171,6 +198,12 @@ python3 update_rules.py --geosite-only
 5. 清理7天前的旧 Release
 
 ### 更新日志
+
+#### 2026-03-21
+- 修复重复生成问题：`convert_to_mikrotik()` 函数中存在重复代码，导致每个 rsc 文件被生成2-3次，删除重复代码后每个文件只生成一次
+- 修复 nocn 文件内容：nocn_ipv4.rsc 和 nocn_ipv6.rsc 现在正确包含 cn/hk/mo/chinatelecom/unicom_cnc/cmcc 以及保留地址
+- 重构 IP 去重算法：使用 Python 内置 `ipaddress` 模块替代手动位运算，解决 IPv6 `::` 压缩表示法无法解析的问题
+- IPv4/IPv6 统一处理：通过 `ipaddress.IPv4Network` 和 `ipaddress.IPv6Network` 正确处理两种协议
 
 #### 2025-03-20
 - 修复 APT 缓存路径验证错误：将 "Cache APT archives" 步骤移至 "Install dependencies" 步骤之后，确保缓存时目录已存在
