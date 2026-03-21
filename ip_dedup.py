@@ -29,20 +29,26 @@ def deduplicate_ip_list(cidr_list, is_ipv6=False):
     if invalid_count > 0:
         log("WARNING", f"跳过 {invalid_count} 条无效CIDR")
 
-    # 按 (network_address, prefixlen) 排序 — 大网段在前，子网紧随其后
-    networks = sorted(set(networks), key=lambda n: (n.network_address, n.prefixlen))
+    total_valid = len(networks)
+    unique_networks = sorted(
+        set(networks), key=lambda n: (n.network_address, n.prefixlen)
+    )
+    duplicate_count = total_valid - len(unique_networks)
 
     result = []
-    for net in networks:
-        # 如果当前网段被 result 最后一个大网段包含，跳过
+    subnet_count = 0
+    for net in unique_networks:
         if result and net.subnet_of(result[-1]):
+            subnet_count += 1
             continue
         result.append(net)
 
-    original_count = len(cidr_list)
-    final_count = len(result)
-    removed = original_count - final_count
-    log("INFO", f"去重完成: {original_count} -> {final_count} (移除 {removed} 条)")
+    log(
+        "INFO",
+        f"去重完成: {len(cidr_list)} -> {len(result)}"
+        f" (完全重复 {duplicate_count}, 子网冗余 {subnet_count},"
+        f" 无效 {invalid_count})",
+    )
     return [str(n) for n in result]
 
 
@@ -78,22 +84,30 @@ def merge_dedup_with_source(ip_sources, is_ipv6=False):
                 continue
             entries.append((net, source_tag))
 
-    # 按 (network_address, prefixlen) 排序
     entries.sort(key=lambda e: (e[0].network_address, e[0].prefixlen))
 
-    # 线性扫描：维护一个栈，栈顶为当前最大的覆盖网段
-    merged = []  # [(network, combined_comments)]
+    merged = []
+    duplicate_count = 0
+    subnet_count = 0
     for net, tag in entries:
         if merged and net.subnet_of(merged[-1][0]):
-            # 被栈顶网段包含，合并 tag
+            if net == merged[-1][0]:
+                duplicate_count += 1
+            else:
+                subnet_count += 1
             existing_comments = merged[-1][1]
             if tag and tag not in existing_comments:
                 existing_comments.add(tag)
             continue
 
-        # 新的不被包含的网段（由于排序，不可能包含栈中已有的更小前缀网段
-        # 但可能覆盖后续更大前缀的网段，栈式处理自然解决）
         merged.append((net, {tag} if tag else set()))
+
+    total_input = sum(len(ips) for ips, _ in ip_sources)
+    log(
+        "INFO",
+        f"合并去重完成: {total_input} -> {len(merged)}"
+        f" (完全重复 {duplicate_count}, 子网冗余 {subnet_count})",
+    )
 
     result = []
     for net, tags in merged:
