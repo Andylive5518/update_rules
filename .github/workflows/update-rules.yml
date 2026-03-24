@@ -12,10 +12,12 @@ jobs:
     timeout-minutes: 45
     permissions:
       contents: write  # 需要此权限来创建Release和上传文件
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Create directories
         run: |
@@ -25,14 +27,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq curl wget python3
-
-      - name: Cache APT archives
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/apt/archives
-          key: ${{ runner.os }}-apt-packages-${{ hashFiles('**/update_rules.py') }}
-          restore-keys: |
-            ${{ runner.os }}-apt-packages-
 
       - name: Install sing-box
         run: |
@@ -106,6 +100,18 @@ jobs:
             ${{ env.ARCHIVE_NAME }}
             clang/ros/*.rsc
             clang/ip/*.txt
+            rules/mosdns/cn_all.txt
+            rules/mosdns/hk_all.txt
+            rules/mosdns/mo_all.txt
+            rules/sing-box/cn_all.srs
+            rules/sing-box/hk_all.srs
+            rules/sing-box/mo_all.srs
+            rules/json/geosite-all@cn.json
+            rules/json/geosite-all@!cn.json
+            rules/sing-box/geosite-all@cn.srs
+            rules/sing-box/geosite-all@!cn.srs
+            rules/mosdns/geosite-all@cn.txt
+            rules/mosdns/geosite-all@!cn.txt
           draft: false
           prerelease: false
         env:

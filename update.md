@@ -227,6 +227,11 @@ def deduplicate_ip_list(cidr_list, is_ipv6=False):
 - 新增 `merge_dedup_with_source()` 函数：支持多来源合并去重并在 comment 中标注重复来源
 - 修复 `deduplicate_ip_list()` 子网冗余检测bug：改为大网段优先排序 + 反向清除已有子网，确保大网段能正确淘汰小网段
 
+#### 2025-03-24
+- Release 单独列出核心合并文件，方便用户直接下载：
+  - IP 合并：cn_all.txt, hk_all.txt, mo_all.txt, cn_all.srs, hk_all.srs, mo_all.srs
+  - GeoSite 合并：geosite-all@cn.json, geosite-all@!cn.json, geosite-all@cn.srs, geosite-all@!cn.srs, geosite-all@cn.txt, geosite-all@!cn.txt
+
 #### 2025-03-20
 - 修复 APT 缓存路径验证错误：将 "Cache APT archives" 步骤移至 "Install dependencies" 步骤之后，确保缓存时目录已存在
 - 升级 `softprops/action-gh-release@v1` → `v2`，解决 Node.js 20 弃用警告
