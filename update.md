@@ -116,11 +116,12 @@ def deduplicate_ip_list(cidr_list, is_ipv6=False):
     return [str(n) for n in result]
 ```
 
-### 一次去重，多处复用
+### 去重时机
 
-旧代码在 `merge_ip_files()` 和 `convert_to_mikrotik()` 中分别对同一数据去重，产生大量重复计算。
+下载的原始 IP 文件**不做去重**，保持数据源原样。去重仅在以下两个时机执行：
 
-新架构通过 `_load_all_ip_data()` 一次加载并去重所有 IP 数据，返回缓存 dict，后续 `merge_ip_files(data)` 和 `convert_to_mikrotik(data)` 直接使用已去重的数据。
+1. **合并阶段**：合并生成 cn_all.txt / hk_all.txt / mo_all.txt 时，分别对 IPv4 和 IPv6 去重后写入
+2. **生成规则阶段**：在生成 rsc / srs 文件时，对所有来源的 IP 做跨文件去重（包括子网包含检测）
 
 ### 并发下载
 
@@ -141,12 +142,8 @@ def deduplicate_ip_list(cidr_list, is_ipv6=False):
 
 **合并去重规则：**
 1. 按来源优先级依次处理，相同IP保留第一个来源的条目
-2. 重复的IP在comment中标注后续来源（如 `CN_HK_IP`、`CN_CTCC_IP`）
+2. 重复的IP在comment中标注来源（如 `CN_HK_IP`、`NOCN_HK_IP`）
 3. 子网包含关系也算重复（大网段已包含小网段则跳过小网段）
-
-示例：
-- china文件：cn.txt 和 hk.txt 都有 `1.64.0.0/15`，合并后保留一条：`add address=1.64.0.0/15 list=CN disabled=no comment=CN_HK_IP`
-- nocn文件：cn.txt 和 chinatelecom.txt 都有 `1.68.0.0/14`，合并后保留一条：`add address=1.68.0.0/14 list=NOCN disabled=no comment=CN_CTCC_IP`
 
 ---
 

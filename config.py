@@ -40,8 +40,8 @@ IPV4_FILES = [
     "cn.txt",
     "hk.txt",
     "mo.txt",
-    "chinatelecom.txt",
-    "unicom_cnc.txt",
+    "ctcc.txt",
+    "cucc.txt",
     "cmcc.txt",
 ]
 IPV4_PATHS = [
@@ -57,8 +57,8 @@ IPV6_FILES = [
     "cn_ipv6.txt",
     "hk_ipv6.txt",
     "mo_ipv6.txt",
-    "chinatelecom_ipv6.txt",
-    "unicom_cnc_ipv6.txt",
+    "ctcc_ipv6.txt",
+    "cucc_ipv6.txt",
     "cmcc_ipv6.txt",
 ]
 IPV6_PATHS = [

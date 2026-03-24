@@ -77,39 +77,37 @@ def download_ip_lists():
     log("INFO", "IP地址列表下载完成")
 
 
-def _load_and_dedup(filename, is_ipv6):
+def _load_raw(filename, is_ipv6):
     filepath = os.path.join(DOWNLOAD_IP_DIR, filename)
     filter_flag = True if is_ipv6 else False
-    raw = read_ip_lines(filepath, filter_ipv6=filter_flag)
-    return deduplicate_ip_list(raw, is_ipv6=is_ipv6)
+    return read_ip_lines(filepath, filter_ipv6=filter_flag)
 
 
 def _load_all_ip_data():
-    """加载并去重所有 IP 数据，返回缓存 dict。只执行一次去重。"""
     data = {}
-    v4_keys = ["cn", "hk", "mo", "chinatelecom", "unicom_cnc", "cmcc"]
+    v4_keys = ["cn", "hk", "mo", "ctcc", "cucc", "cmcc"]
     v4_files = [
         "cn.txt",
         "hk.txt",
         "mo.txt",
-        "chinatelecom.txt",
-        "unicom_cnc.txt",
+        "ctcc.txt",
+        "cucc.txt",
         "cmcc.txt",
     ]
-    v6_keys = ["cn6", "hk6", "mo6", "chinatelecom6", "unicom_cnc6", "cmcc6"]
+    v6_keys = ["cn6", "hk6", "mo6", "ctcc6", "cucc6", "cmcc6"]
     v6_files = [
         "cn_ipv6.txt",
         "hk_ipv6.txt",
         "mo_ipv6.txt",
-        "chinatelecom_ipv6.txt",
-        "unicom_cnc_ipv6.txt",
+        "ctcc_ipv6.txt",
+        "cucc_ipv6.txt",
         "cmcc_ipv6.txt",
     ]
 
     for key, fname in zip(v4_keys, v4_files):
-        data[key] = _load_and_dedup(fname, is_ipv6=False)
+        data[key] = _load_raw(fname, is_ipv6=False)
     for key, fname in zip(v6_keys, v6_files):
-        data[key] = _load_and_dedup(fname, is_ipv6=True)
+        data[key] = _load_raw(fname, is_ipv6=True)
 
     return data
 
@@ -125,13 +123,15 @@ def merge_ip_files(data):
 
     for v4_key, v6_key, name in regions:
         prefix = v4_key
-        all_ips = data[v4_key] + data[v6_key]
+        v4_dedup = deduplicate_ip_list(data[v4_key], is_ipv6=False)
+        v6_dedup = deduplicate_ip_list(data[v6_key], is_ipv6=True)
+        all_ips = v4_dedup + v6_dedup
         out_path = os.path.join(MOSDNS_RULES_DIR, f"{prefix}_all.txt")
         with open(out_path, "w") as f:
             f.write("\n".join(all_ips) + "\n")
         log(
             "INFO",
-            f"{name}IP合并完成: IPv4: {len(data[v4_key])}, IPv6: {len(data[v6_key])} -> {out_path}",
+            f"{name}IP合并完成: IPv4: {len(v4_dedup)}, IPv6: {len(v6_dedup)} -> {out_path}",
         )
 
     log("INFO", "IP文件合并完成")
@@ -164,9 +164,9 @@ def convert_to_mikrotik(data):
             lines.append(f"add address={ip} list=CN disabled=no comment={comment}")
         else:
             lines.append(f"add address={ip} list=CN disabled=no")
-    for ip in data["chinatelecom"]:
+    for ip in data["ctcc"]:
         lines.append(f"add address={ip} list=CTCC disabled=no")
-    for ip in data["unicom_cnc"]:
+    for ip in data["cucc"]:
         lines.append(f"add address={ip} list=CUCC disabled=no")
     for ip in data["cmcc"]:
         lines.append(f"add address={ip} list=CMCC disabled=no")
@@ -202,9 +202,9 @@ def convert_to_mikrotik(data):
             lines.append(f"add address={ip} list=CN6 disabled=no comment={comment}")
         else:
             lines.append(f"add address={ip} list=CN6 disabled=no")
-    for ip in data["chinatelecom6"]:
+    for ip in data["ctcc6"]:
         lines.append(f"add address={ip} list=CTCC6 disabled=no")
-    for ip in data["unicom_cnc6"]:
+    for ip in data["cucc6"]:
         lines.append(f"add address={ip} list=CUCC6 disabled=no")
     for ip in data["cmcc6"]:
         lines.append(f"add address={ip} list=CMCC6 disabled=no")
@@ -222,11 +222,11 @@ def convert_to_mikrotik(data):
         [
             (IPV4_RESERVED, "NOCN_Reserved_IP"),
             (data["cn"], ""),
-            (data["hk"], "CN_HK_IP"),
-            (data["mo"], "CN_MO_IP"),
-            (data["chinatelecom"], "CN_CTCC_IP"),
-            (data["unicom_cnc"], "CN_CUCC_IP"),
-            (data["cmcc"], "CN_CMCC_IP"),
+            (data["hk"], "NOCN_HK_IP"),
+            (data["mo"], "NOCN_MO_IP"),
+            (data["ctcc"], "NOCN_CTCC_IP"),
+            (data["cucc"], "NOCN_CUCC_IP"),
+            (data["cmcc"], "NOCN_CMCC_IP"),
         ],
         is_ipv6=False,
     )
@@ -254,11 +254,11 @@ def convert_to_mikrotik(data):
         [
             (IPV6_RESERVED, "NOCN_Reserved_IP"),
             (data["cn6"], ""),
-            (data["hk6"], "CN_HK_IPv6"),
-            (data["mo6"], "CN_MO_IPv6"),
-            (data["chinatelecom6"], "CN_CTCC_IPv6"),
-            (data["unicom_cnc6"], "CN_CUCC_IPv6"),
-            (data["cmcc6"], "CN_CMCC_IPv6"),
+            (data["hk6"], "NOCN_HK_IPv6"),
+            (data["mo6"], "NOCN_MO_IPv6"),
+            (data["ctcc6"], "NOCN_CTCC_IPv6"),
+            (data["cucc6"], "NOCN_CUCC_IPv6"),
+            (data["cmcc6"], "NOCN_CMCC_IPv6"),
         ],
         is_ipv6=True,
     )
@@ -295,7 +295,13 @@ def convert_to_singbox():
         txt_path = os.path.join(MOSDNS_RULES_DIR, f"{name}.txt")
         srs_path = os.path.join(SINGBOX_RULES_DIR, f"{name}.srs")
 
-        ip_list = read_ip_lines(txt_path)
+        raw_lines = read_ip_lines(txt_path)
+        v4_lines = [l for l in raw_lines if ":" not in l]
+        v6_lines = [l for l in raw_lines if ":" in l]
+        v4_dedup = deduplicate_ip_list(v4_lines, is_ipv6=False)
+        v6_dedup = deduplicate_ip_list(v6_lines, is_ipv6=True)
+        ip_list = v4_dedup + v6_dedup
+
         rule_json = {"version": 1, "rules": [{"ip_cidr": ip_list}]}
 
         tmp_fd, tmp_path = tempfile.mkstemp(suffix=".json")
