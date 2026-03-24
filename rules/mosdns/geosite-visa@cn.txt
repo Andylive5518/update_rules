@@ -1,9 +1,0 @@
-domain:financialsoccer.com.cn
-domain:practicalmoneyskills.cn
-domain:practicalmoneyskills.com.cn
-domain:visa.cn
-domain:visa.com.cn
-domain:visainfinite.cn
-domain:visapay.cn
-domain:visaplatinum.cn
-domain:visaplatinum.com.cn

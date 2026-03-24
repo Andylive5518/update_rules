@@ -1,2 +1,0 @@
-domain:microsoftnews.cn
-domain:msn.cn

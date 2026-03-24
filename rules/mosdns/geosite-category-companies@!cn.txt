@@ -1,6 +1,0 @@
-domain:alibabacloud.co.in
-domain:alibabacloud.com.au
-domain:alibabacloud.com.hk
-domain:alibabacloud.com.my
-domain:alibabacloud.com.sg
-domain:alibabacloud.com.tw

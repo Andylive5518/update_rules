@@ -1,2 +1,0 @@
-domain:c.mi.com
-domain:global.market.xiaomi.com

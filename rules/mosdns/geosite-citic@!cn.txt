@@ -1,3 +1,0 @@
-domain:citics.com.hk
-domain:cncbinternational.com
-domain:csci.hk

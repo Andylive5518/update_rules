@@ -1,3 +1,0 @@
-domain:kindle.cn
-domain:kindleoasis.cn
-domain:kindleoasis.com.cn

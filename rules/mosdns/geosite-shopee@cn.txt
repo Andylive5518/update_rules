@@ -1,2 +1,0 @@
-domain:shopee.cn
-domain:shopeesz.com

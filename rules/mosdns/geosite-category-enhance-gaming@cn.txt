@@ -1,5 +1,0 @@
-domain:heavenlywind.cc
-domain:lsplayer.com
-domain:rpglogs.cn
-domain:steampp.net
-domain:yeshen.com

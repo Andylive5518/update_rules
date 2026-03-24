@@ -1,3 +1,0 @@
-domain:chinaunicom.com.hk
-domain:chinaunicomglobal.com
-domain:cuniq.com

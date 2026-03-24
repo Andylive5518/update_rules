@@ -1,2 +1,0 @@
-domain:leagueoflegends.cn
-domain:lpl.com.cn
